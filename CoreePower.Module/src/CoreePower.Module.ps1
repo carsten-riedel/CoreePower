@@ -1334,14 +1334,4 @@ function UpdateModule2 {
     New-ModuleManifest @params
     
 }
-function Test.CoreePower.Module {
-    param()
-    Write-Host "Start Test.CoreePower.Module"
-    #cpum2
-    Write-Host "End Test.CoreePower.Module"
-}
 
-if ($Host.Name -match "Visual Studio Code")
-{
-    Test.CoreePower.Module
-}

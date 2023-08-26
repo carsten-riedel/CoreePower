@@ -42,3 +42,17 @@ if (-not ([System.Management.Automation.PSTypeName]'ModuleScope').Type) {
     }
 "@
 }
+
+function Test.CoreePower.Lib.System.Enum {
+    param()
+    Write-Host "Start Test.CoreePower.Lib.System.Enum"
+    #$result1 = [ModuleRecordState]::Latest
+    #$result2 = [ModuleScope]::LocalMachine
+    Write-Host "End Test.CoreePower.Lib.System.Enum"
+}
+
+if ($Host.Name -match "Visual Studio Code")
+{
+    #Test.CoreePower.Lib.System.Enum
+}
+

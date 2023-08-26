@@ -49,7 +49,7 @@ function Initialize-DevToolsBaget {
 function Test.CoreePower.Lib.Initialize.DevTools.Baget {
     param()
     Write-Host "Start CoreePower.Lib.Initialize.DevTools.Baget"
-    Initialize-DevToolsBaget
+    #Initialize-DevToolsBaget
     Write-Host "End CoreePower.Lib.Initialize.DevTools.Baget"
 }
 
