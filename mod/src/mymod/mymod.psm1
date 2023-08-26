@@ -1,2 +1,0 @@
-
-. "$PSScriptRoot\mymod.ps1" 
