@@ -1,6 +1,7 @@
 {
     "version": "0.2.0",
     "configurations": [
+        
         {
             "name": "PowerShell: debug.ps1 PSM1",
             "type": "PowerShell",

@@ -6,8 +6,9 @@ Write-Host "debug.ps1 called in Mode: $Mode"
 
 #You should dotsource all required files in you module
 if ($Mode -eq "psm"){
-    $file = Download-GithubLatestReleaseMatchingAssets -RepositoryUrl "https://github.com/microsoft/azure-pipelines-agent/releases" -AssetNameFilters @("pipelines-agent","win","x64",".zip")
-    $x = 1
+
+    Set-Location -Path "C:\base\github.com\carsten-riedel\CoreePower\CoreePower.Module\CoreePower.Module"
+    PublishModule2
 }
 
 #You should dotsource all required files in you module, only exported function will be availible
