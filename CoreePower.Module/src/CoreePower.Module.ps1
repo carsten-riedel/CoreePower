@@ -1,3 +1,123 @@
+<#
+.SYNOPSIS
+    Recursively copies files and directories from a source directory to a destination directory.
+
+.DESCRIPTION
+    The `Copy-Recursive` function allows you to copy files and directories from a specified source directory to a destination directory. It performs a recursive copy operation, preserving the directory structure of the source directory.
+
+.PARAMETER Source
+    Specifies the path to the source directory. This is the directory from which files and directories will be copied.
+
+.PARAMETER Destination
+    Specifies the path to the destination directory. This is the directory where the files and directories from the source directory will be copied to.
+
+.NOTES
+    - This function performs a recursive copy, copying all files and directories from the source directory to the destination directory.
+    - The directory structure of the source directory is preserved in the destination directory.
+    - If the destination directory does not exist, it will be created.
+    - If a file or directory with the same name already exists in the destination directory, it will be overwritten.
+    - The function accepts the alias 'copyrec' for easier use.
+
+.EXAMPLE
+    PS C:\> Copy-Recursive -Source 'C:\SourceFolder' -Destination 'C:\DestinationFolder'
+
+    This example copies all files and directories from 'C:\SourceFolder' to 'C:\DestinationFolder', preserving the directory structure.
+#>
+function Copy-Recursive {
+    [Diagnostics.CodeAnalysis.SuppressMessage("PSUseApprovedVerbs","")]
+    [alias("copyrec")] 
+    param (
+        [string]$Source,
+        [string]$Destination
+    )
+
+    New-Directory -Directory $Destination
+
+    Get-ChildItem $Source -Recurse | Foreach-Object {
+        $targetPath = $_.FullName -replace [regex]::Escape($Source), $Destination
+        if ($_.PSIsContainer) {
+            New-Item -ItemType Directory -Path $targetPath -Force | Out-Null
+        }
+        else {
+            Copy-Item $_.FullName -Destination $targetPath -Force | Out-Null
+        }
+    }
+}
+
+<#
+.SYNOPSIS
+    Creates a new temporary directory in the AppData\Local\Temp directory.
+
+.DESCRIPTION
+    The `New-TempDirectory` function creates a new temporary directory in the AppData\Local\Temp directory. It generates a unique identifier using `[System.Guid]::NewGuid().ToString()` and combines it with the AppData\Local\Temp path to create a unique directory path. If the directory does not exist, it is created using `New-Item`.
+
+.NOTES
+    - The function provides a convenient way to generate and create a new temporary directory.
+    - The generated temporary directory path is returned as the output.
+    - This function uses the `LocalApplicationData` folder within the AppData directory to ensure the creation of the temporary directory in the user's local application data.
+    - The function accepts the alias 'newtmpdir' for easier use.
+    
+.EXAMPLE
+    PS C:\> New-TempDirectory
+
+    This example creates a new temporary directory in the AppData\Local\Temp directory and returns the path of the newly created directory.
+#>
+function New-TempDirectory {
+    [Diagnostics.CodeAnalysis.SuppressMessage("PSUseApprovedVerbs","")]
+    [Alias("newtmpdir")]
+    param ()
+
+    $tempDirectoryPath = Join-Path ([Environment]::GetFolderPath('LocalApplicationData')) 'Temp' | Join-Path -ChildPath ([System.Guid]::NewGuid().ToString())
+    if (-not (Test-Path $tempDirectoryPath)) {
+        New-Item -ItemType Directory -Path $tempDirectoryPath -Force | Out-Null
+    }
+
+    return $tempDirectoryPath
+}
+
+function New-Directory {
+    [Diagnostics.CodeAnalysis.SuppressMessage("PSUseApprovedVerbs","")]
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$Directory
+    )
+
+    if (-not(Test-Path -Path $Directory -PathType Container)) {
+        New-Item -ItemType Directory -Path $Directory -Force | Out-Null
+    }
+
+    if (Test-Path -Path $Directory -PathType Leaf) {
+        $Directory = [System.IO.Path]::GetDirectoryName($Directory)
+        $Directory = New-Directory -Directory $Directory
+    }
+
+    return $Directory
+}
+
+function Remove-TempDirectory {
+    [Diagnostics.CodeAnalysis.SuppressMessage("PSUseApprovedVerbs","")]
+    [Alias("rmtmpdir")]
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$TempDirectory
+    )
+ 
+    if (Test-Path -Path $TempDirectory -PathType Container) {
+        Remove-Item -Path "$TempDirectory" -Recurse -Force
+    }
+
+    if (Test-Path -Path $TempDirectory -PathType Leaf) {
+        $TempDirectory = [System.IO.Path]::GetDirectoryName($TempDirectory)
+        $guidPattern = "\\[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+        if ($TempDirectory -match $guidPattern) {
+            # Removing parent directory recursively if it is a guid pattern
+            Remove-Item -Path "$TempDirectory" -Recurse -Force
+        }
+    }
+
+}
+
+
 function PublishModule {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     [alias("cppm")]   
@@ -188,6 +308,139 @@ function PublishModule2 {
 
 }
 
+function PublishModule3 {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
+    [alias("cppm3")]   
+    param(
+        [string] $Path = ""
+    )
+
+    if ($Path -eq "")
+    {
+        $loc = Get-Location
+        $Path = $loc.Path
+    }
+
+    $Path = $Path.TrimEnd('\')
+
+    $LastDirectory = Split-Path -Path $Path -Leaf
+    $psd1BaseName = Get-ChildItem -Path $Path | Where-Object { $_.Extension -eq ".psd1" } | Select-Object BaseName
+    $psm1BaseName = Get-ChildItem -Path $Path | Where-Object { $_.Extension -eq ".psm1" } | Select-Object BaseName
+
+    if($psd1BaseName.Count -eq 0)
+    {
+        Write-Error "Error: no powerShell module manifest files found. Please ensure that there is one .psd1 file in the directory and try again."
+        return
+    }
+
+    if($psm1BaseName.Count -eq 0)
+    {
+        Write-Error "Error: no root module files found. Please ensure that there is one .psm1 file in the directory and try again."
+        return
+    }
+
+    if($psd1BaseName.Count -gt 1)
+    {
+        Write-Error "Error: multiple module definition files found. Please ensure that there is only one .psd1 file in the directory and try again."
+        return
+    }
+
+    if($psm1BaseName.Count -gt 1)
+    {
+        Write-Error "Error: multiple module definition files found. Please ensure that there is only one .psm1 file in the directory and try again."
+        return
+    }
+
+    if (-not($psd1BaseName.BaseName -eq $psm1BaseName.BaseName))
+    {
+        Write-Error "Error: .psd1 filename, and .psm1 filename must all be identical. Please ensure that these names match and try again."
+        return
+    }
+
+    #update
+    if (-not($LastDirectory -eq $psd1BaseName.BaseName))
+    { 
+        Write-Warning  "Warning: The publish path has not the name of the module. Copying source for publish to a temporary directory."
+        $tempdir = New-TempDirectory
+        $tempmoduledir = New-Directory -Directory "$tempdir\$($psd1BaseName.BaseName)"
+        Copy-Recursive -Source "$Path" -Destination "$tempmoduledir"
+        $PublishPath = $tempmoduledir
+    }
+    else {
+        $PublishPath = $Path
+    }
+
+    $keyFileFullName = Get-ChildItem -Path $Path -Recurse | Where-Object { $_.Name -eq ".key" } | Select-Object FullName
+    if($null -eq $keyFileFullName)
+    {
+        Write-Error  "Error: A .key file containing the NuGet API key is missing from the publish directory. Please add the file and try again."
+        return
+    }
+
+    $gitignoreFullName = Get-ChildItem -Path $Path -Recurse | Where-Object { $_.Name -eq ".gitignore" } | Select-Object FullName
+    if($null -eq $gitignoreFullName)
+    {
+        Write-Warning  "Warning: A .gitignore file is not present, the NuGet API key may be exposed in the publish directory. Please include a .gitignore file with ignore statements for the key to prevent unauthorized access."
+    }
+
+    [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+
+    Initialize-PowerShellGetLatest
+    Initialize-PackageManagementLatest
+
+    [string]$NuGetAPIKey = Get-Content -Path "$($keyFileFullName.FullName)"
+    
+    $fullname = Get-ChildItem -Path $Path | Where-Object { $_.Extension -eq ".psd1" }
+
+    $fileContent = Get-Content -Path "$($fullname.FullName)" -Raw
+    $index = $fileContent.IndexOf("@{")
+    if($index -ne -1){
+        $fileContent = $fileContent.Substring(0, $index) + $fileContent.Substring($index + 2)
+    }
+    $index = $fileContent.LastIndexOf("}")
+    if($index -ne -1){
+        $fileContent = $fileContent.Substring(0, $index) + $fileContent.Substring($index + 2)
+    }
+
+    $Data  = Invoke-Expression "[PSCustomObject]@{$fileContent}"
+
+    try {
+        
+        Publish-Module -Path "$PublishPath" -NuGetApiKey "$NuGetAPIKey" -Repository "PSGallery" -Verbose
+
+        $moduleName = Split-Path $MyInvocation.MyCommand.Module.Name -Leaf
+        $moduleVersion = $MyInvocation.MyCommand.Module.Version
+        Write-Output "Publish with $moduleName $moduleVersion."
+
+        $executable = Get-Command "git" -ErrorAction SilentlyContinue
+        
+        [string]$NameRoot = $Data.RootModule
+        $NameRoot = $NameRoot -replace '\.psm1$'
+
+        if ($executable) {
+            Write-Output "Git executable found at $($executable.Source) automatic git add -A, commit and push."
+            &git -C "$Path" add -A
+            &git -C "$Path" commit -m "Publish $NameRoot $($Data.ModuleVersion)"
+            &git -C "$Path" tag "V$($Data.ModuleVersion)"
+            &git -C "$Path" push 
+            &git -C "$Path" push --tags
+        }
+        else {
+            Write-Output "Git executable not found in PATH environment variable."
+        }
+    }
+    catch {
+        Write-Error "Failed to publish module: $($_.Exception.Message)"
+    }
+    finally {
+        if (-not($LastDirectory -eq $psd1BaseName.BaseName))
+        { 
+            Remove-TempDirectory -TempDirectory $tempdir
+            Write-Warning  "Removed temp directory $tempdir"
+        }
+    }
+
+}
 function Merge-Hashtable($target, $source) {
     $source.Keys | ForEach-Object {
         $key = $_
