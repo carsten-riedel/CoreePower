@@ -441,6 +441,146 @@ function PublishModule3 {
     }
 
 }
+
+function PublishModule4 {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
+    [alias("cppm4")]   
+    param(
+        [string] $Path = ""
+    )
+
+    if ($Path -eq "")
+    {
+        $loc = Get-Location
+        $Path = $loc.Path
+    }
+
+    $Path = $Path.TrimEnd('\')
+
+    $LastDirectory = Split-Path -Path $Path -Leaf
+    $psd1BaseName = Get-ChildItem -Path $Path -Recurse | Where-Object { $_.Extension -eq ".psd1" }
+    $psm1BaseName = Get-ChildItem -Path $Path -Recurse | Where-Object { $_.Extension -eq ".psm1" }
+    
+
+    if($psd1BaseName.Count -eq 0)
+    {
+        Write-Error "Error: no powerShell module manifest files found. Please ensure that there is one .psd1 file in the directory and try again."
+        return
+    }
+
+    if($psm1BaseName.Count -eq 0)
+    {
+        Write-Error "Error: no root module files found. Please ensure that there is one .psm1 file in the directory and try again."
+        return
+    }
+
+    if($psd1BaseName.Count -gt 1)
+    {
+        Write-Error "Error: multiple module definition files found. Please ensure that there is only one .psd1 file in the directory and try again."
+        return
+    }
+
+    if($psm1BaseName.Count -gt 1)
+    {
+        Write-Error "Error: multiple module definition files found. Please ensure that there is only one .psm1 file in the directory and try again."
+        return
+    }
+
+    if (-not($psd1BaseName.BaseName -eq $psm1BaseName.BaseName))
+    {
+        Write-Error "Error: .psd1 filename, and .psm1 filename must all be identical. Please ensure that these names match and try again."
+        return
+    }
+
+    #$pubdir1 =Split-Path -Path $psm1BaseName.DirectoryName -Leaf
+    #$pubdir = $psm1BaseName.DirectoryName
+
+    #update
+    if (-not((Split-Path -Path $psm1BaseName.DirectoryName -Leaf) -eq $psd1BaseName.BaseName))
+    { 
+        Write-Warning  "Warning: The publish path has not the name of the module. Copying source for publish to a temporary directory."
+        $tempdir = New-TempDirectory
+        $tempmoduledir = New-Directory -Directory "$tempdir\$($psd1BaseName.BaseName)"
+        Copy-Recursive -Source "$($psm1BaseName.DirectoryName)" -Destination "$tempmoduledir"
+        $PublishPath = $tempmoduledir
+    }
+    else {
+        $PublishPath = $psm1BaseName.DirectoryName
+    }
+
+    $keyFileFullName = Get-ChildItem -Path $Path -Recurse | Where-Object { $_.Name -eq ".key" } | Select-Object FullName
+    if($null -eq $keyFileFullName)
+    {
+        Write-Error  "Error: A .key file containing the NuGet API key is missing from the publish directory. Please add the file and try again."
+        return
+    }
+
+    $gitignoreFullName = Get-ChildItem -Path $Path -Recurse | Where-Object { $_.Name -eq ".gitignore" } | Select-Object FullName
+    if($null -eq $gitignoreFullName)
+    {
+        Write-Warning  "Warning: A .gitignore file is not present, the NuGet API key may be exposed in the publish directory. Please include a .gitignore file with ignore statements for the key to prevent unauthorized access."
+    }
+
+    [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+
+
+
+    [string]$NuGetAPIKey = Get-Content -Path "$($keyFileFullName.FullName)"
+    
+    $fullname = Get-ChildItem -Path "$PublishPath" | Where-Object { $_.Extension -eq ".psd1" }
+
+    $fileContent = Get-Content -Path "$($fullname.FullName)" -Raw
+    $index = $fileContent.IndexOf("@{")
+    if($index -ne -1){
+        $fileContent = $fileContent.Substring(0, $index) + $fileContent.Substring($index + 2)
+    }
+    $index = $fileContent.LastIndexOf("}")
+    if($index -ne -1){
+        $fileContent = $fileContent.Substring(0, $index) + $fileContent.Substring($index + 2)
+    }
+
+    $Data  = Invoke-Expression "[PSCustomObject]@{$fileContent}"
+
+    try {
+        
+        Initialize-PowerShellGetLatest
+        Initialize-PackageManagementLatest
+
+        Publish-Module -Path "$PublishPath" -NuGetApiKey "$NuGetAPIKey" -Repository "PSGallery" -Verbose
+
+        $moduleName = Split-Path $MyInvocation.MyCommand.Module.Name -Leaf
+        $moduleVersion = $MyInvocation.MyCommand.Module.Version
+        Write-Output "Publish with $moduleName $moduleVersion."
+
+        $executable = Get-Command "git" -ErrorAction SilentlyContinue
+        
+        [string]$NameRoot = $Data.RootModule
+        $NameRoot = $NameRoot -replace '\.psm1$'
+
+        if ($executable) {
+            Write-Output "Git executable found at $($executable.Source) automatic git add -A, commit and push."
+            &git -C "$Path" add -A
+            &git -C "$Path" commit -m "Publish $NameRoot $($Data.ModuleVersion)"
+            &git -C "$Path" tag "V$($Data.ModuleVersion)"
+            &git -C "$Path" push 
+            &git -C "$Path" push --tags
+        }
+        else {
+            Write-Output "Git executable not found in PATH environment variable."
+        }
+    }
+    catch {
+        Write-Error "Failed to publish module: $($_.Exception.Message)"
+    }
+    finally {
+        if (-not($LastDirectory -eq $psd1BaseName.BaseName))
+        { 
+            Remove-TempDirectory -TempDirectory $tempdir
+            Write-Warning  "Removed temp directory $tempdir"
+        }
+    }
+
+}
 function Merge-Hashtable($target, $source) {
     $source.Keys | ForEach-Object {
         $key = $_
