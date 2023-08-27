@@ -13,6 +13,7 @@ if ($Mode -eq "psm"){
     #CreateModule2 -Nested "src" -ModuleName "CoreePower.Common" -Description "Library for module management" -Author "Carsten Riedel"
     #Set-Location -Path "C:\base\github.com\carsten-riedel\CoreePower\CoreePower.Common"
     #UpdateModule3
+    wn "ffof"
 }
 
 #You should dotsource all required files in you psm1 file. Only exported definitions in you psd1 will be availible.

@@ -45,15 +45,3 @@ function Initialize-DevToolsBaget {
 
     return $updatesDone
 }
-
-function Test.CoreePower.Lib.Initialize.DevTools.Baget {
-    param()
-    Write-Host "Start CoreePower.Lib.Initialize.DevTools.Baget"
-    #Initialize-DevToolsBaget
-    Write-Host "End CoreePower.Lib.Initialize.DevTools.Baget"
-}
-
-if ($Host.Name -match "Visual Studio Code")
-{
-    Test.CoreePower.Lib.Initialize.DevTools.Baget
-}

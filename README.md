@@ -3,6 +3,13 @@ The CoreePower repository contains all powershell modules of the CoreePower proj
 
 For more information, please refer to the subdirectory readme.md.
 
+## Development enviroment.
+#### Basicly clone the repo to a directory, visual studio code with powershell extension is used.
+```
+git -C "C:\temp" clone https://github.com/carsten-riedel/CoreePower.git
+```
+
+
 ## CoreePower.Lib
 #### Planned as a base library is it mainly utilized for the installation of devtools.
 https://github.com/carsten-riedel/CoreePower/tree/main/CoreePower.Lib/
