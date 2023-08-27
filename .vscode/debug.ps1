@@ -3,21 +3,9 @@ param(
 )
 
 Write-Host "debug.ps1 called in Mode: $Mode"
+$parent = (Get-Item $MyInvocation.PSScriptRoot).Parent
 
-#You should dotsource all required files in you psm1 file.
-if ($Mode -eq "psm"){
+#CreateModule3  -ModuleName "CoreePower.Foo" -Description "Library for module management" -Author "Carsten Riedel"
+#. "$($parent.FullName)\CoreePower.Foo\test\RunnerImport.ps1"
 
-    #Set-Location -Path "C:\base\github.com\carsten-riedel\CoreePower\CoreePower.Module"
-    #UpdateModule3
-    #PublishModule4
-    #CreateModule2 -Nested "src" -ModuleName "CoreePower.Common" -Description "Library for module management" -Author "Carsten Riedel"
-    #Set-Location -Path "C:\base\github.com\carsten-riedel\CoreePower\CoreePower.Common"
-    #UpdateModule3
-    wn "ffof"
-}
-
-#You should dotsource all required files in you psm1 file. Only exported definitions in you psd1 will be availible.
-if ($Mode -eq "psd"){
-    
-}
-
+. "$($parent.FullName)\CoreePower.Common\test\RunnerImport.ps1"
