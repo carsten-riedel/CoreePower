@@ -3,7 +3,7 @@
 function Test-Write-Notice {
     param()
     [bool]$retval = $false;
-    wn "ffof"
+    wn "foo"
     $retval = $true
     return $retval
 }

@@ -4,6 +4,7 @@ Write-Host "RunnerImports: $($MyInvocation.MyCommand.Source) called in Mode: $Mo
 $parent = (Get-Item ([System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path))).Parent
 $import = $parent.FullName +"\src\$($parent.Name).$($Mode)1"
 
+Save-Module -Name "$import" -Path "C:\temp"
 Import-Module "$import" -Force
 Write-Host "Imported Module: $import"
 

@@ -12,3 +12,4 @@ Write-Host "debug.ps1 called in Mode: $Mode"
 
 #. "$workspaceFolder\CoreePower.Common\test\RunnerImport.ps1"
 . "$workspaceFolder\CoreePower.Lib\test\RunnerImport.ps1"
+#. "$workspaceFolder\CoreePower.Module\test\RunnerImport.ps1"

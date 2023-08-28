@@ -1792,4 +1792,55 @@ function UpdateModule3 {
     Write-Warning "$($PowerShellModuleManifest.FullName) version is set to $($Data.ModuleVersion)"
 }
 
+function ReadModulePsd {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
+    [alias("rmpsd")]
+    param(
+        [string] $SearchRoot = ""
+    )
 
+    if (Test-Path $SearchRoot -PathType Leaf) {
+        $dir = [IO.Path]::GetDirectoryName($SearchRoot)
+        $PowerShellModuleManifest = Get-ChildItem -Path $dir -Recurse | Where-Object { $_.Extension -eq ".psd1" }
+    } else {
+        #SearchRoot is current directory if not used
+        if ($SearchRoot -eq "")
+        {
+            $loc = Get-Location
+            $SearchRoot = $loc.Path
+        }
+
+        #Fix end of string if backslash is supplied
+        $SearchRoot = $SearchRoot.TrimEnd([IO.Path]::DirectorySeparatorChar)
+
+        $PowerShellModuleManifest = Get-ChildItem -Path $SearchRoot -Recurse | Where-Object { $_.Extension -eq ".psd1" }
+    }
+
+
+
+    if($PowerShellModuleManifest.Count -eq 0)
+    {
+        Write-Error "Error: No PowerShell module manifest files found. Please ensure that there is one .psd1 file in the directory and try again."
+        return
+    }
+
+    if($PowerShellModuleManifest.Count -gt 1)
+    {
+        Write-Error "Error: Multiple module manifest files found. Please ensure that there is only one .psd1 file in the directory and try again."
+        return
+    }
+
+    $fileContent = Get-Content -Path "$($PowerShellModuleManifest.FullName)" -Raw
+    $index = $fileContent.IndexOf("@{")
+    if($index -ne -1){
+        $fileContent = $fileContent.Substring(0, $index) + $fileContent.Substring($index + 2)
+    }
+    $index = $fileContent.LastIndexOf("}")
+    if($index -ne -1){
+        $fileContent = $fileContent.Substring(0, $index) + $fileContent.Substring($index + 2)
+    }
+
+    $Data  = Invoke-Expression "[PSCustomObject]@{$fileContent}"
+
+    return $Data
+}

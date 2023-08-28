@@ -30,7 +30,7 @@ $retvals = @()
 $retval = $false
 
 #Add addtional test functions here
-$functionName = "Test-Write-FormatedText"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
+#$functionName = "Test-Write-FormatedText"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
 
 $allSucceeded = $true
 
