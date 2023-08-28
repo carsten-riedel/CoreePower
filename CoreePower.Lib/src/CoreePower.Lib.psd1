@@ -55,7 +55,7 @@ Note: the "Initialize-CorePowerLatest" command may conflict with existing instal
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @(@{ModuleName = 'CoreePower.Common'; ModuleVersion = '0.0.0.1'; })
+RequiredModules = @(@{ModuleName = 'CoreePower.Common'; ModuleVersion = '0.0.0.4'; })
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
@@ -73,8 +73,8 @@ RequiredModules = @(@{ModuleName = 'CoreePower.Common'; ModuleVersion = '0.0.0.1
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'HasLocalAdministratorClaim', 'CouldRunAsAdministrator', 
-               'CanExecuteInDesiredScope', 'Initialize-NugetSourceRegistered', 
+FunctionsToExport = 
+               'Initialize-NugetSourceRegistered', 
                'Initialize-NugetPackageProviderInstalled', 
                'Initialize-PowerShellGet', 'Initialize-PackageManagementLatest', 
                'Initialize-Powershell', 'Copy-Recursive', 'New-Tempdir', 

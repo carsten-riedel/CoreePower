@@ -4,9 +4,9 @@ Write-Host "RunnerImports: $($MyInvocation.MyCommand.Source) called in Mode: $Mo
 $parent = (Get-Item ([System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path))).Parent
 $import = $parent.FullName +"\src\$($parent.Name).$($Mode)1"
 
-$foo = (ReadModulePsd -SearchRoot "$import").RequiredModules
+$reqmods = (ReadModulePsd -SearchRoot "$import").RequiredModules
 
-foreach ($item in $foo)
+foreach ($item in $reqmods)
 {
     $module = Get-Module -ListAvailable -Name $item.ModuleName | Sort-Object Version -Descending | Select-Object -First 1
     if ($module) {
@@ -30,7 +30,9 @@ $retvals = @()
 $retval = $false
 
 #Add addtional test functions here
-$functionName = "Test-Write-FormatedText"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
+$functionName = "Test-Initialize-PowerShellGet"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
+$functionName = "Test-Initialize-PackageManagement"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
+$functionName = "Test-Initialize-DevTools7z"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
 
 $allSucceeded = $true
 

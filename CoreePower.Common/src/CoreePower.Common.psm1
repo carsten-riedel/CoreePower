@@ -9,4 +9,8 @@
 #Import-Module -Name "Other.Module" -MinimumVersion "0.0.0.1"
 
 . "$PSScriptRoot\CoreePower.Common.CustomConsole.ps1"
+. "$PSScriptRoot\CoreePower.Common.Enum.ps1"
+. "$PSScriptRoot\CoreePower.Common.Array.ps1"
+. "$PSScriptRoot\CoreePower.Common.Scope.ps1"
+. "$PSScriptRoot\CoreePower.Common.Modules.ps1"
 

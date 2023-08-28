@@ -183,8 +183,8 @@ function PublishModule {
 
     [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 
-    Initialize-PowerShellGetLatest
-    Initialize-PackageManagementLatest
+    #Initialize-PowerShellGetLatest
+    #Initialize-PackageManagementLatest
 
     [string]$NuGetAPIKey = Get-Content -Path "$($keyFileFullName.FullName)"
 
@@ -257,8 +257,8 @@ function PublishModule2 {
 
     [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 
-    Initialize-PowerShellGetLatest
-    Initialize-PackageManagementLatest
+    #Initialize-PowerShellGetLatest
+    #Initialize-PackageManagementLatest
 
     [string]$NuGetAPIKey = Get-Content -Path "$($keyFileFullName.FullName)"
 
@@ -385,8 +385,8 @@ function PublishModule3 {
 
     [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 
-    Initialize-PowerShellGetLatest
-    Initialize-PackageManagementLatest
+    #Initialize-PowerShellGetLatest
+    #Initialize-PackageManagementLatest
 
     [string]$NuGetAPIKey = Get-Content -Path "$($keyFileFullName.FullName)"
     
@@ -543,8 +543,8 @@ function PublishModule4 {
 
     try {
         
-        Initialize-PowerShellGetLatest
-        Initialize-PackageManagementLatest
+        #Initialize-PowerShellGetLatest
+        #Initialize-PackageManagementLatest
 
         Publish-Module -Path "$PublishPath" -NuGetApiKey "$NuGetAPIKey" -Repository "PSGallery" -Verbose
 
@@ -573,7 +573,7 @@ function PublishModule4 {
         Write-Error "Failed to publish module: $($_.Exception.Message)"
     }
     finally {
-        if (-not($LastDirectory -eq $psd1BaseName.BaseName))
+        if (-not((Split-Path -Path $psm1BaseName.DirectoryName -Leaf) -eq $psd1BaseName.BaseName))
         { 
             Remove-TempDirectory -TempDirectory $tempdir
             Write-Warning  "Removed temp directory $tempdir"
@@ -1295,6 +1295,22 @@ function SampleFunction {
 
     `$parent = (Get-Item ([System.IO.Path]::GetDirectoryName(`$MyInvocation.MyCommand.Path))).Parent
     `$import = `$parent.FullName +"\src\`$(`$parent.Name).`$(`$Mode)1"
+
+    `$reqmods = (ReadModulePsd -SearchRoot "`$import").RequiredModules
+
+    foreach (`$item in `$reqmods)
+    {
+        `$module = Get-Module -ListAvailable -Name `$item.ModuleName | Sort-Object Version -Descending | Select-Object -First 1
+        if (`$module) {
+            if (`$module.Version -ge `$item.ModuleVersion) {
+                Write-Host "The module is available and meets the minimum version requirement."
+            } else {
+                Install-Module -Name "`$(`$item.ModuleName)"
+            }
+        } else {
+            Install-Module -Name "`$(`$item.ModuleName)"
+        }
+    }
 
     Import-Module "`$import" -Force -Verbose
     Write-Host "Imported Module: `$import"

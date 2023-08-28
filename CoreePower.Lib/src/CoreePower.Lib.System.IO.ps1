@@ -301,7 +301,6 @@ function Find-FileRecursively {
 
     $foundFiles = Get-ChildItem -Path $DirectoryPath -Recurse -File | Where-Object { $_.Name -eq $FileName }
 
-
     if ($foundFiles.Count -eq 1) {
         $found = $foundFiles | Select-Object -First 1 -Property FullName
         return $found.FullName
