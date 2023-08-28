@@ -82,6 +82,7 @@ $global:WriteFormatedTextScreen = [int]0
 #>
 function Write-FormatedText {
     [Diagnostics.CodeAnalysis.SuppressMessage("PSUseApprovedVerbs","")]
+    [alias("wf")]
     param (
         [string]$PrefixText = "Starting",
         [string]$ContentText = "Running script",
@@ -202,7 +203,7 @@ function Write-FormatedText {
 #>
 function Invoke-Prompt {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
-    [Alias("iprompt")] 
+    [Alias("ipt")] 
     param(
         [string]$PromptTitle = "Confirm Action",
         [string]$PromptMessage = "Do you want to proceed?",
@@ -256,6 +257,7 @@ function Invoke-Prompt {
 
 #>
 function Confirm-AdminRightsEnabled {
+    [alias("care")]
     param()
 
     return Invoke-Prompt -PromptTitle "Admin Rights Required" -PromptMessage "This command requires administrator rights to run. Activate admin rights before continuing." -PromptChoices @(@("&Yes", "Enable admin rights."), @("&No", "Do not run this command.")) -DefaultChoiceIndex 1 -DisplayChoicesBeforePrompt $true
