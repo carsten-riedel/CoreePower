@@ -1305,10 +1305,10 @@ function SampleFunction {
             if (`$module.Version -ge `$item.ModuleVersion) {
                 Write-Host "The module is available and meets the minimum version requirement."
             } else {
-                Install-Module -Name "`$(`$item.ModuleName)"
+                Install-Module -Name "`$(`$item.ModuleName)" -Force
             }
         } else {
-            Install-Module -Name "`$(`$item.ModuleName)"
+            Install-Module -Name "`$(`$item.ModuleName)" -Force
         }
     }
 

@@ -17,9 +17,9 @@ function Initialize-DevToolsCoreeModules {
 
     $updatesDone = $false
 
-    Write-FormatedText -PrefixText "$moduleName" -ContentText "Update-ModulesLatest CoreePower.Module CoreePower.Config" -SuffixText "Initiated"
-    $updatesDone = Update-ModulesLatest -ModuleNames @("CoreePower.Module","CoreePower.Config") -Scope $Scope
-    Write-FormatedText -PrefixText "$moduleName" -ContentText "Update-ModulesLatest CoreePower.Module CoreePower.Config" -SuffixText "Completed"
+    Write-FormatedText -PrefixText "$moduleName" -ContentText "Update-ModulesLatest CoreePower.Module CoreePower.Config CoreePower.Common" -SuffixText "Initiated"
+    $updatesDone = Update-ModulesLatest -ModuleNames @("CoreePower.Module","CoreePower.Config","CoreePower.Common") -Scope $Scope
+    Write-FormatedText -PrefixText "$moduleName" -ContentText "Update-ModulesLatest CoreePower.Module CoreePower.Config CoreePower.Common" -SuffixText "Completed"
 
     return $updatesDone
 }
