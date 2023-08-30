@@ -12,7 +12,7 @@
 RootModule = 'CoreePower.Common.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.0.8'
+ModuleVersion = '0.0.0.9'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -73,7 +73,11 @@ FunctionsToExport = 'Write-Notice', 'Write-FormatedText', 'Invoke-Prompt',
                'Confirm-AdminRightsEnabled', 'CouldRunAsAdministrator', 
                'CanExecuteInDesiredScope', 'Get-ModulesInfoExtended', 
                'Get-ModulesLocal', 'Get-ModulesUpdatable', 'Remove-ModulesPrevious', 
-               'Remove-Modules', 'Update-ModulesLatest', 'Get-CurrentModule'
+               'Remove-Modules', 'Update-ModulesLatest', 'Get-CurrentModule', 
+               'Split-Array', 'Find-ItemsContainingAllStrings', 
+               'Filter-ItemsWithLists', 'Extract-MatchGroups', 'IndexOfBytes', 
+               'AddPathEnviromentVariable', 'AddEnviromentVariable', 
+               'DeletePathEnviromentVariable'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
@@ -103,7 +107,7 @@ PrivateData = @{
         Tags = 'lib', 'library', 'windows'
 
         # A URL to the license for this module.
-        LicenseUri = 'https://www.powershellgallery.com/packages/CoreePower.Common/0.0.0.8/Content/LICENSE.txt'
+        LicenseUri = 'https://www.powershellgallery.com/packages/CoreePower.Common/0.0.0.9/Content/LICENSE.txt'
 
         # A URL to the main website for this project.
         # ProjectUri = ''
