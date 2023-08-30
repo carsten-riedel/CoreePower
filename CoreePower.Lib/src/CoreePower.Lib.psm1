@@ -7,15 +7,9 @@
 
 Import-Module -Name "CoreePower.Common" -MinimumVersion "0.0.0.7"
 
-. "$PSScriptRoot\CoreePower.Lib.System.Enum.ps1"
-. "$PSScriptRoot\CoreePower.Lib.System.Array.ps1"
 . "$PSScriptRoot\CoreePower.Lib.System.IO.ps1"
-. "$PSScriptRoot\CoreePower.Lib.System.Scope.ps1"
-. "$PSScriptRoot\CoreePower.Lib.System.CustomConsole.ps1"
-. "$PSScriptRoot\CoreePower.Lib.System.Enviroment.ps1"
 . "$PSScriptRoot\CoreePower.Lib.System.Web.ps1"
 . "$PSScriptRoot\CoreePower.Lib.System.Process.ps1"
-. "$PSScriptRoot\CoreePower.Lib.Modules.Management.ps1"
 . "$PSScriptRoot\CoreePower.Lib.ps1"
 . "$PSScriptRoot\CoreePower.Lib.Initialize.NugetPackageProvider.ps1"
 . "$PSScriptRoot\CoreePower.Lib.Initialize.PowerShellGet.ps1"

@@ -13,4 +13,5 @@
 . "$PSScriptRoot\CoreePower.Common.Array.ps1"
 . "$PSScriptRoot\CoreePower.Common.Scope.ps1"
 . "$PSScriptRoot\CoreePower.Common.Modules.ps1"
+. "$PSScriptRoot\CoreePower.Common.Environment.ps1"
 

@@ -1,6 +1,4 @@
-if (-not($PSScriptRoot -eq $null -or $PSScriptRoot -eq "")) {
-    . $PSScriptRoot\CoreePower.Lib.Includes.ps1
-}
+
 
 function Initialize-DevToolsGit {
     [Diagnostics.CodeAnalysis.SuppressMessage("PSUseApprovedVerbs","")]

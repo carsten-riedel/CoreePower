@@ -41,6 +41,7 @@
 #>
 function Get-ModulesInfoExtended {
     [Diagnostics.CodeAnalysis.SuppressMessage("PSUseApprovedVerbs","")]
+    [alias("moie")]
     param(
         [string[]] $ModuleNames = @('*'),
         [ModuleScope]$Scope = [ModuleScope]::LocalMachine,
@@ -101,6 +102,7 @@ function Get-ModulesInfoExtended {
 #>
 function Get-ModulesLocal {
     [Diagnostics.CodeAnalysis.SuppressMessage("PSUseApprovedVerbs","")]
+    [alias("mol")]
     param(
         [string[]] $ModuleNames = @('*'),
         [ModuleScope]$Scope = [ModuleScope]::LocalMachine,
@@ -139,6 +141,7 @@ function Get-ModulesLocal {
 #>
 function Get-ModulesUpdatable {
     [Diagnostics.CodeAnalysis.SuppressMessage("PSUseApprovedVerbs","")]
+    [alias("mou")]
     param(
         [string[]] $ModuleNames = @('*'),
         [ModuleScope]$Scope = [ModuleScope]::LocalMachine,
@@ -201,6 +204,7 @@ function Get-ModulesUpdatable {
 #>
 function Remove-ModulesPrevious {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
+    [alias("morp")]
     param(
         [string[]]$ModuleNames = @('*'),
         [ModuleScope]$Scope = [ModuleScope]::CurrentUser
@@ -261,6 +265,7 @@ function Remove-ModulesPrevious {
 #>
 function Remove-Modules {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
+    [alias("morm")]
     param(
         [string[]]$ModuleNames,
         [ModuleScope]$Scope = [ModuleScope]::CurrentUser
@@ -325,6 +330,7 @@ function Remove-Modules {
 #>
 function Update-ModulesLatest {
     [Diagnostics.CodeAnalysis.SuppressMessage("PSUseApprovedVerbs","")]
+    [alias("moul")]
     param(
         [string[]] $ModuleNames = @('*'),
         [ModuleScope]$Scope = [ModuleScope]::CurrentUser,
@@ -366,6 +372,7 @@ function Update-ModulesLatest {
 
 function Get-CurrentModule {
     [Diagnostics.CodeAnalysis.SuppressMessage("PSUseApprovedVerbs","")]
+    [alias("mocu")]
     param()
 
     if ($null -ne $MyInvocation.MyCommand.Module)

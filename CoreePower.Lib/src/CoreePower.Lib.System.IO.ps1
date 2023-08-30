@@ -75,6 +75,29 @@ function New-TempDirectory {
     return $tempDirectoryPath
 }
 
+<#
+.SYNOPSIS
+Creates a new directory if it does not already exist.
+
+.DESCRIPTION
+The New-Directory function creates a new directory specified by the 'Directory' parameter.
+If the directory already exists, the function will not create a new one.
+If a file path is supplied instead of a directory, the function will move up one directory level and attempt to create the directory there.
+
+.PARAMETER Directory
+The path of the directory to be created. This parameter is mandatory. If a file path is supplied, the function will use the parent directory of that file as the path to create the new directory.
+
+.EXAMPLE
+New-Directory -Directory "C:\Temp\NewFolder"
+
+This will create a new directory named 'NewFolder' inside the 'C:\Temp' directory if it does not already exist.
+
+.EXAMPLE
+New-Directory -Directory "C:\Temp\myfile.txt"
+
+This will create a new directory in 'C:\Temp' since a file path was supplied.
+
+#>
 function New-Directory {
     [Diagnostics.CodeAnalysis.SuppressMessage("PSUseApprovedVerbs","")]
     param (

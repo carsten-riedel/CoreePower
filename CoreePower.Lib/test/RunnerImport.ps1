@@ -33,6 +33,8 @@ $retval = $false
 $functionName = "Test-Initialize-PowerShellGet"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
 $functionName = "Test-Initialize-PackageManagement"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
 $functionName = "Test-Initialize-DevTools7z"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
+$functionName = "Test-Initialize-DevToolsMsOpenjdk17"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
+$functionName = "Test-Initialize-DevToolsVsCode"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
 
 $allSucceeded = $true
 
