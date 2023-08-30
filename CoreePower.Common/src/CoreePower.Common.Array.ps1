@@ -29,6 +29,7 @@
     }
 #>
 function Split-Array {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param(
     [array] $SourceArray,
     [int] $MaxPartitionSize = 50
@@ -188,6 +189,7 @@ function Extract-MatchGroups {
 }
 
 function Sort-MatchGroupsx {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param(
         [Parameter(Mandatory=$true)]
         [Array]$MatchGroupsArray,
@@ -270,6 +272,7 @@ function Sort-MatchGroupsx {
 
 #>
 function IndexOfBytes {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param (
         [byte[]] $array,
         [byte[]] $search,
