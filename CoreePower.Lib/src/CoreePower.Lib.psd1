@@ -55,7 +55,7 @@ Note: the "Initialize-CorePowerLatest" command may conflict with existing instal
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @(@{ModuleName = 'CoreePower.Common'; ModuleVersion = '0.0.0.10'; })
+RequiredModules = @(@{ModuleName = 'CoreePower.Common'; ModuleVersion = '0.0.0.11'; })
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
