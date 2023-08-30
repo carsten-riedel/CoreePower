@@ -12,7 +12,7 @@
 RootModule = 'CoreePower.Lib.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.2.16'
+ModuleVersion = '0.0.2.17'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -55,7 +55,7 @@ Note: the "Initialize-CorePowerLatest" command may conflict with existing instal
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @(@{ModuleName = 'CoreePower.Common'; ModuleVersion = '0.0.0.9'; })
+RequiredModules = @(@{ModuleName = 'CoreePower.Common'; ModuleVersion = '0.0.0.10'; })
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
@@ -110,7 +110,7 @@ PrivateData = @{
                'VisualStudioCode'
 
         # A URL to the license for this module.
-        LicenseUri = 'https://www.powershellgallery.com/packages/CoreePower.Lib/0.0.2.16/Content/LICENSE.txt'
+        LicenseUri = 'https://www.powershellgallery.com/packages/CoreePower.Lib/0.0.2.17/Content/LICENSE.txt'
 
         # A URL to the main website for this project.
         ProjectUri = 'https://github.com/carsten-riedel/CoreePower.Lib'
