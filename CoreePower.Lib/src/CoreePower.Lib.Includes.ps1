@@ -1,7 +1,4 @@
 $includes = @(
-   @{ Loaded=$false; Name="$PSScriptRoot\CoreePower.Lib.System.IO.ps1"} ,
-   @{ Loaded=$false; Name="$PSScriptRoot\CoreePower.Lib.System.Web.ps1"},
-   @{ Loaded=$false; Name="$PSScriptRoot\CoreePower.Lib.System.Process.ps1"},
    @{ Loaded=$false; Name="$PSScriptRoot\CoreePower.Lib.ps1"},
    @{ Loaded=$false; Name="$PSScriptRoot\CoreePower.Lib.Initialize.NugetPackageProvider.ps1"},
    @{ Loaded=$false; Name="$PSScriptRoot\CoreePower.Lib.Initialize.PowerShellGet.ps1"},

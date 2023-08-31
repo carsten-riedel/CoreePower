@@ -76,9 +76,7 @@ RequiredModules = @(@{ModuleName = 'CoreePower.Common'; ModuleVersion = '0.0.0.1
 FunctionsToExport = 'Initialize-NugetSourceRegistered', 
                'Initialize-NugetPackageProviderInstalled', 
                'Initialize-PowerShellGet', 'Initialize-PackageManagementLatest', 
-               'Initialize-Powershell', 'Copy-Recursive', 'New-Tempdir', 
-               'Restart-Proc', 'Initialize-CorePowerLatest', 
-               'AddPathEnviromentVariable', 'Get-ModulesLocal', 
+               'Initialize-Powershell', 'Restart-Proc', 'Initialize-CorePowerLatest', 
                'Initialize-DevTools'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -88,7 +86,7 @@ CmdletsToExport = @()
 VariablesToExport = @()
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-AliasesToExport = 'cpcp', 'copyrec', 'newtmp', 'cpdev'
+AliasesToExport = 'cpcp', 'cpdev'
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()

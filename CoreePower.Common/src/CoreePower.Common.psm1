@@ -14,4 +14,10 @@
 . "$PSScriptRoot\CoreePower.Common.Scope.ps1"
 . "$PSScriptRoot\CoreePower.Common.Modules.ps1"
 . "$PSScriptRoot\CoreePower.Common.Environment.ps1"
+. "$PSScriptRoot\CoreePower.Common.IO.ps1"
+. "$PSScriptRoot\CoreePower.Common.Web.ps1"
+. "$PSScriptRoot\CoreePower.Common.Process.ps1"
+
+
+
 
