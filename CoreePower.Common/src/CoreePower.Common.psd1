@@ -114,7 +114,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = 'lib', 'library', 'windows'
+        Tags = 'windows', 'CoreePower', 'CoreePower.Common','lib', 'library'
 
         # A URL to the license for this module.
         LicenseUri = 'https://www.powershellgallery.com/packages/CoreePower.Common/0.0.0.12/Content/LICENSE.txt'

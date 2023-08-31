@@ -103,7 +103,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = 'lib', 'windows', 'beta', 'setup', 'NuGetPackageProvider', 'PowerShellGet', 
+        Tags = 'windows', 'CoreePower', 'CoreePower.Lib', 'lib', 'beta', 'setup', 'NuGetPackageProvider', 'PowerShellGet', 
                'PackageManagement', '7-Zip', 'Git', 'GitHubCLI', 'NuGet', 'dotnet', 
                'VisualStudioCode'
 
