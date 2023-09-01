@@ -92,7 +92,7 @@ function Remove-ManagementModules {
     {
         $DirVers = "$($item.BasePath)\$($item.Name)\$($item.Version)"
         Remove-Item -Recurse -Force -Path $DirVers
-        Write-Host "Removed module:" $DirVers
+        #Write-Host "Removed module:" $DirVers
     }
 }
 

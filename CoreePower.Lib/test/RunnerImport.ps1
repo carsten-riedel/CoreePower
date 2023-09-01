@@ -1,5 +1,5 @@
 
-Write-Host "RunnerImports: $($MyInvocation.MyCommand.Source) called in Mode: $Mode"
+Write-Host "RunnerImports: $($MyInvocation.MyCommand.Source) called."
 
 $parent = (Get-Item ([System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path))).Parent
 $import = $parent.FullName +"\src\$($parent.Name).psd1"

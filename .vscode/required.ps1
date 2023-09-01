@@ -66,9 +66,12 @@ function Resolve-CoreePowerModule {
     $mdo = $result | Where-Object { $_.PSDBaseName -eq "CoreePower.Module" } | Select-Object -First 1
     if ($mdo)
     {
-        Uninstall-Module -Name "$($mdo.PSDBaseName)" -AllVersions -Force -Verbose
+        if (Get-Module -Name "$($mdo.PSDBaseName)")
+        {
+            Uninstall-Module -Name "$($mdo.PSDBaseName)" -AllVersions -Force -Verbose
+        }
         Import-Module "$($mdo.PSDFullName)" -Force
-        Write-Output "Import-Module '$($mdo.PSDFullName)' -Force"
+        #Write-Output "Import-Module '$($mdo.PSDFullName)' -Force"
     }
     else {
         $cmdaviable = Get-Command -FullyQualifiedModule @(@{ModuleName = "CoreePower.Module"; ModuleVersion = $MinVersion; })
