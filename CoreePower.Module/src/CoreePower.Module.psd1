@@ -12,7 +12,7 @@
 RootModule = 'CoreePower.Module.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.0.64'
+ModuleVersion = '0.0.0.65'
 
 # Supported PSEditions
 CompatiblePSEditions = 'Desktop'
@@ -51,7 +51,7 @@ PowerShellVersion = '5.1'
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @(@{ModuleName = 'CoreePower.Lib'; ModuleVersion = '0.0.0.30'; })
+# RequiredModules = @()
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
@@ -98,10 +98,10 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = 'windows', 'CoreePower', 'CoreePower.Module', 'Module'
+        Tags = 'windows', 'CoreePower', 'CoreePower.Module', 'Module', 'Standalone'
 
         # A URL to the license for this module.
-        LicenseUri = 'https://www.powershellgallery.com/packages/CoreePower.Module/0.0.0.64/Content/LICENSE.txt'
+        LicenseUri = 'https://www.powershellgallery.com/packages/CoreePower.Module/0.0.0.65/Content/LICENSE.txt'
 
         # A URL to the main website for this project.
         # ProjectUri = ''
