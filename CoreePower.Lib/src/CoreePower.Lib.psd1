@@ -15,7 +15,7 @@ RootModule = 'CoreePower.Lib.psm1'
 ModuleVersion = '0.0.2.19'
 
 # Supported PSEditions
-# CompatiblePSEditions = @()
+CompatiblePSEditions = @('Desktop')
 
 # ID used to uniquely identify this module
 GUID = '91253b1f-8db9-48b8-9fd9-e34a30a54915'
@@ -103,7 +103,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = 'windows', 'CoreePower', 'CoreePower.Lib', 'lib', 'beta', 'setup', 'NuGetPackageProvider', 'PowerShellGet', 
+        Tags = 'windows', 'CoreePower', 'CoreePower.Lib', 'Module', 'lib', 'beta', 'setup', 'NuGetPackageProvider', 'PowerShellGet', 
                'PackageManagement', '7-Zip', 'Git', 'GitHubCLI', 'NuGet', 'dotnet', 
                'VisualStudioCode'
 

@@ -15,7 +15,7 @@ RootModule = 'CoreePower.Config.psm1'
 ModuleVersion = '0.0.0.56'
 
 # Supported PSEditions
-# CompatiblePSEditions = @()
+CompatiblePSEditions = @('Desktop')
 
 # ID used to uniquely identify this module
 GUID = 'e9f6459a-6b83-4967-a305-73eba1857637'
@@ -97,7 +97,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = 'windows', 'CoreePower', 'CoreePower.Config' , 'configuration'
+        Tags = 'windows', 'CoreePower', 'CoreePower.Config' , 'Module', 'configuration'
 
         # A URL to the license for this module.
         LicenseUri = 'https://www.powershellgallery.com/packages/CoreePower.Config/0.0.0.56/Content/LICENSE.txt'

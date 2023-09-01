@@ -15,7 +15,7 @@ RootModule = 'CoreePower.Module.psm1'
 ModuleVersion = '0.0.0.62'
 
 # Supported PSEditions
-# CompatiblePSEditions = @()
+CompatiblePSEditions = @('Desktop')
 
 # ID used to uniquely identify this module
 GUID = 'e48d1054-4ea9-4fa0-bafb-0e0fc135ab93'
