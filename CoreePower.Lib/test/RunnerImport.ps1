@@ -2,25 +2,10 @@
 Write-Host "RunnerImports: $($MyInvocation.MyCommand.Source) called in Mode: $Mode"
 
 $parent = (Get-Item ([System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path))).Parent
-$import = $parent.FullName +"\src\$($parent.Name).$($Mode)1"
+$import = $parent.FullName +"\src\$($parent.Name).psd1"
+$psd = ReadPsdx -FullName "$import"
 
-$reqmods = (ReadModulePsd -SearchRoot "$import").RequiredModules
-
-<#
-foreach ($item in $reqmods)
-{
-    $cmdaviable = Get-Command -FullyQualifiedModule @(@{ModuleName = "$($item.ModuleName)"; ModuleVersion = "$($item.ModuleVersion)"; })
-
-
-    $PowerShellModuleManifest = Get-ChildItem -Path "$($workspaceFolder)\$($item.ModuleName)" -Recurse | Where-Object { $_.Extension -eq ".psd1" }
-    if ($PowerShellModuleManifest)
-    {
-        Import-Module $PowerShellModuleManifest.FullName
-        Write-Output "Detected dependency in workspace. Imported $($PowerShellModuleManifest.FullName)"
-    }
-    
-}
-#>
+$reqmods = ($psd).RequiredModules
 
 foreach ($item in $reqmods)
 {
@@ -38,7 +23,7 @@ foreach ($item in $reqmods)
    
 }
 
-Import-Module "$import" -Force
+Import-Module "$($psd.PSDDirectoryName)\$($psd.RootModule)" -Force
 Write-Host "Imported Module: $import"
 
 . "$PSScriptRoot\RunnerTests.ps1"

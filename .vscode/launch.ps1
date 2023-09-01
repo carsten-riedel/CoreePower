@@ -1,16 +1,14 @@
-param(
-  [string]$Mode
-)
+Write-Host "launch.ps1 called."
 
 $workspaceFolder = (Get-Location).Path
 
-Write-Host "debug.ps1 called in Mode: $Mode"
+. "$workspaceFolder\.vscode\required.ps1"
 
-if ($Mode -eq "remove")
-{
-  Remove-ManagementModules -ModuleNames @("CoreePower.Common","CoreePower.Lib","CoreePower.Config") -Scope CurrentUser
-  $Mode = "psm"
-}
+Resolve-CoreePowerModule -Workspace "$workspaceFolder" -MinVersion "0.0.0.66"
+
+Remove-ManagementModules -ModuleNames @("CoreePower.Common","CoreePower.Lib","CoreePower.Config") -Scope CurrentUser
+
+
 
 #CreateModule3  -ModuleName "CoreePower.Foo" -Description "Library for module management" -Author "Carsten Riedel"
 #. "$($parent.FullName)\CoreePower.Foo\test\RunnerImport.ps1"

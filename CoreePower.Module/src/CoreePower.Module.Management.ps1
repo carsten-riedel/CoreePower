@@ -83,17 +83,10 @@ if (-not ([System.Management.Automation.PSTypeName]'ModuleScope').Type) {
 function Remove-ManagementModules {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param(
-        [string[]]$ModuleNames,
-        [ModuleScope]$Scope = [ModuleScope]::CurrentUser
+        [string[]]$ModuleNames
     )
 
-    # Check if the current process can execute in the desired scope
-    if (-not(CanExecuteInDesiredScope -Scope $Scope))
-    {
-        return
-    }
-    
-    $outdated = Get-ManagementModulesLocal -ModuleNames $ModuleNames -Scope $Scope -ExcludeSystemModules $true -ModulRecordState All
+    $outdated = Get-ManagementModulesLocal -ModuleNames $ModuleNames -Scope CurrentUser -ExcludeSystemModules $true -ModulRecordState All
  
     foreach ($item in $outdated)
     {

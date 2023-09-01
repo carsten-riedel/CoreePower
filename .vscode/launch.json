@@ -2,29 +2,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "System remove CoreePower Modules",
+            "name": "Debug/Test",
             "type": "PowerShell",
             "request": "launch",
-            "script": "${workspaceFolder}\\.vscode\\Runnertest.ps1",
-            "args": ["-Mode", "remove"],
-            "cwd": "${workspaceFolder}",
-            "createTemporaryIntegratedConsole": true
-        },
-        {
-            "name": "PowerShell: debug.ps1 PSM1",
-            "type": "PowerShell",
-            "request": "launch",
-            "script": "${workspaceFolder}\\.vscode\\Runnertest.ps1",
-            "args": ["-Mode", "psm"],
-            "cwd": "${workspaceFolder}",
-            "createTemporaryIntegratedConsole": true
-        },
-        {
-            "name": "PowerShell: debug.ps1 PSD1",
-            "type": "PowerShell",
-            "request": "launch",
-            "script": "${workspaceFolder}\\.vscode\\Runnertest.ps1",
-            "args": ["-Mode", "psd"],
+            "script": "${workspaceFolder}\\.vscode\\launch.ps1",
+            "args": ["", ""],
             "cwd": "${workspaceFolder}",
             "createTemporaryIntegratedConsole": true
         }
