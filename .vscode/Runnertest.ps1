@@ -8,7 +8,7 @@ Write-Host "debug.ps1 called in Mode: $Mode"
 
 if ($Mode -eq "remove")
 {
-  Remove-Modules -ModuleNames @("CoreePower.Common","CoreePower.Lib","CoreePower.Config") -Scope CurrentUser
+  Remove-ManagementModules -ModuleNames @("CoreePower.Common","CoreePower.Lib","CoreePower.Config") -Scope CurrentUser
   $Mode = "psm"
 }
 

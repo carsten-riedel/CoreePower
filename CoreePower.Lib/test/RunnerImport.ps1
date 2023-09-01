@@ -6,9 +6,26 @@ $import = $parent.FullName +"\src\$($parent.Name).$($Mode)1"
 
 $reqmods = (ReadModulePsd -SearchRoot "$import").RequiredModules
 
+<#
+foreach ($item in $reqmods)
+{
+    $cmdaviable = Get-Command -FullyQualifiedModule @(@{ModuleName = "$($item.ModuleName)"; ModuleVersion = "$($item.ModuleVersion)"; })
+
+
+    $PowerShellModuleManifest = Get-ChildItem -Path "$($workspaceFolder)\$($item.ModuleName)" -Recurse | Where-Object { $_.Extension -eq ".psd1" }
+    if ($PowerShellModuleManifest)
+    {
+        Import-Module $PowerShellModuleManifest.FullName
+        Write-Output "Detected dependency in workspace. Imported $($PowerShellModuleManifest.FullName)"
+    }
+    
+}
+#>
+
 foreach ($item in $reqmods)
 {
     $module = Get-Module -ListAvailable -Name $item.ModuleName | Sort-Object Version -Descending | Select-Object -First 1
+
     if ($module) {
         if ($module.Version -ge $item.ModuleVersion) {
             Write-Host "The module is available and meets the minimum version requirement."
@@ -18,6 +35,7 @@ foreach ($item in $reqmods)
     } else {
         Install-Module -Name "$($item.ModuleName)" -Force
     }
+   
 }
 
 Import-Module "$import" -Force
