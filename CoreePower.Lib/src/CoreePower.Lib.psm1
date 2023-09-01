@@ -5,7 +5,7 @@
 # You can specify multiple .ps1 files here, but it's recommended to keep module functionality in a single file.
 # Calling functions directly in .psm1 files requires enhanced system configuration, which is not standard practice.
 
-Import-Module -Name "CoreePower.Common" -MinimumVersion "0.0.0.13" -DisableNameChecking
+Import-Module -Name "CoreePower.Common" -MinimumVersion "0.0.0.14" -DisableNameChecking
 
 . "$PSScriptRoot\CoreePower.Lib.Initialize.NugetPackageProvider.ps1"
 . "$PSScriptRoot\CoreePower.Lib.Initialize.PowerShellGet.ps1"
