@@ -231,7 +231,7 @@ function Set-AsInvoker {
     Update-TextInFileWithEncoding -FilePath $FilePath -SearchText $searchText -ReplaceText $replaceText -Encoding ([System.Text.Encoding]::ASCII)
 }
 
-function Recursive-Copy {
+function Copy-Recursive2 {
     [Diagnostics.CodeAnalysis.SuppressMessage("PSUseApprovedVerbs","")]
     param (
         [string]$Source,       # The source directory to copy from

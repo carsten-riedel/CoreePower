@@ -22,7 +22,7 @@ function Initialize-DevToolsImagemagick {
         $uris = Find-Links -url "https://imagemagick.org/script/download.php"
         $stringUris = $uris | ForEach-Object { $_.AbsoluteUri }
         $foundUrls = @()
-        $foundUrls = Filter-ItemsWithLists -InputItems $stringUris -WhiteListMatch @("ImageMagick","portable","Q16","HDRI","x64",".zip")
+        $foundUrls = Find-ItemsWithLists -InputItems $stringUris -WhiteListMatch @("ImageMagick","portable","Q16","HDRI","x64",".zip")
         $file = Get-RedirectDownload2 -Url $foundUrls
         Write-FormatedText -PrefixText "$moduleName" -ContentText $contentText -SuffixText "Download Completed"
         Write-FormatedText -PrefixText "$moduleName" -ContentText $contentText -SuffixText "Extracting"

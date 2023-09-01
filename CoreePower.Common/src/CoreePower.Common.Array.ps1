@@ -79,10 +79,10 @@ function Split-Array {
     The function returns a collection of items that contain all the specified search strings.
 
 .EXAMPLE
-    PS C:\> $fileUrls = Download-GithubLatestReleaseMatchingAssets -RepositoryUrl "https://github.com/cli/cli/releases" -AssetNameFilters @("windows","amd64",".zip")
+    PS C:\> $fileUrls = Get-GithubLatestReleaseMatchingAssets -RepositoryUrl "https://github.com/cli/cli/releases" -AssetNameFilters @("windows","amd64",".zip")
     PS C:\> $matchingFiles = Find-ItemsContainingAllStrings -InputItems $fileUrls -SearchStrings "windows", "amd64", ".zip"
 
-    This example demonstrates the use of the `Find-ItemsContainingAllStrings` function in conjunction with the `Download-GithubLatestReleaseMatchingAssets` function. It retrieves a collection of download URLs using the latter function and then identifies the URLs that contain all three specified search strings: "windows", "amd64", and ".zip". The matching URLs are stored in the `$matchingFiles` variable.
+    This example demonstrates the use of the `Find-ItemsContainingAllStrings` function in conjunction with the `Get-GithubLatestReleaseMatchingAssets` function. It retrieves a collection of download URLs using the latter function and then identifies the URLs that contain all three specified search strings: "windows", "amd64", and ".zip". The matching URLs are stored in the `$matchingFiles` variable.
 
 .NOTES
     - The function performs a case-sensitive search.
@@ -113,7 +113,7 @@ function Find-ItemsContainingAllStrings {
     return $matchedItems
 }
 
-function Filter-ItemsWithLists {
+function Find-ItemsWithLists {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param(
         [Parameter(Mandatory)]
@@ -157,7 +157,7 @@ function Filter-ItemsWithLists {
     return $OutputItems
 }
 
-function Extract-MatchGroups {
+function Find-MatchGroups {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param (
         [Parameter(Mandatory=$true, ValueFromPipeline=$true)]

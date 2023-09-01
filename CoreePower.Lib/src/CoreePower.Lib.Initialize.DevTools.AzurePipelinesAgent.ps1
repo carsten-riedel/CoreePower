@@ -23,7 +23,7 @@ function Initialize-DevToolsAzurePipelinesAgent {
         New-Item -ItemType Directory -Path "$targetdir" -Force | Out-Null
         Write-FormatedText -PrefixText "$moduleName" -ContentText "$contentText" -SuffixText "Directory create"
         Write-FormatedText -PrefixText "$moduleName" -ContentText "$contentText" -SuffixText "Download"
-        $file = Download-GithubLatestReleaseMatchingAssets -RepositoryUrl "https://github.com/microsoft/azure-pipelines-agent/releases" -AssetNameFilters @("pipelines-agent","win","x64",".zip")
+        $file = Get-GithubLatestReleaseMatchingAssets -RepositoryUrl "https://github.com/microsoft/azure-pipelines-agent/releases" -AssetNameFilters @("pipelines-agent","win","x64",".zip")
         Write-FormatedText -PrefixText "$moduleName" -ContentText "$contentText" -SuffixText "Download Completed"
         Write-FormatedText -PrefixText "$moduleName" -ContentText "$contentText" -SuffixText "Extracting"
         $originalProgressPreference = $global:ProgressPreference

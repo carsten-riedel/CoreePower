@@ -343,9 +343,9 @@ function Initialize-DevToolPython {
         $targetdir = "$($global:CoreeDevToolsRoot)\PythonEmbeded"
         $found = Find-Links -url "https://www.python.org/downloads/windows/"
         $AssetNameFilters = @("embed","amd64",".zip")
-        $matchedUrl = Filter-ItemsWithLists -InputItems $found -WhiteListMatch $AssetNameFilters
+        $matchedUrl = Find-ItemsWithLists -InputItems $found -WhiteListMatch $AssetNameFilters
         $regexPattern = "-((\d+\.\d+\.\d+)([a-z]+\d+)*)-"
-        $result = Extract-MatchGroups -InputStrings $matchedUrl -RegexPattern $regexPattern
+        $result = Find-MatchGroups -InputStrings $matchedUrl -RegexPattern $regexPattern
         $Nested = NestedGroup-CustomObjectArray -InputArray $result -GroupBy @("Match2","Match3")
         $NestedSort = NestedSort-Hashtable -Hashtable $Nested -TryTreatKeyAsPossibleVersion $true
         $flattened = Flatten-Groups -GroupedHashtable $NestedSort

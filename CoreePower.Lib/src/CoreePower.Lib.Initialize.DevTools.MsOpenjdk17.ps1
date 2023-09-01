@@ -23,7 +23,7 @@ function Initialize-DevToolsMsOpenjdk17 {
         $msjdkuri = Find-Links -url "https://learn.microsoft.com/en-us/java/openjdk/download" 
         $stringUris = $msjdkuri | ForEach-Object { $_.AbsoluteUri }
         $foundUrls = @()
-        $foundUrls = Filter-ItemsWithLists -InputItems $stringUris -WhiteListMatch @("download-jdk","17","windows","x64",".zip") -BlackListMatch @("sha","debug")
+        $foundUrls = Find-ItemsWithLists -InputItems $stringUris -WhiteListMatch @("download-jdk","17","windows","x64",".zip") -BlackListMatch @("sha","debug")
         $file = Get-RedirectDownload2 -Url $foundUrls
         Write-FormatedText -PrefixText "$moduleName" -ContentText $contentText -SuffixText "Download Completed"
         Write-FormatedText -PrefixText "$moduleName" -ContentText $contentText -SuffixText "Extracting"

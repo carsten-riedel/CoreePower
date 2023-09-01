@@ -23,7 +23,7 @@ function Initialize-DevToolsGitActionsRunner {
         New-Item -ItemType Directory -Path "$targetdir" -Force | Out-Null
         Write-FormatedText -PrefixText "$moduleName" -ContentText "$contentText" -SuffixText "Directory create"
         Write-FormatedText -PrefixText "$moduleName" -ContentText "$contentText" -SuffixText "Download"
-        $file = Download-GithubLatestReleaseMatchingAssets -RepositoryUrl "https://github.com/actions/runner/releases" -AssetNameFilters @("win","x64",".zip") -BlackList @("noruntime","noexternals")
+        $file = Get-GithubLatestReleaseMatchingAssets -RepositoryUrl "https://github.com/actions/runner/releases" -AssetNameFilters @("win","x64",".zip") -BlackList @("noruntime","noexternals")
         Write-FormatedText -PrefixText "$moduleName" -ContentText "$contentText" -SuffixText "Download Completed"
         Write-FormatedText -PrefixText "$moduleName" -ContentText "$contentText" -SuffixText "Extracting"
         $originalProgressPreference = $global:ProgressPreference

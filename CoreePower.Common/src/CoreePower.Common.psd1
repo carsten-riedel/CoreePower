@@ -12,7 +12,7 @@
 RootModule = 'CoreePower.Common.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.0.13'
+ModuleVersion = '0.0.0.14'
 
 # Supported PSEditions
 CompatiblePSEditions = 'Desktop'
@@ -75,17 +75,17 @@ FunctionsToExport = 'Write-Notice', 'Write-FormatedText', 'Invoke-Prompt',
                'Get-ModulesLocal', 'Get-ModulesUpdatable', 'Remove-ModulesPrevious', 
                'Remove-Modules', 'Update-ModulesLatest', 'Get-CurrentModule', 
                'Split-Array', 'Find-ItemsContainingAllStrings', 
-               'Filter-ItemsWithLists', 'Extract-MatchGroups', 'IndexOfBytes', 
+               'Find-ItemsWithLists', 'Find-MatchGroups', 'IndexOfBytes', 
                'AddPathEnviromentVariable', 'AddEnviromentVariable', 
                'DeletePathEnviromentVariable', 'Copy-Recursive', 'New-TempDirectory', 
                'New-Directory', 'Remove-TempDirectory', 
-               'Update-TextInFileWithEncoding', 'Set-AsInvoker', 'Recursive-Copy', 
+               'Update-TextInFileWithEncoding', 'Set-AsInvoker', 'Copy-Recursive2', 
                'Find-FileRecursively', 'Find-FileDirRecursively', 
                'Get-RedirectDownload', 'Get-RedirectDownload2', 
                'Get-GithubLatestReleaseAssetUrls', 
-               'Invoke-GithubApiWithRateLimitMonitoring', 
-               'Monitor-GitHubRateLimit', 'Convert-UnixEpochToLocalDateTime', 
-               'Download-GithubLatestReleaseMatchingAssets', 'Download-String', 
+               'Invoke-GithubApiWithRateLimitMonitoring', 'Get-GitHubRateLimit', 
+               'Convert-UnixEpochToLocalDateTime', 
+               'Get-GithubLatestReleaseMatchingAssets', 'Get-HtmlString', 
                'Find-AHrefInHtml', 'Find-Links', 'Start-ProcessSilent', 
                'Test-InteractiveShell', 'Restart-Proc'
 
@@ -117,7 +117,7 @@ PrivateData = @{
         Tags = 'windows', 'CoreePower', 'CoreePower.Common', 'Module', 'lib', 'library'
 
         # A URL to the license for this module.
-        LicenseUri = 'https://www.powershellgallery.com/packages/CoreePower.Common/0.0.0.13/Content/LICENSE.txt'
+        LicenseUri = 'https://www.powershellgallery.com/packages/CoreePower.Common/0.0.0.14/Content/LICENSE.txt'
 
         # A URL to the main website for this project.
         # ProjectUri = ''

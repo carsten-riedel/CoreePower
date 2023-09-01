@@ -176,7 +176,7 @@ function Invoke-GithubApiWithRateLimitMonitoring {
                         $xRateLimitResetLocalTime = Convert-UnixEpochToLocalDateTime -UnixEpochTime $xRateLimitResetUnixEpochTime
                         $waitUntil = $xRateLimitResetLocalTime - [System.DateTime]::Now
                         Write-Host "API rate limit exceeded. Reset in $($waitUntil.Minutes) minutes $($waitUntil.Seconds) seconds. Monitoring rate limit for proxy changes..."
-                        Monitor-GitHubRateLimit -monitorMaxRetries $monitorRetries -secondsToSleep $monitorSeconds
+                        Get-GitHubRateLimit -monitorMaxRetries $monitorRetries -secondsToSleep $monitorSeconds
                         $retryCount++
                     } else {
                         throw "Rate limit exceeded. No X-RateLimit-Reset header found."
@@ -193,7 +193,7 @@ function Invoke-GithubApiWithRateLimitMonitoring {
 
 
 
-function Monitor-GitHubRateLimit {
+function Get-GitHubRateLimit {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param (
         
@@ -240,7 +240,7 @@ function Convert-UnixEpochToLocalDateTime {
 
 
 
-function Download-GithubLatestReleaseMatchingAssets {
+function Get-GithubLatestReleaseMatchingAssets {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param(
         [Parameter(Mandatory)]
@@ -252,7 +252,7 @@ function Download-GithubLatestReleaseMatchingAssets {
     )
 
     $assetUrls = Get-GithubLatestReleaseAssetUrls -RepositoryUrl "$RepositoryUrl"
-    $matchedUrl = Filter-ItemsWithLists -InputItems $assetUrls -WhiteListMatch $AssetNameFilters -BlackListMatch $BlackList
+    $matchedUrl = Find-ItemsWithLists -InputItems $assetUrls -WhiteListMatch $AssetNameFilters -BlackListMatch $BlackList
     $fileName = $matchedUrl.Split("/")[-1]
 
     $temporaryDir = Join-Path $env:TEMP ([System.Guid]::NewGuid().ToString())
@@ -269,7 +269,7 @@ function Download-GithubLatestReleaseMatchingAssets {
     return $downloadTargetLocation
 }
 
-function Download-String {
+function Get-HtmlString {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param (
         [Parameter(Mandatory)]
@@ -351,7 +351,7 @@ function Find-Links {
     }
    
 
-    $content = Download-String -Uri $uri
+    $content = Get-HtmlString -Uri $uri
     $links = Find-AHrefInHtml -url $url -html $content
     return $links
 }

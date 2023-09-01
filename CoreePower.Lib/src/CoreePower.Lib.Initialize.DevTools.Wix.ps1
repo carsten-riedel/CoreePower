@@ -18,7 +18,7 @@ function Initialize-DevToolsWix {
     Write-FormatedText -PrefixText "$moduleName" -ContentText "$contentText" -SuffixText "Check"
     if (-not(Get-Command "dark" -ErrorAction SilentlyContinue)) {
         Write-FormatedText -PrefixText "$moduleName" -ContentText "$contentText" -SuffixText "Download"
-        $file = Download-GithubLatestReleaseMatchingAssets -RepositoryUrl "https://github.com/wixtoolset/wix3/releases" -AssetNameFilters @("binaries",".zip")
+        $file = Get-GithubLatestReleaseMatchingAssets -RepositoryUrl "https://github.com/wixtoolset/wix3/releases" -AssetNameFilters @("binaries",".zip")
         Write-FormatedText -PrefixText "$moduleName" -ContentText "$contentText" -SuffixText "Download Completed" 
         Write-FormatedText -PrefixText "$moduleName" -ContentText "$contentText" -SuffixText "Extracting"    
         $ExtractTemporaryDir = New-TempDirectory
