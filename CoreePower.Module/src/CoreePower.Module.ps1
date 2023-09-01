@@ -1744,6 +1744,18 @@ function UpdateModule3 {
         Author = "$($Data.Author)"
     }
 
+    if ($Data.PowerShellVersion) {
+        $params["PowerShellVersion"] = $Data.PowerShellVersion
+    }
+
+    if ($Data.PowerShellHostName) {
+        $params["PowerShellHostName"] = $Data.PowerShellHostName
+    }
+    
+    if ($Data.PowerShellHostVersion) {
+        $params["PowerShellHostVersion"] = $Data.PowerShellHostVersion
+    }
+
     if ($Data.FunctionsToExport) {
         $params["FunctionsToExport"] = $Data.FunctionsToExport
     }

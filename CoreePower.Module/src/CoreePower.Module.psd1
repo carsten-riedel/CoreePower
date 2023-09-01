@@ -12,7 +12,7 @@
 RootModule = 'CoreePower.Module.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.0.63'
+ModuleVersion = '0.0.0.64'
 
 # Supported PSEditions
 CompatiblePSEditions = 'Desktop'
@@ -33,7 +33,7 @@ Copyright = '(c) Carsten Riedel. All rights reserved.'
 Description = 'A library for fast module creation'
 
 # Minimum version of the PowerShell engine required by this module
-PowerShellVersion = '5.1'
+# PowerShellVersion = ''
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -101,7 +101,7 @@ PrivateData = @{
         Tags = 'windows', 'CoreePower', 'CoreePower.Module', 'Module'
 
         # A URL to the license for this module.
-        LicenseUri = 'https://www.powershellgallery.com/packages/CoreePower.Module/0.0.0.63/Content/LICENSE.txt'
+        LicenseUri = 'https://www.powershellgallery.com/packages/CoreePower.Module/0.0.0.64/Content/LICENSE.txt'
 
         # A URL to the main website for this project.
         # ProjectUri = ''
