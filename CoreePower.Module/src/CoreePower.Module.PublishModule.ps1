@@ -71,7 +71,7 @@ function PublishModule {
     
       try {
         
-        Publish-Module -Path "$PublishFolder" -NuGetApiKey "$NuGetAPIKey" -Repository "PSGallery" -Verbose
+        Publish-Module -Path "$PublishFolder" -NuGetApiKey "$NuGetAPIKey" -Repository "PSGallery"
 
         $moduleName = Split-Path $MyInvocation.MyCommand.Module.Name -Leaf
         $moduleVersion = $MyInvocation.MyCommand.Module.Version
@@ -81,11 +81,11 @@ function PublishModule {
         
         if ($executable) {
             Write-Output "Git executable found at $($executable.Source) automatic git add -A, commit and push."
-            &git -C "$($manifest.Added_ContainingFolder)" add -A
-            &git -C "$($manifest.Added_ContainingFolder)" commit -m "Publish $($manifest.Added_PSD_BaseName) $($manifest.ModuleVersion)"
-            &git -C "$($manifest.Added_ContainingFolder)" tag "V$($manifest.ModuleVersion)"
-            &git -C "$($manifest.Added_ContainingFolder)" push 
-            &git -C "$($manifest.Added_ContainingFolder)" push --tags
+            &git -C "$($manifest.Added_ContainingFolder)" add -A | Out-Null
+            &git -C "$($manifest.Added_ContainingFolder)" commit -m "Publish $($manifest.Added_PSD_BaseName) $($manifest.ModuleVersion)" | Out-Null
+            &git -C "$($manifest.Added_ContainingFolder)" tag "V$($manifest.ModuleVersion)"  | Out-Null
+            &git -C "$($manifest.Added_ContainingFolder)" push  | Out-Null
+            &git -C "$($manifest.Added_ContainingFolder)" push --tags  | Out-Null
         }
         else {
             Write-Output "Git executable not found in PATH environment variable."
