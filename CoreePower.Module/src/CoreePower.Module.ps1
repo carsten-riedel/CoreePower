@@ -608,6 +608,7 @@ function PublishModule5 {
         $manifest = $manifest[0]
     }
 
+    $PublishFolder = $manifest.Added_ContainingFolder
     #update
     if (-not($manifest.Added_ContainingFolderPublish))
     { 
@@ -615,7 +616,7 @@ function PublishModule5 {
         $tempdir = New-TempDirectory
         $tempmoduledir = New-Directory -Directory "$tempdir\$($manifest.Added_PSD_BaseName)"
         Copy-Recursive -Source "$($manifest.Added_ContainingFolder)" -Destination "$tempmoduledir"
-        $manifest.Added_ContainingFolder = $tempmoduledir
+        $PublishFolder = $tempmoduledir
     }
    
     $keyFileFullName = Get-ChildItem -Path $manifest.Added_ContainingFolder -Recurse | Where-Object { $_.Name -eq ".key" } | Select-Object FullName
@@ -637,7 +638,7 @@ function PublishModule5 {
     
       try {
         
-        Publish-Module -Path "$($manifest.Added_ContainingFolder)" -NuGetApiKey "$NuGetAPIKey" -Repository "PSGallery" -Verbose
+        Publish-Module -Path "$PublishFolder" -NuGetApiKey "$NuGetAPIKey" -Repository "PSGallery" -Verbose
 
         $moduleName = Split-Path $MyInvocation.MyCommand.Module.Name -Leaf
         $moduleVersion = $MyInvocation.MyCommand.Module.Version
