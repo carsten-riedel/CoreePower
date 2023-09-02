@@ -1923,9 +1923,14 @@ function UpdateModule4 {
 
     $manifest = Read-Manifests -ManifestLocation "$Location"
 
-    if (-not($manifest.Count -eq 1))
+    if ($manifest.Count -ne 1)
     {
         Write-Error "Error: None or Multiple PowerShell module manifest files found. Please ensure that there is one .psd1 file specified and try again."
+        foreach($item in $manifest)
+        {
+            Write-Warning "$($item.RootModule)"
+        }
+        
         return
     }
 
