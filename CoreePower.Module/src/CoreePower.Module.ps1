@@ -1919,6 +1919,7 @@ function UpdateModule4 {
     }
 
     $Location = $Location.TrimEnd([IO.Path]::DirectorySeparatorChar)
+    Write-Warning "$Location"
 
     $manifest = Read-Manifests -ManifestLocation "$Location"
 
