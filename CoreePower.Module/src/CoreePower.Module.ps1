@@ -1916,7 +1916,6 @@ function UpdateModule4 {
     if ($Location -eq "")
     {
         $Location = Get-Location
-        $Location = $Location.Path
     }
 
     $Location = $Location.TrimEnd([IO.Path]::DirectorySeparatorChar)

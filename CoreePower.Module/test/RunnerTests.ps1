@@ -17,5 +17,13 @@ function Test-Get-WorkspacePowerShellModuleManifestsDataxxx {
     return $retval
 }
 
+function Test-UpdateModule4 {
+    param()
+    [bool]$retval = $false;
+    UpdateModule4
+    $retval = $true
+    return $retval
+}
+
 
 
