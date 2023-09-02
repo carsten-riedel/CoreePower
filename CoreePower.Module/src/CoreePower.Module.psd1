@@ -12,7 +12,7 @@
 RootModule = 'CoreePower.Module.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.0.69'
+ModuleVersion = '0.0.0.70'
 
 # Supported PSEditions
 CompatiblePSEditions = 'Desktop'
@@ -70,9 +70,10 @@ PowerShellVersion = '5.1'
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = 'PublishModule', 'PublishModule2', 'PublishModule3', 'PublishModule4', 
-               'UpdateModule', 'UpdateModule2', 'UpdateModule3', 'CreateModule', 
-               'CreateModule2', 'CreateModule3', 'ReadModulePsd', 'ListModule', 
-               'Remove-ManagementModules', 'Read-Manifests'
+               'PublishModule5', 'UpdateModule', 'UpdateModule2', 'UpdateModule3', 
+               'UpdateModule4', 'CreateModule', 'CreateModule2', 'CreateModule3', 
+               'ReadModulePsd', 'ListModule', 'Remove-ManagementModules', 
+               'Read-Manifests'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
@@ -82,7 +83,7 @@ VariablesToExport = @()
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
 AliasesToExport = 'cppm', 'cpum', 'cppm2', 'cpcm', 'cpcm2', 'cpcm3', 'cplm', 'cpum2', 'cpum3', 
-               'cppm3', 'cppm4', 'rmpsd'
+               'cpum4', 'cppm3', 'cppm4', 'cppm5', 'rmpsd'
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()
@@ -102,7 +103,7 @@ PrivateData = @{
         Tags = 'windows', 'CoreePower', 'CoreePower.Module', 'Module', 'Standalone'
 
         # A URL to the license for this module.
-        LicenseUri = 'https://www.powershellgallery.com/packages/CoreePower.Module/0.0.0.69/Content/LICENSE.txt'
+        LicenseUri = 'https://www.powershellgallery.com/packages/CoreePower.Module/0.0.0.70/Content/LICENSE.txt'
 
         # A URL to the main website for this project.
         # ProjectUri = ''

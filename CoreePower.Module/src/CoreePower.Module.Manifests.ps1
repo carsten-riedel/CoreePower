@@ -92,17 +92,48 @@ function Read-ManifestsFile {
         $indexCloseBracket = $PSCustomObjectString.LastIndexOf("}")
         $PSCustomObjectString = $PSCustomObjectString.Substring(0,  $indexCloseBracket ) + $PSCustomObjectString.Substring($indexCloseBracket  + 1)
         
+        $containingFolder = Get-Item $itemFileInfo.DirectoryName
+
+        $PublishModuleFolder = ("$($containingFolder.BaseName)" -eq "$($itemFileInfo.BaseName)")
+
+        if ($PublishModuleFolder)
+        {
+            $PSCustomObjectString += "Added_ContainingFolderPublish = `$true"
+            $PSCustomObjectString += "`n"
+        }
+        else {
+            $PSCustomObjectString += "Added_ContainingFolderPublish = `$false"
+            $PSCustomObjectString += "`n"
+        }
+
         # Add additional properties to the PSCustomObject string
-        $PSCustomObjectString += "PSDFullName = '$FullName'"
+        $PSCustomObjectString += "Added_ContainingFolder = '$($containingFolder.FullName)'"
         $PSCustomObjectString += "`n"
-        $PSCustomObjectString += "PSDBaseName = '$($itemFileInfo.BaseName)'"
+        $PSCustomObjectString += "Added_PSD_FullName = '$FullName'"
         $PSCustomObjectString += "`n"
-        $PSCustomObjectString += "PSDDirectoryName = '$($itemFileInfo.DirectoryName)'"
+        $PSCustomObjectString += "Added_PSD_BaseName = '$($itemFileInfo.BaseName)'"
+        $PSCustomObjectString += "`n"
+        $PSCustomObjectString += "Added_PSD_DirectoryName = '$($itemFileInfo.DirectoryName)'"
     
         # Evaluate the string into a PSCustomObject
         $result = Invoke-Expression "[PSCustomObject]@{$PSCustomObjectString}"
 
-        return $result
+        $path = Join-Path -Path $($itemFileInfo.DirectoryName) -ChildPath $($result.RootModule)
+
+        if (-not(Test-Path -Path "$path" -PathType Leaf))
+        {
+            $PSCustomObjectString += "`n"
+            $PSCustomObjectString += "Added_RootModule_FullName = 'null'"
+            $retval = Invoke-Expression "[PSCustomObject]@{$PSCustomObjectString}"
+        }
+        else {
+            $PSCustomObjectString += "`n"
+            $PSCustomObjectString += "Added_RootModule_FullName = '$($path)'"
+            $retval = Invoke-Expression "[PSCustomObject]@{$PSCustomObjectString}"
+        }
+        
+
+        return $retval
     } else {
         return
     }

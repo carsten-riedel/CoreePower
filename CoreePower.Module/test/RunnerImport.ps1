@@ -1,11 +1,9 @@
 
 Write-Host "RunnerImports: $($MyInvocation.MyCommand.Source) called."
 
-$parent = (Get-Item ([System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path))).Parent
-$import = $parent.FullName +"\src\$($parent.Name).psd1"
-$psd = ReadPsdx -FullName "$import"
-
-$reqmods = ($psd).RequiredModules
+$ParentFolder = ((Get-Item ((Get-Item $MyInvocation.MyCommand.Source).DirectoryName)).Parent).FullName
+$ParentFolderContainingManifest = Read-Manifests -ManifestLocation "$ParentFolder"
+$reqmods = ($ParentFolderContainingManifest).RequiredModules
 
 foreach ($item in $reqmods)
 {
@@ -23,7 +21,7 @@ foreach ($item in $reqmods)
    
 }
 
-Import-Module "$($psd.PSDDirectoryName)\$($psd.RootModule)" -Force
+Import-Module "$($ParentFolderContainingManifest.Added_RootModule_FullName)" -Force
 Write-Host "Imported Module: $import"
 
 . "$PSScriptRoot\RunnerTests.ps1"

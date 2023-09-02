@@ -442,6 +442,7 @@ function PublishModule3 {
 
 }
 
+
 function PublishModule4 {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     [alias("cppm4")]   
@@ -574,6 +575,91 @@ function PublishModule4 {
     }
     finally {
         if (-not((Split-Path -Path $psm1BaseName.DirectoryName -Leaf) -eq $psd1BaseName.BaseName))
+        { 
+            Remove-TempDirectory -TempDirectory $tempdir
+            Write-Warning  "Removed temp directory $tempdir"
+        }
+    }
+
+}
+
+function PublishModule5 {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
+    [alias("cppm5")]   
+    param(
+        [string] $Location = ""
+    )
+
+    if ($Location -eq "")
+    {
+        $Location = Get-Location
+        $Location = $Location.Path
+    }
+
+    $Location = $Location.TrimEnd([IO.Path]::DirectorySeparatorChar)
+
+    $manifest = Read-Manifests -ManifestLocation "$Location"
+
+    if (-not($manifest.Count -eq 1))
+    {
+        Write-Error "Error: None or Multiple PowerShell module manifest files found. Please ensure that there is one .psd1 file specified and try again."
+        return
+    }
+
+    #update
+    if (-not($manifest.Added_ContainingFolderPublish))
+    { 
+        Write-Warning  "Warning: The publish path has not the name of the module. Copying source for publish to a temporary directory."
+        $tempdir = New-TempDirectory
+        $tempmoduledir = New-Directory -Directory "$tempdir\$($manifest.PSD_BaseName)"
+        Copy-Recursive -Source "$($manifest.Added_ContainingFolder)" -Destination "$tempmoduledir"
+        $manifest.Added_ContainingFolder = $tempmoduledir
+    }
+   
+    $keyFileFullName = Get-ChildItem -Path $manifest.Added_ContainingFolder -Recurse | Where-Object { $_.Name -eq ".key" } | Select-Object FullName
+    if($null -eq $keyFileFullName)
+    {
+        Write-Error  "Error: A .key file containing the NuGet API key is missing from the publish directory. Please add the file and try again."
+        return
+    }
+
+    $gitignoreFullName = Get-ChildItem -Path $manifest.Added_ContainingFolder -Recurse | Where-Object { $_.Name -eq ".gitignore" } | Select-Object FullName
+    if($null -eq $gitignoreFullName)
+    {
+        Write-Warning  "Warning: A .gitignore file is not present, the NuGet API key may be exposed in the publish directory. Please include a .gitignore file with ignore statements for the key to prevent unauthorized access."
+    }
+
+    [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+
+    [string]$NuGetAPIKey = Get-Content -Path "$($keyFileFullName.FullName)"
+    
+      try {
+        
+        Publish-Module -Path "$($manifest.Added_ContainingFolder)" -NuGetApiKey "$NuGetAPIKey" -Repository "PSGallery" -Verbose
+
+        $moduleName = Split-Path $MyInvocation.MyCommand.Module.Name -Leaf
+        $moduleVersion = $MyInvocation.MyCommand.Module.Version
+        Write-Output "Publish with $moduleName $moduleVersion."
+
+        $executable = Get-Command "git" -ErrorAction SilentlyContinue
+        
+        if ($executable) {
+            Write-Output "Git executable found at $($executable.Source) automatic git add -A, commit and push."
+            &git -C "$($manifest.Added_ContainingFolder)" add -A
+            &git -C "$($manifest.Added_ContainingFolder)" commit -m "Publish $($manifest.Added_PSD_BaseName) $($manifest.ModuleVersion)"
+            &git -C "$($manifest.Added_ContainingFolder)" tag "V$($manifest.ModuleVersion)"
+            &git -C "$($manifest.Added_ContainingFolder)" push 
+            &git -C "$($manifest.Added_ContainingFolder)" push --tags
+        }
+        else {
+            Write-Output "Git executable not found in PATH environment variable."
+        }
+    }
+    catch {
+        Write-Error "Failed to publish module: $($_.Exception.Message)"
+    }
+    finally {
+        if (-not($manifest.Added_ContainingFolderPublish))
         { 
             Remove-TempDirectory -TempDirectory $tempdir
             Write-Warning  "Removed temp directory $tempdir"
@@ -1819,6 +1905,126 @@ function UpdateModule3 {
     
     Write-Warning "$($PowerShellModuleManifest.FullName) version is set to $($Data.ModuleVersion)"
 }
+
+function UpdateModule4 {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
+    [alias("cpum4")]
+    param(
+        [string] $Location = ""
+    )
+
+    if ($Location -eq "")
+    {
+        $Location = Get-Location
+        $Location = $Location.Path
+    }
+
+    $Location = $Location.TrimEnd([IO.Path]::DirectorySeparatorChar)
+
+    $manifest = Read-Manifests -ManifestLocation "$Location"
+
+    if (-not($manifest.Count -eq 1))
+    {
+        Write-Error "Error: None or Multiple PowerShell module manifest files found. Please ensure that there is one .psd1 file specified and try again."
+        return
+    }
+
+    if (-not(Test-Path -Path $manifest.Added_RootModule_FullName -PathType Leaf))
+    {
+        Write-Error "Error: Root module not found. $($manifest.Added_RootModule_FullName)"
+        return
+    }
+
+    $ver = [Version]$manifest.ModuleVersion
+    $newver = [Version]::new($ver.Major, $ver.Minor, $ver.Build, ($ver.Revision + 1))
+    $manifest.ModuleVersion = [string]$newver
+    $manifest.PrivateData.PSData.LicenseUri = $manifest.PrivateData.PSData.LicenseUri.Replace($ver, $newver)
+
+    $params = @{
+        Path = "$($manifest.Added_PSD_FullName)"
+        RootModule = "$($manifest.RootModule)"
+        ModuleVersion = "$($manifest.ModuleVersion)"
+        GUID = "$($manifest.GUID)"
+        Description = "$($manifest.Description)"
+        Author = "$($manifest.Author)"
+    }
+
+    if ($manifest.PowerShellVersion) {
+        $params["PowerShellVersion"] = $manifest.PowerShellVersion
+    }
+
+    if ($manifest.PowerShellHostName) {
+        $params["PowerShellHostName"] = $manifest.PowerShellHostName
+    }
+    
+    if ($manifest.PowerShellHostVersion) {
+        $params["PowerShellHostVersion"] = $manifest.PowerShellHostVersion
+    }
+
+    if ($manifest.FunctionsToExport) {
+        $params["FunctionsToExport"] = $manifest.FunctionsToExport
+    }
+
+    if ($manifest.AliasesToExport) {
+        $params["AliasesToExport"] = $manifest.AliasesToExport
+    }
+
+    if ($manifest.VariablesToExport) {
+        $params["VariablesToExport"] = $manifest.VariablesToExport
+    }
+
+    if ($manifest.CmdletsToExport) {
+        $params["CmdletsToExport"] = $manifest.CmdletsToExport
+    }
+
+    if ($manifest.RequiredModules) {
+        $params["RequiredModules"] = $manifest.RequiredModules
+    }
+
+    if ($manifest.CompanyName) {
+        $params["CompanyName"] = $manifest.CompanyName
+    }
+
+    if ($manifest.CompatiblePSEditions) {
+        $params["CompatiblePSEditions"] = $manifest.CompatiblePSEditions
+    }
+
+    if ($manifest.PrivateData.PSData.Tags) {
+        $params["Tags"] = $($manifest.PrivateData.PSData.Tags)
+    }
+
+    if ($manifest.PrivateData.PSData.ReleaseNotes) {
+        $params["ReleaseNotes"] = "$($manifest.PrivateData.PSData.ReleaseNotes)"
+    }
+
+    if ($manifest.PrivateData.PSData.LicenseUri) {
+        $params["LicenseUri"] = "$($manifest.PrivateData.PSData.LicenseUri)"
+    }
+
+    if ($manifest.PrivateData.PSData.IconUri) {
+        $params["IconUri"] = "$($manifest.PrivateData.PSData.IconUri)"
+    }
+
+    if ($manifest.PrivateData.PSData.ProjectUri) {
+        $params["ProjectUri"] = "$($manifest.PrivateData.PSData.ProjectUri)"
+    }
+
+    # Wildcard fixes
+    if (-not($params["CmdletsToExport"]))
+    {
+        $params["CmdletsToExport"] = ""
+    }
+
+    if (-not($params["VariablesToExport"]))
+    {
+        $params["VariablesToExport"] = ""
+    }
+
+    New-ModuleManifest @params
+    
+    Write-Warning "$($manifest.Added_PSD_FullName) version is set to $($manifest.ModuleVersion)"
+}
+
 
 function ReadModulePsd {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
