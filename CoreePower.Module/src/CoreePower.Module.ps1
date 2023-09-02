@@ -1919,22 +1919,16 @@ function UpdateModule4 {
     }
 
     $Location = $Location.TrimEnd([IO.Path]::DirectorySeparatorChar)
-    Write-Warning "$Location"
-
-    $Location = "C:\base\github.com\carsten-riedel\CoreePower\CoreePower.Module"
-    $manifest = Read-Manifests -ManifestLocation "$Location"
-
-    Write-Warning "cnt $($manifest.Length)"
+    
+    $manifest = @(Read-Manifests -ManifestLocation "$Location")
 
     if ($manifest.Length -ne 1)
     {
         Write-Error "Error: None or Multiple PowerShell module manifest files found. Please ensure that there is one .psd1 file specified and try again."
-        foreach($item in $manifest)
-        {
-            Write-Warning "$($item.RootModule)"
-        }
-        
         return
+    }
+    else{
+        $manifest = $manifest[0]
     }
 
     if (-not(Test-Path -Path $manifest.Added_RootModule_FullName -PathType Leaf))
