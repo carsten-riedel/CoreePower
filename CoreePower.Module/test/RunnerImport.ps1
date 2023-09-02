@@ -18,7 +18,6 @@ foreach ($item in $reqmods)
     } else {
         Install-Module -Name "$($item.ModuleName)" -Force
     }
-   
 }
 
 Import-Module "$($ParentFolderContainingManifest.Added_RootModule_FullName)" -Force

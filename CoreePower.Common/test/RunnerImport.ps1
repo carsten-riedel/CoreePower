@@ -1,14 +1,14 @@
 
-Write-Host "RunnerImports: $($MyInvocation.MyCommand.Source) called in Mode: $Mode"
+Write-Host "RunnerImports: $($MyInvocation.MyCommand.Source) called."
 
-$parent = (Get-Item ([System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path))).Parent
-$import = $parent.FullName +"\src\$($parent.Name).$($Mode)1"
-
-$reqmods = (ReadModulePsd -SearchRoot "$import").RequiredModules
+$ParentFolder = ((Get-Item ((Get-Item $MyInvocation.MyCommand.Source).DirectoryName)).Parent).FullName
+$ParentFolderContainingManifest = Read-Manifests -ManifestLocation "$ParentFolder"
+$reqmods = ($ParentFolderContainingManifest).RequiredModules
 
 foreach ($item in $reqmods)
 {
     $module = Get-Module -ListAvailable -Name $item.ModuleName | Sort-Object Version -Descending | Select-Object -First 1
+
     if ($module) {
         if ($module.Version -ge $item.ModuleVersion) {
             Write-Host "The module is available and meets the minimum version requirement."
@@ -20,7 +20,7 @@ foreach ($item in $reqmods)
     }
 }
 
-Import-Module "$import" -Force
+Import-Module "$($ParentFolderContainingManifest.Added_RootModule_FullName)" -Force
 Write-Host "Imported Module: $import"
 
 . "$PSScriptRoot\RunnerTests.ps1"
