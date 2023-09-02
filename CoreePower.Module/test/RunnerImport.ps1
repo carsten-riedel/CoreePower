@@ -29,10 +29,10 @@ Write-Host "Dot sourced tests: $($PSScriptRoot)\RunnerTests.ps1"
 $retvals = @()
 $retval = $false
 
-PublishModule -Location "C:\base\github.com\carsten-riedel\CoreePower\CoreePower.Module"
+
 
 #Add addtional test functions here
-$functionName = "Test-UpdateModule4"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
+$functionName = "Test-UpdateModule"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
 $functionName = "Test-Get-WorkspacePowerShellModuleManifestsDataxxx"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
 $functionName = "Test-ReadPsdxxx"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
 

@@ -3,7 +3,7 @@
 function Test-ReadPsdxxx {
     param()
     [bool]$retval = $false;
-    $x = Read-ManifestsFile -FullName "C:\temp"
+    Read-ManifestsFile -FullName "C:\temp"
     $retval = $true
     return $retval
 }
@@ -11,16 +11,16 @@ function Test-ReadPsdxxx {
 function Test-Get-WorkspacePowerShellModuleManifestsDataxxx {
     param()
     [bool]$retval = $false;
-    $x = Read-Manifests -ManifestLocation "C:\Temp\CoreePower\CoreePower.Config\src\"
-    $y = Read-Manifests -ManifestLocation "C:\Temp\"
+    Read-Manifests -ManifestLocation "C:\Temp\CoreePower\CoreePower.Config\src\"
+    Read-Manifests -ManifestLocation "C:\Temp\"
     $retval = $true
     return $retval
 }
 
-function Test-UpdateModule4 {
+function Test-UpdateModule {
     param()
     [bool]$retval = $false;
-    UpdateModule4
+    UpdateModule
     $retval = $true
     return $retval
 }

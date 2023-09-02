@@ -5,7 +5,7 @@ $workspaceFolder = (Get-Location).Path
 . "$workspaceFolder\.vscode\required.ps1"
 
 Write-Host "launch.ps1 Ensure CoreePower.Module for further testing."
-Resolve-CoreePowerModule -Workspace "$workspaceFolder" -MinVersion "0.0.0.66"
+Resolve-CoreePowerModule -Workspace "$workspaceFolder" -MinVersion "0.0.0.86"
 
 Write-Host "launch.ps1 Removing modules in conjunction to the test."
 Remove-ManagementModules -ModuleNames @("CoreePower.Common","CoreePower.Lib","CoreePower.Config") -Scope CurrentUser
