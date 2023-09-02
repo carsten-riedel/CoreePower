@@ -23,8 +23,7 @@
 function Read-Manifests {
     [Diagnostics.CodeAnalysis.SuppressMessage("PSUseApprovedVerbs","")]
     param (
-        [Parameter(Mandatory)]
-        [string]$ManifestLocation
+        [string]$ManifestLocation = ""
     )
 
     if (Test-Path -Path "$ManifestLocation" -PathType Container)
