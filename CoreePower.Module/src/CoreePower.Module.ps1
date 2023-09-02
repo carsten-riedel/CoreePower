@@ -2021,6 +2021,8 @@ function UpdateModule4 {
     }
 
     New-ModuleManifest @params
+
+    (Get-Content -path "$($manifest.Added_PSD_FullName)") | Set-Content -Encoding default -Path "$($manifest.Added_PSD_FullName)"
     
     Write-Warning "$($manifest.Added_PSD_FullName) version is set to $($manifest.ModuleVersion)"
 }
