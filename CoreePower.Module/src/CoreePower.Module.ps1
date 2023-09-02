@@ -593,17 +593,19 @@ function PublishModule5 {
     if ($Location -eq "")
     {
         $Location = Get-Location
-        $Location = $Location.Path
     }
 
     $Location = $Location.TrimEnd([IO.Path]::DirectorySeparatorChar)
+    
+    $manifest = @(Read-Manifests -ManifestLocation "$Location")
 
-    $manifest = Read-Manifests -ManifestLocation "$Location"
-
-    if (-not($manifest.Count -eq 1))
+    if ($manifest.Length -ne 1)
     {
         Write-Error "Error: None or Multiple PowerShell module manifest files found. Please ensure that there is one .psd1 file specified and try again."
         return
+    }
+    else{
+        $manifest = $manifest[0]
     }
 
     #update
