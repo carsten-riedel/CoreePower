@@ -1,4 +1,4 @@
-#CreateModule -Path "C:\temp" -ModuleName "CoreePower.Module" -Description "Library for module management" -Author "Carsten Riedel" 
+#CreateModule -ModuleName "CoreePower.Dev" -Description "Library for module management" -Author "Carsten Riedel"
 function CreateModule {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     [alias("cpcm")]
@@ -100,6 +100,7 @@ function SampleFunction {
 
     $testrunner = @"
 
+    Write-Host "RunnerImports: `$(`$MyInvocation.MyCommand.Source) called."
     `$ParentFolder = ((Get-Item ((Get-Item `$MyInvocation.MyCommand.Source).DirectoryName)).Parent).FullName
     `$ParentFolderContainingManifest = Read-Manifests -ManifestLocation "`$ParentFolder"
     `$reqmods = (`$ParentFolderContainingManifest).RequiredModules
