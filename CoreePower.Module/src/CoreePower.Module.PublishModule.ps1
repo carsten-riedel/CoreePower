@@ -39,7 +39,7 @@ function PublishModule {
         New-Item -ItemType Directory -Path "$tempmoduledir" -Force | Out-Null
 
         Get-ChildItem "$($manifest.Added_ContainingFolder)" -Recurse | Foreach-Object {
-            $targetPath = $_.FullName -replace [regex]::Escape("$($manifest.Added_ContainingFolder)"), $Destination
+            $targetPath = $_.FullName -replace [regex]::Escape("$($manifest.Added_ContainingFolder)"), $tempmoduledir
             if ($_.PSIsContainer) {
                 New-Item -ItemType Directory -Path $targetPath -Force | Out-Null
             }

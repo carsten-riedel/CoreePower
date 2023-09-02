@@ -12,7 +12,7 @@
 RootModule = 'CoreePower.Module.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.0.85'
+ModuleVersion = '0.0.0.86'
 
 # Supported PSEditions
 CompatiblePSEditions = 'Desktop'
@@ -69,11 +69,8 @@ PowerShellVersion = '5.1'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'PublishModule', 'PublishModule2', 'PublishModule3', 'PublishModule4', 
-               'PublishModule5', 'UpdateModule', 'UpdateModule2', 'UpdateModule3', 
-               'UpdateModule4', 'CreateModule', 'CreateModule2', 'CreateModule3', 
-               'ReadModulePsd', 'ListModule', 'Remove-ManagementModules', 
-               'Read-Manifests'
+FunctionsToExport = 'PublishModule', 'UpdateModule', 'CreateModule', 'ListModule', 
+               'Remove-ManagementModules', 'Read-Manifests'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
