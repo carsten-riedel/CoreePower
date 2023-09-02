@@ -12,7 +12,7 @@
 RootModule = 'CoreePower.Module.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.0.80'
+ModuleVersion = '0.0.0.81'
 
 # Supported PSEditions
 CompatiblePSEditions = 'Desktop'

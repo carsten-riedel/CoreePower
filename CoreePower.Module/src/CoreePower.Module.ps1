@@ -613,7 +613,7 @@ function PublishModule5 {
     { 
         Write-Warning  "Warning: The publish path has not the name of the module. Copying source for publish to a temporary directory."
         $tempdir = New-TempDirectory
-        $tempmoduledir = New-Directory -Directory "$tempdir\$($manifest.PSD_BaseName)"
+        $tempmoduledir = New-Directory -Directory "$tempdir\$($manifest.Added_PSD_BaseName)"
         Copy-Recursive -Source "$($manifest.Added_ContainingFolder)" -Destination "$tempmoduledir"
         $manifest.Added_ContainingFolder = $tempmoduledir
     }
