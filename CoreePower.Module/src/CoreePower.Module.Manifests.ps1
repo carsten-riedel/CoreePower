@@ -24,7 +24,6 @@ function Read-Manifests {
     [Diagnostics.CodeAnalysis.SuppressMessage("PSUseApprovedVerbs","")]
     param (
         [Parameter(Mandatory)]
-        [ValidateNotNullOrEmpty()]
         [string]$ManifestLocation
     )
 
