@@ -21,7 +21,8 @@
     This will read the specified .psd1 file and parse it into a PSCustomObject.
 #>
 function Read-Manifests {
-    [Diagnostics.CodeAnalysis.SuppressMessage("PSUseApprovedVerbs","")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
+    [alias("rmpsd")]
     param (
         [string]$ManifestLocation = ""
     )

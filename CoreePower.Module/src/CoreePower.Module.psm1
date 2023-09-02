@@ -10,4 +10,5 @@
 . "$PSScriptRoot\CoreePower.Module.UpdateModule.ps1"
 . "$PSScriptRoot\CoreePower.Module.PublishModule.ps1"
 . "$PSScriptRoot\CoreePower.Module.CreateModule.ps1"
+. "$PSScriptRoot\CoreePower.Module.ListModule.ps1"
 
