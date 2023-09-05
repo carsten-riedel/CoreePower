@@ -10,12 +10,12 @@ function Initialize-PackageManagement {
     
     # Get the remote version of PowerShellGet from PSGallery
     $remotePowerShellGetVersion = [Version](Find-Module -Name PackageManagement -Repository PSGallery).Version
+
+    # Store the original preference for showing progress
+    $originalProgressPreference = $global:ProgressPreference
     
     # Compare local and remote versions
     if ($localPowerShellGetVersion -lt $remotePowerShellGetVersion) {
-
-        # Store the original preference for showing progress
-        $originalProgressPreference = $global:ProgressPreference
         
         # Temporarily disable the progress bar for this session
         $global:ProgressPreference = 'SilentlyContinue'
@@ -23,9 +23,7 @@ function Initialize-PackageManagement {
         # Install the newer version of PowerShellGet
         # - Force, AllowClobber, and SkipPublisherCheck are used to automate the installation
         Install-Module -Name PackageManagement -RequiredVersion $remotePowerShellGetVersion.ToString() -Scope CurrentUser -Repository PSGallery -Force -AllowClobber -SkipPublisherCheck | Out-Null
-        
-        # Restore the original progress preference
-        $global:ProgressPreference = $originalProgressPreference
+
     }
     
     # Restore the original progress preference (in case of exceptions or early returns, this would still execute)
