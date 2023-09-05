@@ -12,7 +12,7 @@ Remove-ManagementModules -ModuleNames @("CoreePower.Common","CoreePower.Lib","Co
 
 Write-Host "launch.ps1 Importing the test script."
 
-. "$workspaceFolder\CoreePower.Module\test\RunnerImport.ps1"
+. "$workspaceFolder\CoreePower.Lib\test\RunnerImport.ps1"
 
 #CreateModule3  -ModuleName "CoreePower.Foo" -Description "Library for module management" -Author "Carsten Riedel"
 #. "$($parent.FullName)\CoreePower.Foo\test\RunnerImport.ps1"

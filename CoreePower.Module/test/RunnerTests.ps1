@@ -25,5 +25,15 @@ function Test-UpdateModule {
     return $retval
 }
 
+function Test-Get-ModulesInfoExtendedx {
+    param()
+    [bool]$retval = $false;
+    Get-ModulesInfoExtendedx -ModuleNames @("CoreePower.*")
+    $retval = $true
+    return $retval
+}
+
+
+
 
 

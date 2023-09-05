@@ -32,10 +32,7 @@ $retval = $false
 
 
 #Add addtional test functions here
-$functionName = "Test-UpdateModule"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
-$functionName = "Test-Get-WorkspacePowerShellModuleManifestsDataxxx"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
-$functionName = "Test-ReadPsdxxx"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
-
+$functionName = "Test-Get-ModulesInfoExtendedx"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
 
 
 $allSucceeded = $true

@@ -71,7 +71,6 @@ function Initialize-DevToolsBase {
     $moduleName , $moduleVersion = Get-CurrentModule 
     $updatesDone = $false
 
-
     Write-FormatedText -PrefixText "$moduleName" -ContentText "Initialize-NugetPackageProvider" -SuffixText "Initiated"
     Initialize-NugetPackageProvider -Scope $Scope
     Write-FormatedText -PrefixText "$moduleName" -ContentText "Initialize-NugetPackageProvider" -SuffixText "Completed"
@@ -110,7 +109,6 @@ function Initialize-DevTools {
     Initialize-DevToolsInitiated
 
     $UpdatesDoneDevToolsBase = Initialize-DevToolsBase
-    $UpdatesDoneDevToolsCoreeModules = Initialize-DevToolsCoreeModules
 
     $UpdatesDoneDevTools7z = Initialize-DevTools7z
     $UpdatesDoneDevToolsGit = Initialize-DevToolsGit
@@ -128,15 +126,10 @@ function Initialize-DevTools {
     $UpdatesDoneDevToolMsOpenjdk17 = Initialize-DevToolsMsOpenjdk17
     $UpdatesDoneDevToolAzurePipelinesAgent = Initialize-DevToolsAzurePipelinesAgent
     $UpdatesDoneDevToolsBaget = Initialize-DevToolsBaget
-    
-
-    $UpdatesDoneDevToolsCoreeLibSelf = Initialize-DevToolsCoreeLibSelf
 
     $RestartRequired = $RestartRequired -or $UpdatesDoneDevToolsBase
     $RestartRequired = $RestartRequired -or $UpdatesDoneDevToolsCoreeModules
     $RestartRequired = $RestartRequired -or $UpdatesDoneDevToolsCoreeLibSelf
-
-
 
     Initialize-DevToolsCompleted -RestartRequired $RestartRequired
 
