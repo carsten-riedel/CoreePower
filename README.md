@@ -17,7 +17,7 @@ git -C "C:\temp" clone https://github.com/carsten-riedel/CoreePower.git
 https://github.com/carsten-riedel/CoreePower/tree/main/CoreePower.Lib/
 
 ## CoreePower.Module [![nightly](https://github.com/carsten-riedel/CoreePower/actions/workflows/nightly.yml/badge.svg)](https://github.com/carsten-riedel/CoreePower/actions/workflows/nightly.yml)
-#### This module contains mainly functionality for faster publishing in vscode. Currently using UpdateModule3 and PublishModule4 for publishing new versions.
+#### This module contains mainly functionality for faster publishing in vscode. Currently using UpdateModule and PublishModule for publishing new versions.
 https://github.com/carsten-riedel/CoreePower/tree/main/CoreePower.Module/
 
 ## CoreePower.Config
