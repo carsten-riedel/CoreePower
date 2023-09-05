@@ -42,7 +42,10 @@ jobs:
    
       - name: Run Initialize-CorePowerLatest
         run: Initialize-CorePowerLatest
-        
+
+      - name: Install CoreePower.Module
+        run: Install-Module CoreePower.Module -Scope CurrentUser -Force -AllowClobber
+      
       - name: Sample secret step
         run: echo "The secret is ${{ secrets.YOUR_SECRET }}"
         
