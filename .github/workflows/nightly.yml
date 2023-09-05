@@ -38,7 +38,7 @@ jobs:
         run: Write-Output $PSVersionTable
         
       - name: Install CoreePower.Lib
-        run: Install-Module CoreePower.Lib -Scope CurrentUser -Force
+        run: Install-Module CoreePower.Lib -Scope CurrentUser -Force -AllowClobber
    
       - name: Run Initialize-CorePowerLatest
         run: Initialize-CorePowerLatest
