@@ -25,6 +25,8 @@ function Initialize-PowerShellGet {
     
     # Get the remote version of PowerShellGet from PSGallery
     $remotePowerShellGetVersion = [Version](Find-Module -Name PowerShellGet -Repository PSGallery).Version
+
+
     
     # Compare local and remote versions
     if ($localPowerShellGetVersion -lt $remotePowerShellGetVersion) {
@@ -43,6 +45,5 @@ function Initialize-PowerShellGet {
         $global:ProgressPreference = $originalProgressPreference
     }
     
-    # Restore the original progress preference (in case of exceptions or early returns, this would still execute)
-    $global:ProgressPreference = $originalProgressPreference
+
 }
