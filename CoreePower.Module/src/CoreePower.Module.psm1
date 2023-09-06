@@ -12,5 +12,5 @@
 . "$PSScriptRoot\CoreePower.Module.PublishModule.ps1"
 . "$PSScriptRoot\CoreePower.Module.CreateModule.ps1"
 . "$PSScriptRoot\CoreePower.Module.ListModule.ps1"
-. "$PSScriptRoot\CoreePower.Module.Lx.ps1"
+. "$PSScriptRoot\CoreePower.Module.Migrate.ps1"
 
