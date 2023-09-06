@@ -30,8 +30,8 @@ function UpdateModule {
     }
 
     $ver = [Version]$manifest.ModuleVersion
-    $newver = [Version]::new($ver.Major, $ver.Minor, $ver.Build, ($ver.Revision + 1))
-    $manifest.ModuleVersion = [string]$newver
+    $newver = [Version]::new($ver.Major, $ver.Minor, ($ver.Build+1),0)
+    $manifest.ModuleVersion = "$($ver.Major).$($ver.Minor).$($ver.Build+1)"
     $manifest.PrivateData.PSData.LicenseUri = $manifest.PrivateData.PSData.LicenseUri.Replace($ver, $newver)
 
     $params = @{
@@ -91,6 +91,14 @@ function UpdateModule {
         $params["ReleaseNotes"] = "$($manifest.PrivateData.PSData.ReleaseNotes)"
     }
 
+    if ($manifest.PrivateData.PSData.Prerelease) {
+        $params["Prerelease"] = "$($manifest.PrivateData.PSData.Prerelease)"
+    }
+
+    if ($manifest.PrivateData.PSData.RequireLicenseAcceptance) {
+        $params["RequireLicenseAcceptance"] = "$($manifest.PrivateData.PSData.RequireLicenseAcceptance)"
+    }
+
     if ($manifest.PrivateData.PSData.LicenseUri) {
         $params["LicenseUri"] = "$($manifest.PrivateData.PSData.LicenseUri)"
     }
@@ -121,3 +129,4 @@ function UpdateModule {
     
     Write-Warning "$($manifest.Added_PSD_FullName) version is set to $($manifest.ModuleVersion)"
 }
+
