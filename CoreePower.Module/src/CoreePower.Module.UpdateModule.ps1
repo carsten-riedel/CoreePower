@@ -30,9 +30,9 @@ function UpdateModule {
     }
 
     $ver = [Version]$manifest.ModuleVersion
-    $newver = [Version]::new($ver.Major, $ver.Minor, ($ver.Build+1),0)
-    $manifest.ModuleVersion = "$($ver.Major).$($ver.Minor).$($ver.Build+1)"
-    $manifest.PrivateData.PSData.LicenseUri = $manifest.PrivateData.PSData.LicenseUri.Replace($ver, $newver)
+    $verstring = "$($ver.Major).$($ver.Minor).$($ver.Build+1)"
+    $manifest.ModuleVersion = $verstring
+    $manifest.PrivateData.PSData.LicenseUri = $manifest.PrivateData.PSData.LicenseUri.Replace($ver, $verstring)
 
     $params = @{
         Path = "$($manifest.Added_PSD_FullName)"
@@ -129,4 +129,3 @@ function UpdateModule {
     
     Write-Warning "$($manifest.Added_PSD_FullName) version is set to $($manifest.ModuleVersion)"
 }
-

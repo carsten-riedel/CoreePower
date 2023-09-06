@@ -176,10 +176,10 @@ function SampleFunction {
     -Path "$Path\$ModuleName\src\$ModuleName.psd1" `
     -GUID "$((New-Guid).ToString())" `
     -Description "$Description" `
-    -LicenseUri "https://www.powershellgallery.com/packages/$ModuleName/0.0.0.1/Content/LICENSE.txt" `
+    -LicenseUri "https://www.powershellgallery.com/packages/$ModuleName/0.0.1/Content/LICENSE.txt" `
     -FunctionsToExport @("SampleFunction") `
     -AliasesToExport @("sf")  `
-    -ModuleVersion "0.0.0.1" `
+    -ModuleVersion "0.0.1" `
     -RootModule "$ModuleName.psm1" `
     -Author "$Author" `
     -CompanyName "$Author" `
