@@ -378,17 +378,3 @@ function Initialize-DevToolPython {
 
     return $updatesDone
 }
-
-function Test.CoreePower.Lib.DevToolPython {
-    param()
-    Write-Host "Start Test.CoreePower.Lib.DevToolPython"
-
-    #Initialize-DevToolPython
-
-    Write-Host "Test.CoreePower.Lib.DevToolPython"
-}
-
-if ($Host.Name -match "Visual Studio Code")
-{
-    #Test.CoreePower.Lib.DevToolPython
-}

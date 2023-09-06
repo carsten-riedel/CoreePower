@@ -25,8 +25,6 @@ function Initialize-PowerShellGet {
     
     # Get the remote version of PowerShellGet from PSGallery
     $remotePowerShellGetVersion = [Version](Find-Module -Name PowerShellGet -Repository PSGallery).Version
-
-
     
     # Compare local and remote versions
     if ($localPowerShellGetVersion -lt $remotePowerShellGetVersion) {

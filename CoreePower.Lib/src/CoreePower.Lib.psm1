@@ -7,11 +7,11 @@
 
 Import-Module -Name "CoreePower.Common" -MinimumVersion "0.0.0.14" -DisableNameChecking
 
-. "$PSScriptRoot\CoreePower.Lib.Initialize.NugetPackageProvider.ps1"
-. "$PSScriptRoot\CoreePower.Lib.Initialize.PowerShellGet.ps1"
-. "$PSScriptRoot\CoreePower.Lib.Initialize.PackageManagement.ps1"
-. "$PSScriptRoot\CoreePower.Lib.Initialize.NugetSourceRegistered.ps1"
-. "$PSScriptRoot\CoreePower.Lib.Initialize.PackagemanagementNuget.ps1"
+. "$PSScriptRoot\CoreePower.Lib.Initialize.Powershell.NugetPackageProvider.ps1"
+. "$PSScriptRoot\CoreePower.Lib.Initialize.Powershell.PowerShellGet.ps1"
+. "$PSScriptRoot\CoreePower.Lib.Initialize.Powershell.PackageManagement.ps1"
+. "$PSScriptRoot\CoreePower.Lib.Initialize.Powershell.NugetSourceRegistered.ps1"
+. "$PSScriptRoot\CoreePower.Lib.Initialize.Powershell.Base.ps1"
 . "$PSScriptRoot\CoreePower.Lib.Initialize.DevTools.7z.ps1"
 . "$PSScriptRoot\CoreePower.Lib.Initialize.DevTools.Git.ps1"
 . "$PSScriptRoot\CoreePower.Lib.Initialize.DevTools.Gh.ps1"
@@ -27,4 +27,4 @@ Import-Module -Name "CoreePower.Common" -MinimumVersion "0.0.0.14" -DisableNameC
 . "$PSScriptRoot\CoreePower.Lib.Initialize.DevTools.AzurePipelinesAgent.ps1"
 . "$PSScriptRoot\CoreePower.Lib.Initialize.DevTools.Baget.ps1"
 . "$PSScriptRoot\CoreePower.Lib.Initialize.DevTools.ps1"
-. "$PSScriptRoot\CoreePower.Lib.Initialize.ps1"
+. "$PSScriptRoot\CoreePower.Lib.ps1"
