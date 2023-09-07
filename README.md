@@ -1,8 +1,10 @@
-# CoreePower
+# <img src="https://raw.githubusercontent.com/carsten-riedel/CoreePower/main/res/logo_64.png" align="left" />CoreePower
+<br clear="left"/>
+
+<br>
+
+
 The CoreePower repository contains all powershell modules of the CoreePower project.
-
-
-
 For more information, please refer to the subdirectory readme.md.
 
 ## Development enviroment.
