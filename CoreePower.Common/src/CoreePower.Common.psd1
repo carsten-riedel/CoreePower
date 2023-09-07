@@ -71,9 +71,7 @@ PowerShellVersion = '5.1'
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = 'Write-Notice', 'Write-FormatedText', 'Invoke-Prompt', 
                'Confirm-AdminRightsEnabled', 'CouldRunAsAdministrator', 
-               'CanExecuteInDesiredScope', 'Get-ModulesInfoExtended', 
-               'Get-ModulesLocal', 'Get-ModulesUpdatable', 'Remove-ModulesPrevious', 
-               'Remove-Modules', 'Update-ModulesLatest', 'Get-CurrentModule', 
+               'CanExecuteInDesiredScope',  
                'Split-Array', 'Find-ItemsContainingAllStrings', 
                'Find-ItemsWithLists', 'Find-MatchGroups', 'IndexOfBytes', 
                'AddPathEnviromentVariable', 'AddEnviromentVariable', 
@@ -96,7 +94,7 @@ CmdletsToExport = @()
 VariablesToExport = @()
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-AliasesToExport = 'wn', 'wf', 'ipt', 'care', 'craa', 'cedc', 'moie', 'mol', 'mou', 'morp', 'morm', 'moul', 
+AliasesToExport = 'wn', 'wf', 'ipt', 'care', 'craa', 'cedc', 
                'mocu', 'copyrec', 'newtmpdir', 'rmtmpdir'
 
 # DSC resources to export from this module

@@ -13,4 +13,7 @@
 . "$PSScriptRoot\CoreePower.Module.CreateModule.ps1"
 . "$PSScriptRoot\CoreePower.Module.ListModule.ps1"
 . "$PSScriptRoot\CoreePower.Module.Migrate.ps1"
+. "$PSScriptRoot\CoreePower.Module.RemoveModules.ps1"
+. "$PSScriptRoot\CoreePower.Module.GetModules.ps1"
+. "$PSScriptRoot\CoreePower.Module.UpdateModules.ps1"
 

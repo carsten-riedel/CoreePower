@@ -332,7 +332,7 @@ function Initialize-DevToolPython {
         return
     }
 
-    $moduleName , $moduleVersion = Get-CurrentModule 
+    $moduleName , $moduleVersion = Get-CurrentModule -MyInvocationMyCommand $MyInvocation.MyCommand
     $updatesDone = $false
 
     $contentText = "Python (PythonEmbeded)"

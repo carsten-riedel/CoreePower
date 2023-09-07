@@ -67,7 +67,7 @@ function Initialize-PowershellBase {
         return
     }
 
-    $moduleName , $moduleVersion = Get-CurrentModule 
+    $moduleName , $moduleVersion = Get-CurrentModule -MyInvocationMyCommand $MyInvocation.MyCommand
     $updatesDone = $false
 
     Write-FormatedText -PrefixText "$moduleName" -ContentText "Initialize-NugetPackageProvider" -SuffixText "Initiated"

@@ -10,7 +10,7 @@ function Initialize-DevToolsDotnet {
         return
     }
 
-    $moduleName , $moduleVersion = Get-CurrentModule 
+    $moduleName , $moduleVersion = Get-CurrentModule -MyInvocationMyCommand $MyInvocation.MyCommand
     $updatesDone = $false
 
     $contentText = "dotnet (.NET)"

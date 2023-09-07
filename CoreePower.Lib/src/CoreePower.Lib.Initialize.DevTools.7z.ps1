@@ -10,7 +10,7 @@ function Initialize-DevTools7z {
         return
     }
 
-    $moduleName , $moduleVersion = Get-CurrentModule 
+    $moduleName , $moduleVersion = Get-CurrentModule2 -MyInvocationMyCommand $MyInvocation.MyCommand
     $updatesDone = $false
 
     $contentText = "7z (7-Zip)"
@@ -39,3 +39,5 @@ function Initialize-DevTools7z {
 
     return $updatesDone
 }
+
+
