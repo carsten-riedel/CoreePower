@@ -20,12 +20,6 @@ function Remove-ModulesPrevious {
         [ModuleScope]$Scope = [ModuleScope]::CurrentUser
     )
 
-    # Check if the current process can execute in the desired scope
-    if (-not(CanExecuteInDesiredScope -Scope $Scope))
-    {
-        return
-    }
-
     $outdated = Get-ModulesLocal -ModuleNames $ModuleNames -Scope $Scope -ExcludeSystemModules $true -ModulRecordState Previous
  
     foreach ($item in $outdated)
@@ -81,12 +75,7 @@ function Remove-Modules {
         [ModuleScope]$Scope = [ModuleScope]::CurrentUser
     )
 
-    # Check if the current process can execute in the desired scope
-    if (-not(CanExecuteInDesiredScope -Scope $Scope))
-    {
-        return
-    }
-    
+  
     $outdated = Get-ModulesLocal -ModuleNames $ModuleNames -Scope $Scope -ExcludeSystemModules $true -ModulRecordState All
  
     foreach ($item in $outdated)

@@ -25,9 +25,9 @@ function Get-CurrentModule {
         $MyInvocationMyCommand = $null
     )
 
-    if ($null -ne $MyInvocation.MyCommand.Module)
+    if ($null -ne $MyInvocationMyCommand.Module)
     {
-        $module = Get-Module -Name $MyInvocation.MyCommand.Module.Name
+        $module = Get-Module -Name $MyInvocationMyCommand.Module.Name
         $moduleName = $module.Name
         $moduleVersion = $module.Version
     }

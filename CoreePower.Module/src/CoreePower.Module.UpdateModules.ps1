@@ -47,11 +47,6 @@ function Update-ModulesLatest {
         [ModuleScope]$Scope = [ModuleScope]::CurrentUser,
         [bool]$SuppressProgressPreference = $false
     )
-    # Check if the current process can execute in the desired scope
-    if (-not(CanExecuteInDesiredScope -Scope $Scope))
-    {
-       # return
-    }
 
     $UpdatableModules = Get-ModulesUpdatable -ModuleNames $ModuleNames
     $UpdatesApplied = $false
