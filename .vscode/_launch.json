@@ -2,14 +2,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug/Test",
+            "name": "PowerShell: Launch Current File",
             "type": "PowerShell",
             "request": "launch",
-            "script": "${workspaceFolder}\\.vscode\\launch.ps1",
-            "args": ["", ""],
-            "cwd": "${workspaceFolder}",
-            "createTemporaryIntegratedConsole": true
+            "script": "${file}",
+            "args": []
         }
     ]
 }
-

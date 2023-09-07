@@ -1,4 +1,34 @@
-#CreateModule -ModuleName "CoreePower.Dev" -Description "Library for module management" -Author "Carsten Riedel"
+<#
+.SYNOPSIS
+    This function generates a new PowerShell module along with its associated directories, files, and manifest.
+
+.DESCRIPTION
+    CreateModule is a utility function that automates the process of creating a new PowerShell module.
+    It generates essential files like .psm1, .ps1, and a module manifest (.psd1) along with a testing suite.
+    It's customizable, allowing you to specify the path, module name, description, and author information.
+
+.PARAMETER Path
+    Optional. Specifies the directory where the module will be created. Defaults to the current location.
+
+.PARAMETER ModuleName
+    Mandatory. The name of the module to be created.
+
+.PARAMETER Description
+    Mandatory. A short description of what the module does.
+
+.PARAMETER Author
+    Mandatory. The name of the author who is creating the module.
+
+.PARAMETER ApiKey
+    Optional. If you intend to publish the module, specify the API key here. A warning will be issued if it's left empty.
+
+.EXAMPLE
+    CreateModule -ModuleName "CoreePower.Dev" -Description "Library for module management" -Author "Carsten Riedel"
+
+.NOTES
+    This function comes with pre-configured MIT License text. Make sure it aligns with your licensing needs before publishing.
+    If ApiKey is not provided, the function will proceed but will issue a warning as this is crucial for the PublishModule operation.
+#>
 function CreateModule {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     [alias("cpcm")]
