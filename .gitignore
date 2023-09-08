@@ -1,0 +1,5 @@
+SetUpBasic.Cmdlet/.vs/**
+SetUpBasic.Cmdlet/SetUpBasic.Cmdlet.MSTest/bin/**
+SetUpBasic.Cmdlet/SetUpBasic.Cmdlet.MSTest/obj/**
+SetUpBasic.Cmdlet/SetUpBasic.Cmdlet/bin/**
+SetUpBasic.Cmdlet/SetUpBasic.Cmdlet/obj/**
