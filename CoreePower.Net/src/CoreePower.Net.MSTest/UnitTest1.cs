@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.CodeDom;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace CoreePower.Net.MSTest
 {
@@ -28,83 +29,40 @@ namespace CoreePower.Net.MSTest
         {
             Assembly CoreePowerNet = CoreePowerNetAssembly.Value;
 
+            var ModuleDll = $@"{Path.GetDirectoryName(CoreePowerNet.Location)}";
             var ModuleManifest = $@"{Path.GetDirectoryName(CoreePowerNet.Location) + Path.DirectorySeparatorChar + CoreePowerNet.GetName().Name}.psd1";
 
-            var scriptGen = string.Format(@"Import-Module ""{0}""", ModuleManifest);
+            var scriptGen = string.Format($@"Import-Module ""{ModuleManifest}""");
             var scriptGen1 = string.Format(@"{0} {1} ""{2}""", "Test-SampleCmdlet", "-File", @"C:\base\github.com\NaitWatch\SetUpBasic\SetUpBasic Code Signing Certificate.cer");
-            var fu = scriptGen + Environment.NewLine + scriptGen1;
 
+
+            var fu = scriptGen + Environment.NewLine + scriptGen1;
 
             var result = InvokeScript(fu);
             CoreePower.Net.SampleCmdlet.CertificateInformation certificateInformation = new SampleCmdlet.CertificateInformation();
             certificateInformation.CommonName = "CN=SetUpBasic Code Signing Certificate";
             certificateInformation.Thumbprint = "A98D0659C22997E5BED1B0F6168D3D1D533DCF66";
 
-            var resu = (CoreePower.Net.SampleCmdlet.CertificateInformation)((PSObject)result[0]).BaseObject;
+            var resu = (CoreePower.Net.SampleCmdlet.CertificateInformation)(result[0]).BaseObject;
 
-        }
-
-        [TestMethod]
-        public void TestMethod2()
-        {
-
-            string namespaceName = "CoreePower.Net";
-            var ass = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(e => e.GetName().Name ==namespaceName);
-
-
-            var scriptGen = string.Format(@"Import-Module ""{0}""", ass.Location);
-            var scriptGen1 = string.Format(@"{0} {1} ""{2}""", "Test-SampleCmdlet", "-File", @"C:\base\github.com\NaitWatch\SetUpBasic\SetUpBasic Code Signing Certificate.cer");
-            var fu = scriptGen + Environment.NewLine + scriptGen1;
-
-            string script1 = string.Format(@"
-            Import-Module """+ ass.Location + @"""
-            Test-SampleCmdlet -File ""x""
-            
-        ");
-            var result = InvokeScript(fu);
-            CoreePower.Net.SampleCmdlet.CertificateInformation certificateInformation = new SampleCmdlet.CertificateInformation();
-            certificateInformation.CommonName = "CN=SetUpBasic Code Signing Certificate";
-            certificateInformation.Thumbprint = "A98D0659C22997E5BED1B0F6168D3D1D533DCF66";
-
-            var resu = (CoreePower.Net.SampleCmdlet.CertificateInformation)((PSObject)result[0]).BaseObject;
+            Assert.AreEqual("foo", resu.CommonName);
+            Assert.AreEqual("foo", resu.Thumbprint);
 
         }
 
 
-        public List<object> InvokeScript(string script)
+        public List<PSObject> InvokeScript(string script)
         {
-            List<object> pSDataStreams = new List<object>();
+            Collection<PSObject> InvokeResult;
+
             using (PowerShell powerShell = PowerShell.Create())
             {
                 powerShell.RunspacePool = RunspaceFactory.CreateRunspacePool();
                 powerShell.RunspacePool.Open();
-                powerShell.Streams.Information.DataAdding += (sender, e) => { pSDataStreams.Add(e.ItemAdded); };
-                powerShell.Streams.Error.DataAdding += (sender, e) => { pSDataStreams.Add(e.ItemAdded); };
-                powerShell.Streams.Debug.DataAdding += (sender, e) => { pSDataStreams.Add(e.ItemAdded); };
-                powerShell.Streams.Progress.DataAdding += (sender, e) => { pSDataStreams.Add(e.ItemAdded); };
-                powerShell.Streams.Verbose.DataAdding += (sender, e) => { pSDataStreams.Add(e.ItemAdded); };
-                powerShell.Streams.Warning.DataAdding += (sender, e) => { pSDataStreams.Add(e.ItemAdded); };
-
                 powerShell.AddScript(script);
-
-                
-                foreach (PSObject result in powerShell.Invoke())
-                {
-                    Debug.WriteLine(
-                                "{0,-20} {1}",
-                                result.Members["CommonName"].Value,
-                                result.Members["Thumbprint"].Value);
-                }
-               
-
-                // powerShell.Streams.Information.d
-                using (var outputCollection = new PSDataCollection<PSObject>())
-                {
-                    outputCollection.DataAdding += (sender, e) => { pSDataStreams.Add(e.ItemAdded); };
-                    powerShell.Invoke(null, outputCollection);
-                }
+                InvokeResult = powerShell.Invoke();
             }
-            return pSDataStreams;
+            return InvokeResult.ToList();
         }
     }
 }
