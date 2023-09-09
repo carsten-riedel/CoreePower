@@ -71,7 +71,7 @@ function PublishModule {
     
       try {
         
-        Publish-Module -Path "$PublishFolder" -NuGetApiKey "$NuGetAPIKey" -Repository "PSGallery"
+        Publish-Module -Path "$PublishFolder" -NuGetApiKey "$NuGetAPIKey" -Repository "PSGallery" -Verbose
 
         $moduleName = Split-Path $MyInvocation.MyCommand.Module.Name -Leaf
         $moduleVersion = $MyInvocation.MyCommand.Module.Version

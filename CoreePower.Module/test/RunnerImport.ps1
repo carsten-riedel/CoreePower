@@ -29,7 +29,7 @@ Write-Host "Dot sourced tests: $($PSScriptRoot)\RunnerTests.ps1"
 $retvals = @()
 $retval = $false
 
-
+PublishModule -Location "C:\base\github.com\carsten-riedel\CoreePower\CoreePower.Net\src\CoreePower.Net\bin\Release"
 
 #Add addtional test functions here
 $functionName = "Test-Get-ModulesInfoExtendedx"; $retval = & $functionName;if ($retval -is [array]) { $retval = $retval[-1] }; $retvals += @{ FunctionName = $functionName; Result = $retval };
