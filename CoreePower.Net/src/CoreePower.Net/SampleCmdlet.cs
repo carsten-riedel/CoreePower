@@ -1,11 +1,9 @@
-﻿using System;
-using System.Management.Automation;
-using System.Management.Automation.Runspaces;
+﻿using System.Management.Automation;
 using System.Security.Cryptography.X509Certificates;
 
-namespace SetUpBasic.Cmdlet
+namespace CoreePower.Net
 {
-    [Cmdlet(VerbsDiagnostic.Test,"SampleCmdlet")]
+    [Cmdlet(VerbsDiagnostic.Test, "SampleCmdlet")]
     [OutputType(typeof(CertificateInformation))]
     public class SampleCmdlet : PSCmdlet
     {
@@ -28,9 +26,11 @@ namespace SetUpBasic.Cmdlet
         // This method will be called for each input received from the pipeline to this cmdlet; if no input is received, this method is not called
         protected override void ProcessRecord()
         {
-            X509Certificate2 x509 = new X509Certificate2(System.IO.File.ReadAllBytes(File));
-            
-            var ss = new CertificateInformation { CommonName = x509.Subject, Thumbprint = x509.Thumbprint };
+            CertificateInformation x509 = new CertificateInformation();
+            x509.Thumbprint = "foo";
+            x509.CommonName = "foo";
+
+            var ss = new CertificateInformation { CommonName = x509.CommonName, Thumbprint = x509.Thumbprint };
             WriteObject(ss);
         }
 
@@ -40,5 +40,4 @@ namespace SetUpBasic.Cmdlet
             WriteVerbose("End!");
         }
     }
-
 }
