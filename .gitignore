@@ -3,3 +3,13 @@ SetUpBasic.Cmdlet/SetUpBasic.Cmdlet.MSTest/bin/**
 SetUpBasic.Cmdlet/SetUpBasic.Cmdlet.MSTest/obj/**
 SetUpBasic.Cmdlet/SetUpBasic.Cmdlet/bin/**
 SetUpBasic.Cmdlet/SetUpBasic.Cmdlet/obj/**
+/CoreePower.Net/.vs
+/CoreePower.Net/src/CoreePower.Net/obj
+/CoreePower.Net/src/CoreePower.Net.MSTest/obj
+/CoreePower.Net/SetUpBasic.Cmdlet.MSTest/bin
+/CoreePower.Net/SetUpBasic.Cmdlet.MSTest/obj
+/CoreePower.Net/SetUpBasic.Cmdlet/bin
+/CoreePower.Net/SetUpBasic.Cmdlet/obj
+/CoreePower.Net/SetUpBasic.Cmdlet/Properties/PublishProfiles
+/CoreePower.Net/src/CoreePower.Net.MSTest/bin/Debug/net7
+/CoreePower.Net/src/CoreePower.Net/bin/Debug/netstandard2.0
