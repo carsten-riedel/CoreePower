@@ -18,4 +18,11 @@
     <ProjectReference Include="..\CoreePower.Net\CoreePower.Net.csproj" />
   </ItemGroup>
 
+  <Target Name="CopyMainProjectOutput" AfterTargets="Build">
+		<Message Text="Copying main project output...$(SolutionDir)CoreePower.Net\bin\$(Configuration)\netstandard2.0\*.*" Importance="high"/>
+
+		<!-- Copy all DLLs -->
+		<Exec Command="xcopy /Y &quot;$(SolutionDir)src\CoreePower.Net\bin\$(Configuration)\netstandard2.0\*.*&quot; &quot;$(OutDir)&quot;" />
+  </Target>
+
 </Project>

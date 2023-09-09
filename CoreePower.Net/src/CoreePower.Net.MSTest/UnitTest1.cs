@@ -15,44 +15,36 @@ namespace CoreePower.Net.MSTest
     [TestClass]
     public class UnitTest1
     {
-        Lazy<Assembly> CoreePowerNetAssembly;
-
-
-        [TestInitialize]
-        public void Setup()
-        {
-            CoreePowerNetAssembly = new Lazy<Assembly>(() => AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(e => e.GetName().Name == "CoreePower.Net"));
-        }
-
         [TestMethod]
-        public void TestMethod1()
+        public void TestTestSampleCmdlet()
         {
-            Assembly CoreePowerNet = CoreePowerNetAssembly.Value;
+            Assembly CoreePowerNet = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(e => e.GetName().Name == "CoreePower.Net");
 
-            var ModuleDll = $@"{Path.GetDirectoryName(CoreePowerNet.Location)}";
+            var ModuleDir = $@"{Path.GetDirectoryName(CoreePowerNet.Location)}";
+            var ModuleDll = CoreePowerNet.Location;
+            
             var ModuleManifest = $@"{Path.GetDirectoryName(CoreePowerNet.Location) + Path.DirectorySeparatorChar + CoreePowerNet.GetName().Name}.psd1";
 
-            var scriptGen = string.Format($@"Import-Module ""{ModuleManifest}""");
-            var scriptGen1 = string.Format(@"{0} {1} ""{2}""", "Test-SampleCmdlet", "-File", @"C:\base\github.com\NaitWatch\SetUpBasic\SetUpBasic Code Signing Certificate.cer");
+            var ImportModule = string.Format($@"Import-Module ""{ModuleManifest}"" {Environment.NewLine}");
+            var Command = string.Format(@"{0} {1} ""{2}""", "Test-SampleCmdlet", "-File", @"C:\base\github.com\NaitWatch\SetUpBasic\SetUpBasic Code Signing Certificate.cer");
 
+            var script = ImportModule + Command;
 
-            var fu = scriptGen + Environment.NewLine + scriptGen1;
+            List<PSObject> result = InvokePowershellHost(script);
+            var psobjectFirst = (CoreePower.Net.SampleCmdlet.CertificateInformation)(result[0]).BaseObject;
 
-            var result = InvokeScript(fu);
             CoreePower.Net.SampleCmdlet.CertificateInformation certificateInformation = new SampleCmdlet.CertificateInformation();
-            certificateInformation.CommonName = "CN=SetUpBasic Code Signing Certificate";
-            certificateInformation.Thumbprint = "A98D0659C22997E5BED1B0F6168D3D1D533DCF66";
+            certificateInformation.CommonName = "foo";
+            certificateInformation.Thumbprint = "foo";
 
-            var resu = (CoreePower.Net.SampleCmdlet.CertificateInformation)(result[0]).BaseObject;
-
-            Assert.AreEqual("foo", resu.CommonName);
-            Assert.AreEqual("foo", resu.Thumbprint);
+            Assert.AreEqual(certificateInformation.CommonName, psobjectFirst.CommonName);
+            Assert.AreEqual(certificateInformation.Thumbprint, psobjectFirst.Thumbprint);
 
         }
 
-
-        public List<PSObject> InvokeScript(string script)
+        public List<PSObject> InvokePowershellHost(string script)
         {
+            Debug.WriteLine(script);
             Collection<PSObject> InvokeResult;
 
             using (PowerShell powerShell = PowerShell.Create())
