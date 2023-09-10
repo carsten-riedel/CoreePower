@@ -1,9 +1,9 @@
 <Project>
 	
 	<!-- Target to find and process a unique file -->
-	<Target Name="CopyPsd1Psm1" AfterTargets="Build">
+	<Target Name="CopyPsd1Psm1" AfterTargets="CoreBuild" Condition="'$(TargetFramework)' != '' And '$(Configuration)' == 'Debug'">
 
-		<Message Importance="high" Text="======== CopyPsd1Psm1 ========" />
+		<Message Importance="high" Text="======== Begin CopyPsd1Psm1 $(TargetFramework) ========" />
 
 		<PropertyGroup>
 			<BinFolder>$([System.String]::new('$(OutputPath)').Split('\')[0])</BinFolder>
@@ -45,6 +45,53 @@
 		<!-- Output the list of copied files -->
 		<Message Text="Copied file: %(FilesThatWereCopiedModule.FullPath)" Condition="'@(FilesThatWereCopiedModule)' != ''" Importance="high" />
 
+		<Message Importance="high" Text="======== End   CopyPsd1Psm1 $(TargetFramework) ========" />
+		
 	</Target>
+
+	<Target Name="x" AfterTargets="Build" Condition="'$(TargetFramework)' == '' And '$(Configuration)' == 'Release'">
+
+		<Message Importance="high" Text="======== Begin CopyPsd1Psm1 $(Configuration) ========" />
+
+		<PropertyGroup>
+			<BinFolder>$([System.String]::new('$(OutputPath)').Split('\')[0])</BinFolder>
+		</PropertyGroup>
+
+		<PropertyGroup>
+			<DestinationFolder>$(MSBuildProjectDirectory)\$(OutputPath)</DestinationFolder>
+		</PropertyGroup>
+
+		<!-- Find .psd1 files but ignore those in dynamically located bin and obj directories -->
+		<ItemGroup>
+			<PoweshellModuleManifest Include="**\*.psd1" Exclude="$(BinFolder)\**;$(BaseIntermediateOutputPath)**" />
+		</ItemGroup>
+
+		<!-- Find .psd1 files but ignore those in dynamically located bin and obj directories -->
+		<ItemGroup>
+			<PoweshellModule Include="**\*.psm1" Exclude="$(BinFolder)\**;$(BaseIntermediateOutputPath)**" />
+		</ItemGroup>
+
+		<Error Text="Multiple .psd1 files found, only one is allowed." Condition="'@(PoweshellModuleManifest->Count())' > 1" />
+		<Error Text="No .psd1 file found." Condition="'@(PoweshellModuleManifest->Count())' == 0" />
+
+		<!-- Copy the unique file to the appropriate folder -->
+		<Copy SourceFiles="@(PoweshellModuleManifest)" DestinationFolder="$(DestinationFolder)" Condition="'@(PoweshellModuleManifest->Count())' == 1" >
+			<Output TaskParameter="CopiedFiles" ItemName="FilesThatWereCopiedModuleManifest" />
+		</Copy>
+
+		<!-- Output the list of copied files -->
+		<Message Text="Copied file: %(FilesThatWereCopiedModuleManifest.FullPath)" Condition="'@(FilesThatWereCopiedModuleManifest)' != ''" Importance="high" />
+
+		<Copy SourceFiles="@(PoweshellModule)" DestinationFolder="$(DestinationFolder)" Condition="'@(PoweshellModule->Count())' == 1" >
+			<Output TaskParameter="CopiedFiles" ItemName="FilesThatWereCopiedModule" />
+		</Copy>
+
+		<!-- Output the list of copied files -->
+		<Message Text="Copied file: %(FilesThatWereCopiedModule.FullPath)" Condition="'@(FilesThatWereCopiedModule)' != ''" Importance="high" />
+
+		<Message Importance="high" Text="======== End   CopyPsd1Psm1 $(Configuration) ========" />
+
+	</Target>
+
 
 </Project>
