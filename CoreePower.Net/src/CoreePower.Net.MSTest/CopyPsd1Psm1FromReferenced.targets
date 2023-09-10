@@ -49,6 +49,8 @@
 		
 		<Message Importance="high" Text="ProjectReference resolved dir: $(ResolvedOutputDirs)" Condition="'$(ResolvedOutputDirs' != ''" />
 
+		<Warning Text="This MSTestProject uses net7 pshost you referencing: $(ResolvedOutputDirs)" Code="Info001" />
+
 		<!-- Execute robocopy for each resolved output directory using batching -->
 		<ItemGroup>
 			<OutputDirsToCopy Include="$(ResolvedOutputDirs.Split(';'))" />
