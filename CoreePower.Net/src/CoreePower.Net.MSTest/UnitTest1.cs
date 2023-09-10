@@ -26,7 +26,7 @@ namespace CoreePower.Net.MSTest
             var ModuleManifest = $@"{Path.GetDirectoryName(CoreePowerNet.Location) + Path.DirectorySeparatorChar + CoreePowerNet.GetName().Name}.psd1";
 
             var ImportModule = string.Format($@"Import-Module ""{ModuleManifest}"" {Environment.NewLine}");
-            var Command = string.Format(@"{0} {1} ""{2}""", "Test-SampleCmdlet", "-File", @"C:\base\github.com\NaitWatch\SetUpBasic\SetUpBasic Code Signing Certificate.cer");
+            var Command = string.Format(@"{0} {1} ""{2}""", "Test-SampleCmdlet", "-File", @"foo.cer");
 
             var script = ImportModule + Command;
 

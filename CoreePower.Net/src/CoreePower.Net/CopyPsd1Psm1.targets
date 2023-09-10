@@ -71,6 +71,14 @@
 			<PoweshellModule Include="**\*.psm1" Exclude="$(BinFolder)\**;$(BaseIntermediateOutputPath)**" />
 		</ItemGroup>
 
+		<ItemGroup>
+			<Gitignore Include="**\.gitignore" Exclude="$(BinFolder)\**;$(BaseIntermediateOutputPath)**" />
+		</ItemGroup>
+
+		<ItemGroup>
+			<KeyFile Include="**\.key" Exclude="$(BinFolder)\**;$(BaseIntermediateOutputPath)**" />
+		</ItemGroup>
+
 		<Error Text="Multiple .psd1 files found, only one is allowed." Condition="'@(PoweshellModuleManifest->Count())' > 1" />
 		<Error Text="No .psd1 file found." Condition="'@(PoweshellModuleManifest->Count())' == 0" />
 
@@ -89,6 +97,14 @@
 		<!-- Output the list of copied files -->
 		<Message Text="Copied file: %(FilesThatWereCopiedModule.FullPath)" Condition="'@(FilesThatWereCopiedModule)' != ''" Importance="high" />
 
+		<Copy SourceFiles="@(Gitignore)" DestinationFolder="$(DestinationFolder)" Condition="'@(Gitignore->Count())' == 1" >
+			<Output TaskParameter="CopiedFiles" ItemName="FilesThatWereCopiedModule" />
+		</Copy>
+			
+		<Copy SourceFiles="@(KeyFile)" DestinationFolder="$(DestinationFolder)" Condition="'@(KeyFile->Count())' == 1" >
+			<Output TaskParameter="CopiedFiles" ItemName="FilesThatWereCopiedModule" />
+		</Copy>
+		
 		<Message Importance="high" Text="======== End   CopyPsd1Psm1 $(Configuration) ========" />
 
 	</Target>
