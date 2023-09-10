@@ -26,9 +26,6 @@
 
 
 
-
-
-	<!-- <Import Project="foo.targets" /> -->
-	<Import Project="foo3.targets" />
+	<Import Project="GatherReferencedOutputDirectoriesAndCopy.targets" />
 
 </Project>
