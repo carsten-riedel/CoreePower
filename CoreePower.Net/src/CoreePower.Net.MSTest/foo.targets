@@ -1,0 +1,54 @@
+<Project>
+
+	<UsingTask TaskName="ResolveReferencedAssemblyOutputDirectories" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+		<ParameterGroup>
+			<ReferencedAssemblyPaths ParameterType="System.String[]" Required="true" />
+			<ProjectReferencePaths ParameterType="System.String[]" Required="true" />
+			<ReferencedOutputDirectories ParameterType="System.String[]" Output="true" />
+		</ParameterGroup>
+		<Task>
+			<Reference Include="System.Core"/>
+			<Using Namespace="System.Collections.Generic"/>
+			<Code Type="Fragment" Language="cs">
+				<![CDATA[
+					List<string> filteredList = new List<string>();
+					foreach (var assemblyPath in ReferencedAssemblyPaths)
+					{
+						foreach (var projectPath in ProjectReferencePaths)
+						{
+							string projectDir = System.IO.Path.GetDirectoryName(projectPath);
+							if (assemblyPath.StartsWith(projectDir))
+							{
+								filteredList.Add(System.IO.Path.GetDirectoryName(assemblyPath));
+								break;  // Exit the inner loop as we found a match
+							}
+						}
+					}
+					ReferencedOutputDirectories = filteredList.Distinct().ToArray();
+				]]>
+			</Code>
+		</Task>
+	</UsingTask>
+
+	<Target Name="GatherAndResolveOutputDirectories" DependsOnTargets="ResolveReferences" AfterTargets="Build">
+		<!-- Convert ITaskItem[] to String[] for ReferencedAssemblyPaths and ProjectReferenceItems -->
+		<!-- Replace the existing ItemGroups with corrected notation -->
+		<ItemGroup>
+			<ReferencedAssemblyPathsStrings Include="@(ReferencePath -> '%(FullPath)')" />
+			<ProjectReferencePathsStrings Include="@(ProjectReference -> '%(FullPath)')" />
+		</ItemGroup>
+
+		<!-- Use the custom task for filtering -->
+		<ResolveReferencedAssemblyOutputDirectories ReferencedAssemblyPaths="@(ReferencedAssemblyPathsStrings)"
+						  ProjectReferencePaths="@(ProjectReferencePathsStrings)">
+			<Output TaskParameter="ReferencedOutputDirectories" PropertyName="ResolvedOutputDirs" />
+		</ResolveReferencedAssemblyOutputDirectories>
+
+		<!-- Debugging: Print filtered assemblies -->
+		<Message Importance="high" Text="Resolved Output Directories for Project References:" />
+		<Message Importance="high" Text="  Resolved: $(ResolvedOutputDirs)" Condition="'$(ResolvedOutputDirs' != ''" />
+	</Target>
+
+
+
+</Project>

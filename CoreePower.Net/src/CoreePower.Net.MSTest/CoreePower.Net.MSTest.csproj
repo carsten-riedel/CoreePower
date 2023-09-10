@@ -2,8 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7</TargetFramework>
-
-	  <IsPackable>false</IsPackable>
+	<IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
@@ -19,10 +18,17 @@
   </ItemGroup>
 
   <Target Name="CopyMainProjectOutput" AfterTargets="Build" Condition="'$(Configuration)'=='Debug'">
-		<Message Text="Copying main project output...$(SolutionDir)CoreePower.Net\bin\$(Configuration)\netstandard2.0\*.*" Importance="high"/>
+		<Message Text="Copying main project output...$(SolutionDir)CoreePower.Net\bin\$(Configuration)\netstandard2.0\*.*" Importance="high" />
 
 		<!-- Copy all DLLs -->
 		<Exec Command="xcopy /Y &quot;$(SolutionDir)src\CoreePower.Net\bin\$(Configuration)\netstandard2.0\*.*&quot; &quot;$(OutDir)&quot;" />
   </Target>
+
+
+
+
+
+	<!-- <Import Project="foo.targets" /> -->
+	<Import Project="foo3.targets" />
 
 </Project>
