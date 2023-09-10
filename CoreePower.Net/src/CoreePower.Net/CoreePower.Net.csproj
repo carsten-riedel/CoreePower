@@ -1,25 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net6;net452</TargetFrameworks>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="PowerShellStandard.Library" Version="5.1.1" />
 	</ItemGroup>
-
-	<Target Name="PostBuild1" AfterTargets="PostBuildEvent" Condition="'$(Configuration)'=='Debug' And '$(TargetFramework)' != ''">
-		<Message Text="PostBuild1------------------------------------------------------------------------------------------------" Importance="high" />
-		<Exec Command="copy /Y &quot;$(ProjectDir)CoreePower.Net.psd1&quot; &quot;$(ProjectDir)bin\$(Configuration)\$(TargetFramework)\&quot;" />
-		<Exec Command="copy /Y &quot;$(ProjectDir)CoreePower.Net.$(Configuration).psm1&quot; &quot;$(ProjectDir)bin\$(Configuration)\$(TargetFramework)\CoreePower.Net.psm1&quot;" />
-	</Target>
-
-	<Target Name="PostBuild2" AfterTargets="PostBuildEvent" Condition="'$(Configuration)'=='Release' And '$(Configuration)' != '' And '$(TargetFramework)' != ''">
-		<Message Text="PostBuild2------------------------------------------------------------------------------------------------" Importance="high" />
-		<Message Text="ProjectDir: $(ProjectDir), TargetFramework: $(TargetFramework) , Configuration: $(Configuration)" Importance="high" />
-		<Exec Command="copy /Y &quot;$(ProjectDir).key&quot; &quot;$(ProjectDir)bin\$(Configuration)\.key&quot;" />
-		<Exec Command="copy /Y &quot;$(ProjectDir).gitignore&quot; &quot;$(ProjectDir)bin\$(Configuration)\.gitignore&quot;" />
-		<Exec Command="copy /Y &quot;$(ProjectDir)CoreePower.Net.psd1&quot; &quot;$(ProjectDir)bin\$(Configuration)\CoreePower.Net.psd1&quot;" />
-		<Exec Command="copy /Y &quot;$(ProjectDir)CoreePower.Net.$(Configuration).psm1&quot; &quot;$(ProjectDir)bin\$(Configuration)\CoreePower.Net.psm1&quot;" />
-	</Target>
+	
+	<Import Project="CopyPsd1Psm1.targets" />
 	
 </Project>

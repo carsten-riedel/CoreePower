@@ -17,15 +17,6 @@
     <ProjectReference Include="..\CoreePower.Net\CoreePower.Net.csproj" />
   </ItemGroup>
 
-  <Target Name="CopyMainProjectOutput" AfterTargets="Build" Condition="'$(Configuration)'=='Debug'">
-		<Message Text="Copying main project output...$(SolutionDir)CoreePower.Net\bin\$(Configuration)\netstandard2.0\*.*" Importance="high" />
-
-		<!-- Copy all DLLs -->
-		<Exec Command="xcopy /Y &quot;$(SolutionDir)src\CoreePower.Net\bin\$(Configuration)\netstandard2.0\*.*&quot; &quot;$(OutDir)&quot;" />
-  </Target>
-
-
-
-	<Import Project="GatherReferencedOutputDirectoriesAndCopy.targets" />
+  <Import Project="CopyPsd1Psm1FromReferenced.targets" />
 
 </Project>
