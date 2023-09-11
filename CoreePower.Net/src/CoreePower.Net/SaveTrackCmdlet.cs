@@ -17,6 +17,7 @@ namespace CoreePower.Net
         protected override void BeginProcessing()
         {
             WriteVerbose("Begin!");
+             
         }
 
         // This method will be called for each input received from the pipeline to this cmdlet; if no input is received, this method is not called
