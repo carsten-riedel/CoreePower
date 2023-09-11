@@ -28,7 +28,29 @@ namespace CoreePower.Net
                 var soundcloud = new SoundCloudClient();
                 var TrackData = soundcloud.Tracks.GetAsync(TrackUrl).Result;
                 var trackTitle = string.Join("_", TrackData.Title.Split(Path.GetInvalidFileNameChars()));
-                var downloadfile = $@"{System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyMusic)}\Download\{trackTitle}.mp3";
+
+                string homePath;
+
+                if (OperatingSystem.IsWindows())
+                {
+                    homePath = Environment.GetEnvironmentVariable("USERPROFILE");
+                }
+                else if (OperatingSystem.IsLinux() || OperatingSystem.IsMacOS())
+                {
+                    homePath = Environment.GetEnvironmentVariable("HOME");
+                }
+                else
+                {
+                    throw new NotSupportedException("Unknown operating system.");
+                }
+
+                var full = System.IO.Path.Combine(homePath, "Tracks");
+                if (!System.IO.Directory.Exists(full))
+                {
+                    System.IO.Directory.CreateDirectory(full);
+                }
+
+                var downloadfile = $@"{full + System.IO.Path.DirectorySeparatorChar}{trackTitle}.mp3";
                 soundcloud.DownloadAsync(TrackData, downloadfile).AsTask().Wait();
                 WriteObject(downloadfile);
             }

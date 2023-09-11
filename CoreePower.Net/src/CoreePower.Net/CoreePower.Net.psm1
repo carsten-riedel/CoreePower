@@ -1,9 +1,28 @@
-﻿
+﻿function Test-FileExistence {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory=$true)]
+        [string[]]$SearchDirs,
 
-$AssemblyName = "CoreePower.Net.dll"
-$SearchRoot= "$PSScriptRoot"
+        [Parameter(Mandatory=$true)]
+        [string]$FileName
+    )
 
-Import-Module -Name "$SearchRoot/net6/$AssemblyName" -Force
+    foreach ($dir in $SearchDirs) {
+        $filePath = Join-Path $dir $FileName
+        if (Test-Path $filePath) {
+            Write-Host "File found: $filePath"
+            return $filePath
+        }
+    }
+
+    Write-Host "File not found."
+    return $null
+}
+
+$loc = Test-FileExistence -SearchDirs @("$PSScriptRoot","$PSScriptRoot/net6") -FileName "CoreePower.Net.dll"
+
+Import-Module -Name "$loc" -Force
 
 
 
