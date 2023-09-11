@@ -42,6 +42,34 @@ namespace CoreePower.Net.MSTest
 
         }
 
+        [TestMethod]
+        public void TestSaveTrack()
+        {
+            var ss = AppDomain.CurrentDomain.GetAssemblies();
+            Assembly CoreePowerNet = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(e => e.GetName().Name == "CoreePower.Net");
+
+            var ModuleDir = $@"{Path.GetDirectoryName(CoreePowerNet.Location)}";
+            var ModuleDll = CoreePowerNet.Location;
+
+            var ModuleManifest = $@"{Path.GetDirectoryName(CoreePowerNet.Location) + Path.DirectorySeparatorChar + CoreePowerNet.GetName().Name}.psd1";
+
+            var ImportModule = string.Format($@"Import-Module ""{ModuleManifest}"" {Environment.NewLine}");
+            var Command = string.Format(@"{0} {1} ""{2}""", "Save-Track", "-TrackUrl", @"https://soundcloud.com/slanderofficial/edc2023");
+
+            var script = ImportModule + Command;
+
+            List<PSObject> result = InvokePowershellHost(script);
+            //var psobjectFirst = (CoreePower.Net.SampleCmdlet.CertificateInformation)(result[0]).BaseObject;
+
+            CoreePower.Net.SampleCmdlet.CertificateInformation certificateInformation = new SampleCmdlet.CertificateInformation();
+            //certificateInformation.CommonName = "foo";
+            //certificateInformation.Thumbprint = "foo";
+
+            //Assert.AreEqual(certificateInformation.CommonName, psobjectFirst.CommonName);
+            //Assert.AreEqual(certificateInformation.Thumbprint, psobjectFirst.Thumbprint);
+
+        }
+
         public List<PSObject> InvokePowershellHost(string script)
         {
             Debug.WriteLine(script);
