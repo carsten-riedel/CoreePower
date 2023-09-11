@@ -6,6 +6,13 @@
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net6'">
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net461'">
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+	</PropertyGroup>
+
+	
 	
 	<ItemGroup>
 		<PackageReference Include="PowerShellStandard.Library" Version="5.1.1" />

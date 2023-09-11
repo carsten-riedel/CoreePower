@@ -10,7 +10,7 @@ namespace CoreePower.Net
     public class SaveTrackCmdlet : PSCmdlet
     {
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ValueFromPipelineByPropertyName = true)]
-        public Uri TrackUrl { get; set; }
+        public string TrackUrl { get; set; }
 
 
         // This method gets called once for each cmdlet in the pipeline when the pipeline starts executing
@@ -25,9 +25,9 @@ namespace CoreePower.Net
             try
             {
                 var soundcloud = new SoundCloudClient();
-                var TrackData = soundcloud.Tracks.GetAsync(TrackUrl.AbsoluteUri).Result;
+                var TrackData = soundcloud.Tracks.GetAsync(TrackUrl).Result;
                 var trackTitle = string.Join("_", TrackData.Title.Split(Path.GetInvalidFileNameChars()));
-                var downloadfile = $@"{Environment.CurrentDirectory}\Download\{trackTitle}.mp3";
+                var downloadfile = $@"{System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyMusic)}\Download\{trackTitle}.mp3";
                 soundcloud.DownloadAsync(TrackData, downloadfile).AsTask().Wait();
                 WriteObject(downloadfile);
             }
