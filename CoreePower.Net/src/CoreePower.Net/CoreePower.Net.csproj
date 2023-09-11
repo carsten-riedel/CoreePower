@@ -7,6 +7,11 @@
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 	</PropertyGroup>
 	
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net481'">
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+	</PropertyGroup>
+	
 	<ItemGroup>
 		<PackageReference Include="PowerShellStandard.Library" Version="5.1.1" />
 		<PackageReference Include="SoundCloudExplode" Version="1.5.3" />
