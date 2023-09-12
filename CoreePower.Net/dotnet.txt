@@ -1,0 +1,20 @@
+dotnet publish --configuration "Release" --framework "net5.0" -p:TargetFrameworks="net5.0"
+dotnet publish --configuration "Release" --framework "net462" -p:TargetFrameworks="net462"
+
+dotnet clean --configuration "Release" --framework "net462" --property:TargetFrameworks="net462" & dotnet publish --configuration "Release" --framework "net462" --property:TargetFrameworks="net462" --property:DefineConstants="NET462" --output "bin\Publish\net462" --force
+
+dotnet clean --configuration "Release" --framework "net461" --property:TargetFrameworks="net461" & dotnet publish --configuration "Release" --framework "net461" --property:TargetFrameworks="net461" --property:DefineConstants="net461" --output "bin\Publish\net461" --force
+
+dotnet clean --configuration "Release" --framework "netstandard2.0" --property:TargetFrameworks="netstandard2.0" & dotnet publish --configuration "Release" --framework "netstandard2.0" --property:TargetFrameworks="netstandard2.0" --property:DefineConstants="netstandard20"  --property:CopyLocalLockFileAssemblies="true" --output "bin\Publish\netstandard2.0" --force
+
+dotnet clean --configuration "Release" --framework "netstandard2.0" --property:TargetFrameworks="netstandard2.0" & dotnet publish --configuration "Release" --framework "netstandard2.0" --property:TargetFrameworks="netstandard2.0" --property:DefineConstants="netstandard20"  --property:CopyLocalLockFileAssemblies="true" --output "bin\Publish\netstandard2.0" --force --disable-build-servers
+
+<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+--property:CopyLocalLockFileAssemblies="true"
+
+<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+dotnet publish --configuration "Release" --framework "net6" --property:TargetFrameworks="net6" --property:DefineConstants="NET6" --force
+
+--force
+--output
+--no-dependencies

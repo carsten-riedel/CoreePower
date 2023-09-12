@@ -9,6 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreePower.Net", "src\Coree
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreePower.Net.MSTest", "src\CoreePower.Net.MSTest\CoreePower.Net.MSTest.csproj", "{E8846FB7-5F08-4032-A442-F00BD6B24197}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{468AD6B5-DF6A-4D9F-BE32-1A3713A967AB}"
+	ProjectSection(SolutionItems) = preProject
+		dotnet.txt = dotnet.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

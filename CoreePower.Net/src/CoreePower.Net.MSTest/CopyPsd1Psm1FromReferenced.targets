@@ -1,13 +1,12 @@
 <Project>
 
-	<UsingTask TaskName="ResolveReferencedAssemblyOutputDirectories1" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+	<UsingTask TaskName="ResolveReferencedAssemblyOutputDirectories1" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
 		<ParameterGroup>
 			<ReferencedAssemblyPaths ParameterType="System.String[]" Required="true" />
 			<ProjectReferencePaths ParameterType="System.String[]" Required="true" />
 			<ReferencedOutputDirectories ParameterType="System.String[]" Output="true" />
 		</ParameterGroup>
 		<Task>
-			<Reference Include="System.Core"/>
 			<Using Namespace="System.Collections.Generic"/>
 			<Code Type="Fragment" Language="cs">
 				<![CDATA[
@@ -64,23 +63,23 @@
 
 		<!-- Define the list of DLL files to be copied -->
 		<ItemGroup>
-			<PoweshellModuleManifest Include="%(OutputDirsToCopy.FullPath)\*.psd1" />
+			<PowershellModuleManifest Include="%(OutputDirsToCopy.FullPath)\*.psd1" />
 		</ItemGroup>
 
 		<!-- Define the list of DLL files to be copied -->
 		<ItemGroup>
-			<PoweshellModule Include="%(OutputDirsToCopy.FullPath)\*.psm1" />
+			<PowershellModule Include="%(OutputDirsToCopy.FullPath)\*.psm1" />
 		</ItemGroup>
 
 		<!-- Output the list of found DLL files -->
-		<Message Text="Found psd1: %(PoweshellModuleManifest.FullPath)" Condition="'@(PoweshellModuleManifest)' != ''" Importance="high" />
-		<Message Text="Found psm1: %(PoweshellModule.FullPath)" Condition="'@(PoweshellModule)' != ''" Importance="high" />
+		<Message Text="Found psd1: %(PowershellModuleManifest.FullPath)" Condition="'@(PowershellModuleManifest)' != ''" Importance="high" />
+		<Message Text="Found psm1: %(PowershellModule.FullPath)" Condition="'@(PowershellModule)' != ''" Importance="high" />
 
 		<!-- MSBuild native Copy task -->
-		<Copy SourceFiles="@(PoweshellModuleManifest)"
+		<Copy SourceFiles="@(PowershellModuleManifest)"
 			  DestinationFolder="$(AbsoluteOutDir)\%(RecursiveDir)"
 			  SkipUnchangedFiles="true"
-			  Condition="'@(PoweshellModuleManifest)' != ''">
+			  Condition="'@(PowershellModuleManifest)' != ''">
 			<!-- This will output the list of copied files -->
 			<Output TaskParameter="CopiedFiles" ItemName="FilesThatWereCopiedManifest" />
 		</Copy>
@@ -89,10 +88,10 @@
 		<Message Text="Copied file: %(FilesThatWereCopiedManifest.FullPath)" Condition="'@(FilesThatWereCopiedManifest)' != ''" Importance="high" />
 
 		<!-- MSBuild native Copy task -->
-		<Copy SourceFiles="@(PoweshellModule)"
+		<Copy SourceFiles="@(PowershellModule)"
 			  DestinationFolder="$(AbsoluteOutDir)\%(RecursiveDir)"
 			  SkipUnchangedFiles="true"
-			  Condition="'@(PoweshellModule)' != ''">
+			  Condition="'@(PowershellModule)' != ''">
 			<!-- This will output the list of copied files -->
 			<Output TaskParameter="CopiedFiles" ItemName="FilesThatWereCopiedModule" />
 		</Copy>

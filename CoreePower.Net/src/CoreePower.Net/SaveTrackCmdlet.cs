@@ -1,11 +1,18 @@
-﻿using SoundCloudExplode;
+﻿extern alias soundx;
 using System;
 using System.IO;
 using System.Management.Automation;
-
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+//using v2Models = Sdk_v2_nuget::Api.Sdk.Models;
+//using soundx = soundx::SoundCloudExplode;
 
 namespace CoreePower.Net
 {
+
+
+
     [Cmdlet(VerbsData.Save, "Track")]
     public class SaveTrackCmdlet : PSCmdlet
     {
@@ -25,17 +32,25 @@ namespace CoreePower.Net
         {
             try
             {
-                var soundcloud = new SoundCloudClient();
+                var soundcloud = new soundx.SoundCloudExplode.SoundCloudClient();
                 var TrackData = soundcloud.Tracks.GetAsync(TrackUrl).Result;
                 var trackTitle = string.Join("_", TrackData.Title.Split(Path.GetInvalidFileNameChars()));
 
                 string homePath;
 
-                if (OperatingSystem.IsWindows())
+#if NET462
+                homePath = Environment.GetEnvironmentVariable("USERPROFILE");
+                var full = System.IO.Path.Combine(homePath, "Tracks");
+                if (!System.IO.Directory.Exists(full))
+                {
+                    System.IO.Directory.CreateDirectory(full);
+                }
+#else
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
                     homePath = Environment.GetEnvironmentVariable("USERPROFILE");
                 }
-                else if (OperatingSystem.IsLinux() || OperatingSystem.IsMacOS())
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
                 {
                     homePath = Environment.GetEnvironmentVariable("HOME");
                 }
@@ -49,6 +64,9 @@ namespace CoreePower.Net
                 {
                     System.IO.Directory.CreateDirectory(full);
                 }
+#endif
+
+
 
                 var downloadfile = $@"{full + System.IO.Path.DirectorySeparatorChar}{trackTitle}.mp3";
                 soundcloud.DownloadAsync(TrackData, downloadfile).AsTask().Wait();
@@ -72,7 +90,10 @@ namespace CoreePower.Net
         // This method will be called once at the end of pipeline execution; if no input is received, this method is not called
         protected override void EndProcessing()
         {
+            
             WriteVerbose("End!");
         }
+
+
     }
 }
