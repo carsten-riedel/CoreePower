@@ -5,7 +5,7 @@
             "name": "CoreePower.Net dotnet test",
             "type": "PowerShell",
             "request": "launch",
-            "script": "Copy-Item -Path ${workspaceFolder}\\Report\\ -Destination ${workspaceFolder}\\..\\docs\\Report -Recurse",
+            "script": "Copy-Item -Path ${workspaceFolder}\\Report\\ -Destination ${workspaceFolder}\\..\\docs -Recurse -Force",
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "dotnet test sln",
         }
