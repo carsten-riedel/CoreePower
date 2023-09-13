@@ -29,9 +29,24 @@
                 //"--property:CoverletOutputFormat=\"json,opencover,cobertura,lcov\"",
             ],
             "problemMatcher": "$msCompile",
-            "presentation": {
-                "showReuseMessage": false
-           }
+            "presentation": { "showReuseMessage": false },
+            "dependsOn": [ "echocwd" ]
+
         },
+        {
+            "label": "Build foo",
+            "type": "shell",
+            "windows": { "command": "${workspaceFolder}/${input:componentType}" },
+            "linux": { "command": "${workspaceFolder}/Build-Linux-x64.sh" },
+            "problemMatcher": ["$msCompile"]
+        },
+        {
+            "label": "echocwd",
+            "type": "shell",
+            "windows": { "command": "echo CWD: .${cwd}." },
+            "linux": { "command": "echo ${cwd}" },
+            "problemMatcher": ["$msCompile"]
+        }
+        
     ]
 }

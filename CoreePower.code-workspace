@@ -31,6 +31,11 @@
 			"name": "Github Pages in docs",
 			"path": "docs"
 		}
+		,
+		{
+			"name": "TrashCan",
+			"path": "TrashCan"
+		}
 	],
 	"settings": {
 		"git.openRepositoryInParentFolders": "always",
