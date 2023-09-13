@@ -2,6 +2,12 @@
     "version": "2.0.0",
     "tasks": [
         {
+            //About tasks
+            //https://code.visualstudio.com/docs/editor/tasks
+            //https://code.visualstudio.com/docs/editor/tasks-appendix
+            //About dotnet test
+            //https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-test
+            //https://github.com/Microsoft/vstest-docs/blob/main/docs/report.md#syntax-of-default-loggers
             "label": "dotnet test sln",
             "command": "dotnet",
             "type": "process",
