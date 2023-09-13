@@ -8,18 +8,25 @@
             //About dotnet test
             //https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-test
             //https://github.com/Microsoft/vstest-docs/blob/main/docs/report.md#syntax-of-default-loggers
+            //About coverlet
+            //https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/VSTestIntegration.md
+            //https://github.com/coverlet-coverage/coverlet/blob/master/src/coverlet.collector/Utilities/CoverletConstants.cs#L9
+            //https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/MSBuildIntegration.md
             "label": "dotnet test sln",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "test",
                 "${workspaceFolder}/CoreePower.Net.sln",
-                "--logger:trx;LogFilePrefix=Report.xml",
-                "--logger:html;LogFilePrefix=Report.html",
-                "--logger:html;LogFilename=${workspaceFolder}/latest_test.html",
+                "--logger:trx;LogFilePrefix=TestResult",
+                "--logger:html;LogFilename=${workspaceFolder}\\Report\\TestResult.html",
                 "--consoleloggerparameters:Summary",
                 "--verbosity:minimal",
-                "--results-directory:${workspaceFolder}/TestResults"
+                "--results-directory:${workspaceFolder}\\TestResults",
+                
+                //"--property:CollectCoverage=\"true\"",
+                //"--property:CoverletOutput=\"${workspaceFolder}\\TestResults\\coverlet\"",
+                //"--property:CoverletOutputFormat=\"json,opencover,cobertura,lcov\"",
             ],
             "problemMatcher": "$msCompile",
             "presentation": {
