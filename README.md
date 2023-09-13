@@ -10,7 +10,7 @@ For more information, please refer to the subdirectory readme.md.
 ## Development enviroment.
 #### Basicly clone the repo to a directory, visual studio code with powershell extension is used.
 ```
-cmd /v /c "set "p=C:\temp" & set "r=CoreePower" & mkdir !p! & git -C "!p!" clone https://github.com/carsten-riedel/!r!.git || git -C "!p!\!r!" pull"
+cmd /v /c "set "p=C:\temp"&set "r=CoreePower"&md !p!&git -C "!p!" clone https://github.com/carsten-riedel/!r!.git&git -C"!p!\!r!" pull"
 ```
 
 
