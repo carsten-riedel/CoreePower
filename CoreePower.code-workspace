@@ -26,6 +26,11 @@
 		{
 			"path": ".vscode"
 		}
+		,
+		{
+			"name": "Github Pages in docs",
+			"path": "docs"
+		}
 	],
 	"settings": {
 		"git.openRepositoryInParentFolders": "always",
