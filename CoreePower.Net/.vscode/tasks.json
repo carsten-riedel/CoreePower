@@ -2,40 +2,23 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "dotnet test sln",
             "command": "dotnet",
             "type": "process",
             "args": [
-                "build",
+                "test",
                 "${workspaceFolder}/CoreePower.Net.sln",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "--logger:trx;LogFilePrefix=Report.xml",
+                "--logger:html;LogFilePrefix=Report.html",
+                "--logger:html;LogFilename=${workspaceFolder}/latest_test.html",
+                "--consoleloggerparameters:Summary",
+                "--verbosity:minimal",
+                "--results-directory:${workspaceFolder}/TestResults"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "showReuseMessage": false
+           }
         },
-        {
-            "label": "publish",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "publish",
-                "${workspaceFolder}/CoreePower.Net.sln",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "watch",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "watch",
-                "run",
-                "--project",
-                "${workspaceFolder}/CoreePower.Net.sln"
-            ],
-            "problemMatcher": "$msCompile"
-        }
     ]
 }

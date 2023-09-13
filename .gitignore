@@ -4,3 +4,6 @@
 /CoreePower.Net/src/CoreePower.Net/bin
 /CoreePower.Net/src/CoreePower.Net.MSTest/bin
 /CoreePower.Net/src/CoreePower.Net.MSTest/obj
+/CoreePower.Net/src/TestResults
+/CoreePower.Net/src/CoreePower.Net.MSTest/TestResults
+
