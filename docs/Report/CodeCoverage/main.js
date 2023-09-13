@@ -221,14 +221,14 @@ var assemblies = [
   {
     "name": "CoreePower.Net",
     "classes": [
-      { "name": "CoreePower.Net.SampleCmdlet", "rp": "CoreePower.Net_SampleCmdlet.html", "cl": 0, "ucl": 29, "cal": 29, "tl": 59, "cb": 0, "tb": 4, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "CoreePower.Net.SaveTrackCmdlet", "rp": "CoreePower.Net_SaveTrackCmdlet.html", "cl": 0, "ucl": 43, "cal": 43, "tl": 99, "cb": 0, "tb": 20, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "CoreePower.Net.SampleCmdlet", "rp": "CoreePower.Net_SampleCmdlet.html", "cl": 18, "ucl": 11, "cal": 29, "tl": 59, "cb": 0, "tb": 4, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "CoreePower.Net.SaveTrackCmdlet", "rp": "CoreePower.Net_SaveTrackCmdlet.html", "cl": 23, "ucl": 20, "cal": 43, "tl": 99, "cb": 4, "tb": 20, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
     ]},
   {
     "name": "Default",
     "classes": [
-      { "name": "C:\\base\\github.com\\carsten-riedel\\CoreePower\\CoreePower.Net\\src\\CoreePower.Net\\SampleCmdlet.cs", "rp": "C__base_github.com_carsten_riedel_CoreePower_CoreePower.Net_src_CoreePower.Net_SampleCmdlet.cs.html", "cl": 0, "ucl": 29, "cal": 29, "tl": 59, "cb": 0, "tb": 2, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "C:\\base\\github.com\\carsten-riedel\\CoreePower\\CoreePower.Net\\src\\CoreePower.Net\\SaveTrackCmdlet.cs", "rp": "C__base_github.com_carsten_riedel_CoreePower_Coreeet_src_CoreePower.Net_SaveTrackCmdlet.cs.html", "cl": 0, "ucl": 43, "cal": 43, "tl": 99, "cb": 0, "tb": 10, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "C:\\base\\github.com\\carsten-riedel\\CoreePower\\CoreePower.Net\\src\\CoreePower.Net\\SampleCmdlet.cs", "rp": "C__base_github.com_carsten_riedel_CoreePower_CoreePower.Net_src_CoreePower.Net_SampleCmdlet.cs.html", "cl": 18, "ucl": 11, "cal": 29, "tl": 59, "cb": 0, "tb": 2, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "C:\\base\\github.com\\carsten-riedel\\CoreePower\\CoreePower.Net\\src\\CoreePower.Net\\SaveTrackCmdlet.cs", "rp": "C__base_github.com_carsten_riedel_CoreePower_Coreeet_src_CoreePower.Net_SaveTrackCmdlet.cs.html", "cl": 23, "ucl": 20, "cal": 43, "tl": 99, "cb": 2, "tb": 10, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
     ]},
 ];
 

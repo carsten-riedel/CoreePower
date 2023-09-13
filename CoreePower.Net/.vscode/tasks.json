@@ -23,7 +23,7 @@
                 "--consoleloggerparameters:Summary",
                 "--verbosity:minimal",
                 "--results-directory:${workspaceFolder}\\TestResults",
-                
+                "--collect:\"XPlat Code Coverage\""
                 //"--property:CollectCoverage=\"true\"",
                 //"--property:CoverletOutput=\"${workspaceFolder}\\TestResults\\coverlet\"",
                 //"--property:CoverletOutputFormat=\"json,opencover,cobertura,lcov\"",
@@ -44,7 +44,7 @@
             "label": "echocwd",
             "type": "shell",
             "windows": { "command": "echo CWD: .${cwd}." },
-            "linux": { "command": "echo ${cwd}" },
+            "linux": { "command": "echo .${cwd}." },
             "problemMatcher": ["$msCompile"]
         }
         
