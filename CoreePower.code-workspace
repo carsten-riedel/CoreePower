@@ -1,0 +1,33 @@
+{
+	"folders": [
+		{
+			"path": "CoreePower.Common",
+		},
+		{
+			"path": "CoreePower.Config"
+		},
+		{
+			"path": "CoreePower.Lib"
+		},
+		{
+			"path": "CoreePower.Module"
+		},
+		{
+			"path": "CoreePower.Net"
+		},
+		{
+			"name": "res",
+			"path": "res"
+		},
+		{
+			
+			"path": ".github"
+		},
+		{
+			"path": ".vscode"
+		}
+	],
+	"settings": {
+		"git.openRepositoryInParentFolders": "always"
+	}
+}
