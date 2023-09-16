@@ -6,10 +6,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Build: Launch Current",
+            "name": "Configure",
             "type": "PowerShell",
             "request": "launch",
-            "script": "${file}",
+            "script": "${cwd}/scripts/configure.ps1",
             "args": []
         }
     ]
