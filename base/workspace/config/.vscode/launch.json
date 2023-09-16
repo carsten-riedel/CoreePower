@@ -6,10 +6,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "WS: Launch Current",
+            "name": "Configure",
             "type": "PowerShell",
             "request": "launch",
-            "script": "${cwd}/scripts/Ensure.ps1",
+            "script": "${cwd}/scripts/configure.ps1",
             "args": []
         }
     ]
