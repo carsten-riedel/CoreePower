@@ -6,7 +6,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "PowerShell: Launch Current Filex",
+            "name": "Build: Launch Current",
             "type": "PowerShell",
             "request": "launch",
             "script": "${file}",

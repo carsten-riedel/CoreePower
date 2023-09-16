@@ -11,6 +11,13 @@
             "request": "launch",
             "script": "${file}",
             "args": []
+        },
+        {
+            "name": "PowerShell: ii",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "${file}",
+            "args": []
         }
     ]
 }

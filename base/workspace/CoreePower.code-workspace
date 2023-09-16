@@ -25,6 +25,8 @@
 		}
 	],
 	"settings": {
-		"git.openRepositoryInParentFolders": "always"
+		"git.openRepositoryInParentFolders": "always",
+		"powershell.debugging.createTemporaryIntegratedConsole": true,
+		"powershell.cwd": "${workspaceFolder}/.."
 	}
 }
