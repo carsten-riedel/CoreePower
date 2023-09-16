@@ -8,3 +8,10 @@
 /CoreePower.Net/src/TestResults
 /CoreePower.Net/src/CoreePower.Net.MSTest/TestResults
 
+base/workspace/source/CoreePower.Net/src/CoreePower.Net.MSTest/bin
+base/workspace/source/CoreePower.Net/src/CoreePower.Net.MSTest/obj
+base/workspace/source/CoreePower.Net/.vs
+base/workspace/source/CoreePower.Net/src/CoreePower.Net/bin
+base/workspace/source/CoreePower.Net/src/CoreePower.Net/obj
+base/workspace/source/CoreePower.Net/TestResults
+base/workspace/source/CoreePower.Net/Report

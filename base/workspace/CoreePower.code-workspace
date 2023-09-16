@@ -1,0 +1,30 @@
+{
+	"folders": [
+		{
+			"name": "SourceCodes / Projects (source)",
+			"path": "source"
+		},
+		{
+			"name": "Start/Launch/IDE (build)",
+			"path": "build"
+		}
+		,
+		{
+			"name": "Resources static (resources)",
+			"path": "resources"
+		}
+		,
+		{
+			"name": "Artifacts (artifacts)",
+			"path": "artifacts"
+		}
+		,
+		{
+			"name": "Workspace (config)",
+			"path": "config"
+		}
+	],
+	"settings": {
+		"git.openRepositoryInParentFolders": "always"
+	}
+}
