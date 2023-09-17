@@ -1,5 +1,25 @@
 <Project>
 
+	<UsingTask
+			TaskName="GetFirstFolder"
+			TaskFactory="RoslynCodeTaskFactory"
+			AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+			<ParameterGroup>
+			<InputPath ParameterType="System.String" Required="true" />
+			<FirstFolder ParameterType="System.String" Output="true" />
+			</ParameterGroup>
+			<Task>
+			<Using Namespace="System" />
+			<Using Namespace="System.IO" />
+			<Using Namespace="System.Linq" />
+			<Code Type="Fragment" Language="cs">
+				<![CDATA[
+				FirstFolder = InputPath.Split(Path.DirectorySeparatorChar).First();
+				]]>
+			</Code>
+			</Task>
+	</UsingTask>
+
 	<Target Name="AfterBuildTask" AfterTargets="Build">
 		<Message Text="This was triggered by Build $(TargetFramework)" Importance="high"/>
 		<PropertyGroup>
@@ -66,6 +86,13 @@
 	<Target Name="x" AfterTargets="Build;Publish" Condition="'$(Configuration)' == 'Release'">
 
 		<Message Importance="high" Text="======== Begin CopyPsd1Psm1 $(Configuration) $(PublishDir) ========" />
+
+		<GetFirstFolder InputPath="$(OutputPath)">
+      		<Output TaskParameter="FirstFolder" PropertyName="BinFolder" />
+    	</GetFirstFolder>
+
+		<!-- Debugging line to print the BinFolder -->
+		<Message Text="BinFolder: $(BinFolder)" Importance="high"/>
 
 		<PropertyGroup>
 			<BinFolder>$([System.String]::new('$(OutputPath)').Split('\')[0])</BinFolder>
