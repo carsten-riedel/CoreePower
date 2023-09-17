@@ -37,9 +37,12 @@
 	<!-- Target to find and process a unique file -->
 	<Target Name="CopyPsd1Psm1" AfterTargets="CoreBuild" Condition="'$(TargetFramework)' != ''">
 
-		<Message Importance="high" Text="======== Begin CopyPsd1Psm1 $(TargetFramework) ========" />
-		<Message Importance="high" Text="======== Target Name CopyPsd1Psm1 , AfterTargets=CoreBuild ========" />
-		<Message Importance="high" Text="" />
+		<Message Importance="high" Text=" " />
+		<Message Importance="high" Text="======== TargetName CopyPsd1Psm1 ========" />
+		<Message Importance="high" Text="TargetFramework: $(TargetFramework)" />
+		<Message Importance="high" Text="Configuration: $(Configuration)" />
+		<Message Importance="high" Text="MSBuildNodeCount: $(MSBuildNodeCount)"/>
+
 
 		<GetFirstFolder InputPath="$(OutputPath)">
       		<Output TaskParameter="FirstFolder" PropertyName="BinFolder" />
@@ -48,6 +51,11 @@
 		<PropertyGroup>
 			<DestinationFolder>$(MSBuildProjectDirectory)\$(OutputPath)</DestinationFolder>
 		</PropertyGroup>
+
+		<Message Importance="high" Text="BinFolder: $(BinFolder)"/>
+		<Message Importance="high" Text="DestinationFolder: $(DestinationFolder)"/>
+		<Message Importance="high" Text="OutDir: $(OutDir)"/>
+		<Message Importance="high" Text="OutputPath: $(OutputPath)"/>
 
 		<!-- Find .psd1 files but ignore those in dynamically located bin and obj directories -->
 		<ItemGroup>
@@ -81,29 +89,33 @@
 		<!-- Output the list of copied files -->
 		<Message Text="Copied file: %(FilesThatWereCopiedModule.FullPath)" Condition="'@(FilesThatWereCopiedModule)' != ''" Importance="high" />
 
-		<Message Importance="high" Text="======== End   CopyPsd1Psm1 $(TargetFramework) ========" />
+		<Message Importance="high" Text="++++++++ TargetName CopyPsd1Psm1 ++++++++" />
 		
 	</Target>
 
-	<Target Name="x" AfterTargets="Build;Publish" Condition="'$(Configuration)' == 'Release'">
+	<Target Name="x" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
 
-		<Message Importance="high" Text="======== Target Name x , AfterTargets=Build;Publish Configuration Release  ========" />
-		<Message Importance="high" Text="" />
+		<Message Importance="high" Text=" " />
+		<Message Importance="high" Text="======== TargetName x ========" />
+		<Message Importance="high" Text="TargetFramework: $(TargetFramework)" />
+		<Message Importance="high" Text="Configuration: $(Configuration)" />
+		<Message Importance="high" Text="MSBuildNodeCount: $(MSBuildNodeCount)"/>
+
 
 		<GetFirstFolder InputPath="$(OutputPath)">
       		<Output TaskParameter="FirstFolder" PropertyName="BinFolder" />
     	</GetFirstFolder>
 
-		<!-- Debugging line to print the BinFolder -->
-		<Message Text="BinFolder: $(BinFolder)" Importance="high"/>
-
 		<PropertyGroup>
-			<BinFolder>$([System.String]::new('$(OutputPath)').Split('\')[0])</BinFolder>
+			<DestinationFolder>$(PublishDir)</DestinationFolder>
 		</PropertyGroup>
 
-		<PropertyGroup>
-			<DestinationFolder>$(MSBuildProjectDirectory)\$(OutputPath)</DestinationFolder>
-		</PropertyGroup>
+		<Message Importance="high" Text="BinFolder: $(BinFolder)"/>
+		<Message Importance="high" Text="DestinationFolder: $(DestinationFolder)"/>
+		<Message Importance="high" Text="OutDir: $(OutDir)"/>
+		<Message Importance="high" Text="OutputPath: $(OutputPath)"/>
+		<Message Importance="high" Text="BaseOutputPath: $(BaseOutputPath)"/>
+		<Message Importance="high" Text="PublishDir: $(PublishDir)"/>
 
 		<Message Importance="high" Text="======== BinFolder $(BinFolder) DestinationFolder: $(DestinationFolder) ========" />
 
@@ -114,6 +126,10 @@
 		<!-- Find .psd1 files but ignore those in dynamically located bin and obj directories -->
 		<ItemGroup>
 			<PowershellModuleManifest Include="**\*.psd1" Exclude="$(BinFolder)\**;$(BaseIntermediateOutputPath)**" />
+		</ItemGroup>
+
+		<ItemGroup>
+			<PowershellModule Remove="@(PowershellModule)" />
 		</ItemGroup>
 
 		<!-- Find .psd1 files but ignore those in dynamically located bin and obj directories -->
@@ -131,6 +147,7 @@
 
 		<!-- Log found .psd1 files -->
 		<Message Text="Found .psd1 files: @(PowershellModuleManifest)" Importance="high" />
+		<Message Text="Found .psm1 files: @(PowershellModule)" Importance="high" />
 
 		<Error Text="No .psd1 file found." Condition="'@(PowershellModuleManifest->Count())' == 0" />
 		<Error Text="Multiple .psd1 files found, only one is allowed." Condition="'@(PowershellModuleManifest->Count())' > 1" />
@@ -159,7 +176,7 @@
 			<Output TaskParameter="CopiedFiles" ItemName="FilesThatWereCopiedModule" />
 		</Copy>
 		
-		<Message Importance="high" Text="======== End   CopyPsd1Psm1 $(Configuration) ========" />
+		<Message Importance="high" Text="++++++++ TargetName x ++++++++" />
 
 	</Target>
 
