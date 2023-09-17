@@ -28,6 +28,5 @@
 		"git.openRepositoryInParentFolders": "always",
 		"powershell.debugging.createTemporaryIntegratedConsole": true,
 		"powershell.cwd": "${workspaceFolder}/..",
-		"omnisharp.testRunSettings": ".runsettings"
 	}
 }

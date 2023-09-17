@@ -38,10 +38,12 @@
 	<Target Name="CopyPsd1Psm1" AfterTargets="CoreBuild" Condition="'$(TargetFramework)' != ''">
 
 		<Message Importance="high" Text="======== Begin CopyPsd1Psm1 $(TargetFramework) ========" />
-		
-		<PropertyGroup>
-			<BinFolder>$([System.String]::new('$(OutputPath)').Split('\')[0])</BinFolder>
-		</PropertyGroup>
+		<Message Importance="high" Text="======== Target Name CopyPsd1Psm1 , AfterTargets=CoreBuild ========" />
+		<Message Importance="high" Text="" />
+
+		<GetFirstFolder InputPath="$(OutputPath)">
+      		<Output TaskParameter="FirstFolder" PropertyName="BinFolder" />
+    	</GetFirstFolder>
 
 		<PropertyGroup>
 			<DestinationFolder>$(MSBuildProjectDirectory)\$(OutputPath)</DestinationFolder>
@@ -85,7 +87,8 @@
 
 	<Target Name="x" AfterTargets="Build;Publish" Condition="'$(Configuration)' == 'Release'">
 
-		<Message Importance="high" Text="======== Begin CopyPsd1Psm1 $(Configuration) $(PublishDir) ========" />
+		<Message Importance="high" Text="======== Target Name x , AfterTargets=Build;Publish Configuration Release  ========" />
+		<Message Importance="high" Text="" />
 
 		<GetFirstFolder InputPath="$(OutputPath)">
       		<Output TaskParameter="FirstFolder" PropertyName="BinFolder" />
