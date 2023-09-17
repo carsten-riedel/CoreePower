@@ -7,6 +7,6 @@
     "ghcr.io/devcontainers-contrib/features/bash-command:1": {
         "COMMAND" : "sudo apt-get update -y ; sudo apt install mc -y"
     },
-    "postCreateCommand": "chown codespace:codespace /home/codespace/.dotnet"
+    "postCreateCommand": "chown codespace:codespace /home/codespace/.dotnet" ,
   }
 }
