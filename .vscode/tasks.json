@@ -7,12 +7,11 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/doo.csproj",
+                "${workspaceFolder}/base/workspace/source/CoreePower.Net/CoreePower.Net.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
-            "problemMatcher": "$msCompile",
-            "dependsOn":["test"]
+            "problemMatcher": "$msCompile"
         },
         {
             "label": "publish",
@@ -20,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/doo.csproj",
+                "${workspaceFolder}/base/workspace/source/CoreePower.Net/CoreePower.Net.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -34,17 +33,9 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/doo.csproj"
+                "${workspaceFolder}/base/workspace/source/CoreePower.Net/CoreePower.Net.sln"
             ],
             "problemMatcher": "$msCompile"
-        }
-        ,
-        {
-            "label": "test",
-            "command": "echo",
-            "type": "shell",
-            "args": [ "echo2" ],
-            
         }
     ]
 }

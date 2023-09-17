@@ -15,6 +15,13 @@ namespace CoreePower.Net.MSTest
     [TestClass]
     public class UnitTest1
     {
+
+        [TestMethod]
+        public void Testc()
+        {
+            //System.Diagnostics.Debugger.Launch();
+        }
+
         [TestMethod]
         public void TestTestSampleCmdlet()
         {

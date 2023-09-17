@@ -28,14 +28,41 @@
 
   <Import Project="CopyPsd1Psm1FromReferenced.targets" />
 
+
+
+	  <PropertyGroup>
+    <!-- Add this line to specify loggers -->
+    <!-- <VSTestLogger>trx;LogFileName=TestResults.trx</VSTestLogger> -->
+    <!-- If you also want HTML, you can chain it like this -->
+    <!-- <VSTestLogger>trx;LogFileName=TestResults.trx|html;LogFileName=TestResults.html</VSTestLogger> -->
+  </PropertyGroup>
+
+  <!-- Existing project configuration
+
+
+
+
+
   <PropertyGroup>
     <CollectCoverage>true</CollectCoverage>
 	  <CoverletOutput>$(SolutionDir)\TestResults\CodeCoverage_$([System.DateTime]::Now.ToString(`yyyyMMdd`))</CoverletOutput>
     <CoverletOutputFormat>opencover,cobertura,lcov</CoverletOutputFormat>
   </PropertyGroup>
 
-  <Target Name="GenerateHtmlCoverageReport" AfterTargets="GenerateCoverageResultAfterTest">
-    <ReportGenerator ReportFiles="@(CoverletReport)" TargetDirectory="$(SolutionDir)\Report\CodeCoverage" />
+  <PropertyGroup>
+    <VSTestLogger>trx;LogFilePrefix=TestResult|html;LogFilename=Report\TestResult.html</VSTestLogger>
+    <VSTestConsoleLoggerParameters>Summary</VSTestConsoleLoggerParameters>
+    <VSTestVerbosity>minimal</VSTestVerbosity>
+    <VSTestResultsDirectory>TestResults</VSTestResultsDirectory>
+    <VSTestCollect>XPlat Code Coverage</VSTestCollect>
+  </PropertyGroup>
+     -->
+  
+  <!-- More existing project configurations -->
+
+ 
+  <Target Name="GenerateHtmlCoverageReport" AfterTargets="GenerateCoverageResultAfterTest" Condition="'$(ReportGeneratorPath)' != ''">
+    <ReportGenerator ReportFiles="@(CoverletReport)" TargetDirectory="$(ReportGeneratorPath)" />
   </Target>
 
 </Project>
