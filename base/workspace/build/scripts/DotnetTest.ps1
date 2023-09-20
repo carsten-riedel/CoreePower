@@ -20,4 +20,9 @@ Set-Location -Path $dotnetdir
   --property:"ReportGeneratorPath=`"$LogReportRoot\Report`"" `
   
 
+
 Set-Location -Path $workspaceFolder
+
+$resultindex = Invoke-Prompt -PromptTitle "Select action" -PromptMessage "Testcoverage" -PromptChoices @(@('&Cancel', 'Cancel the action.'), @('&Publish', 'Publish the result.'))
+
+

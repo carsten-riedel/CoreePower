@@ -7,19 +7,20 @@ $artifacts = Join-Path -Path "$workspaceFolder" -ChildPath "artifacts" -Addition
 
 Set-Location -Path $dotnetdir
 
-#dotnet clean --configuration "Release" --framework "net461" --property:TargetFrameworks="net461" & dotnet publish --configuration "Release" --framework "net461" --property:TargetFrameworks="net461" --property:DefineConstants="net461" --output "bin\Publish\net461" --force
+$frameworkOverride = "netstandard2.0"
+$output = Join-Path -Path "$artifacts" -ChildPath "$frameworkOverride"
 
 &dotnet clean `
   --configuration:"Release" `
-  --framework:"netstandard2.0" `
-  --property:"TargetFrameworks=`"netstandard2.0`""
+  --framework:"$frameworkOverride" `
+  --property:"TargetFrameworks=`"$frameworkOverride`""
 
 &dotnet publish `
   --force `
   --configuration:"Release" `
-  --framework:"netstandard2.0" `
-  --property:"TargetFrameworks=`"netstandard2.0`"" `
-  --output:"$artifacts" `
+  --framework:"$frameworkOverride" `
+  --property:"TargetFrameworks=`"$frameworkOverride`"" `
+  --output:"$output" `
   --maxcpucount:1
   
 

@@ -205,7 +205,7 @@ function Invoke-Prompt {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     [Alias("ipt")] 
     param(
-        [string]$PromptTitle = "Confirm Action",
+        [string]$PromptTitle = "Select action",
         [string]$PromptMessage = "Do you want to proceed?",
         [string[][]]$PromptChoices = @(@('&Yes', 'Proceed with the action.'), @('&No', 'Cancel the action.')),
         [int]$DefaultChoiceIndex = 0,
@@ -262,3 +262,41 @@ function Confirm-AdminRightsEnabled {
 
     return Invoke-Prompt -PromptTitle "Admin Rights Required" -PromptMessage "This command requires administrator rights to run. Activate admin rights before continuing." -PromptChoices @(@("&Yes", "Enable admin rights."), @("&No", "Do not run this command.")) -DefaultChoiceIndex 1 -DisplayChoicesBeforePrompt $true
 }
+
+
+<#
+.SYNOPSIS
+    Checks if the current PowerShell session is running in interactive mode.
+
+.DESCRIPTION
+    The function Assert-IsInteractiveShell evaluates the environment and command-line arguments to determine 
+    if the current PowerShell session is interactive. Specifically, it looks for the '-NonInteractive' flag
+    in the command-line arguments. If found, the function returns $false. Otherwise, it checks the 
+    [Environment]::UserInteractive property. If it's $true, the function returns $true, indicating an interactive shell.
+
+.PARAMETERS
+    None
+
+.EXAMPLE
+    Assert-IsInteractiveShell
+
+    Returns $true if the shell is interactive, $false otherwise.
+
+.RETURN VALUE
+    Returns a boolean value ($true or $false) indicating whether the shell is interactive or not.
+
+.NOTES
+    Function does not take any parameters. It strictly evaluates the environment variables and command-line arguments.
+#>
+function Assert-IsInteractiveShell {
+    # Test each Arg for match of abbreviated '-NonInteractive' command.
+    $NonInteractive = [Environment]::GetCommandLineArgs() | Where-Object{ $_ -like '-NonI*' }
+  
+    if ([Environment]::UserInteractive -and -not $NonInteractive) {
+        # We are in an interactive shell.
+        return $true
+    }
+  
+    return $false
+}
+

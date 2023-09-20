@@ -10,6 +10,21 @@
             "request": "launch",
             "script": "${file}",
             "args": []
+        },
+        {
+            "name": "DotnetPublish",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "${workspaceFolder}/scripts/DotnetPublish.ps1",
+            "args": []
+        },
+        {
+            "name": "DotnetTest",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "${workspaceFolder}/scripts/DotnetTest.ps1",
+            "args": []
         }
+
     ]
 }
