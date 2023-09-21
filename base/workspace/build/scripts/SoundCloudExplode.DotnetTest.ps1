@@ -2,7 +2,7 @@ $dir = $PSScriptRoot
 Set-Location -Path "$dir/../.."
 $workspaceFolder = Get-Location
 
-$dotnetdir = Join-Path -Path "$workspaceFolder" -ChildPath "source" -AdditionalChildPath @("CoreePower.Net")
+$dotnetdir = Join-Path -Path "$workspaceFolder" -ChildPath "source" -AdditionalChildPath @("CoreePower.Net.SoundCloudExplode")
 $LogReportRoot = Join-Path -Path "$workspaceFolder" -ChildPath "artifacts" -AdditionalChildPath @("dotnettest")
 
 Set-Location -Path $dotnetdir

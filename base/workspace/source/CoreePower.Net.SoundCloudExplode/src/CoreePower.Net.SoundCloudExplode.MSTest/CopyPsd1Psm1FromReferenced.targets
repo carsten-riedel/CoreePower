@@ -1,0 +1,106 @@
+<Project>
+
+	<UsingTask TaskName="ResolveReferencedAssemblyOutputDirectories1" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+		<ParameterGroup>
+			<ReferencedAssemblyPaths ParameterType="System.String[]" Required="true" />
+			<ProjectReferencePaths ParameterType="System.String[]" Required="true" />
+			<ReferencedOutputDirectories ParameterType="System.String[]" Output="true" />
+		</ParameterGroup>
+		<Task>
+			<Using Namespace="System.Collections.Generic"/>
+			<Code Type="Fragment" Language="cs">
+				<![CDATA[
+					List<string> filteredList = new List<string>();
+					foreach (var assemblyPath in ReferencedAssemblyPaths)
+					{
+						foreach (var projectPath in ProjectReferencePaths)
+						{
+							string projectDir = System.IO.Path.GetDirectoryName(projectPath);
+							if (assemblyPath.StartsWith(projectDir))
+							{
+								filteredList.Add(System.IO.Path.GetDirectoryName(assemblyPath));
+								break;  // Exit the inner loop as we found a match
+							}
+						}
+					}
+					ReferencedOutputDirectories = filteredList.Distinct().ToArray();
+				]]>
+			</Code>
+		</Task>
+	</UsingTask>
+
+	<Target Name="CopyPsd1Psm1FromReferenced" DependsOnTargets="ResolveReferences" AfterTargets="Build">
+
+		<Message Importance="high" Text="======== CopyPsd1Psm1FromReferenced ========" />
+
+		<ItemGroup>
+			<ReferencedAssemblyPathsStrings Include="@(ReferencePath -> '%(FullPath)')" />
+			<ProjectReferencePathsStrings Include="@(ProjectReference -> '%(FullPath)')" />
+		</ItemGroup>
+
+		<!-- Use the custom task for filtering -->
+		<ResolveReferencedAssemblyOutputDirectories1 ReferencedAssemblyPaths="@(ReferencedAssemblyPathsStrings)"
+						  ProjectReferencePaths="@(ProjectReferencePathsStrings)">
+			<Output TaskParameter="ReferencedOutputDirectories" PropertyName="ResolvedOutputDirs" />
+		</ResolveReferencedAssemblyOutputDirectories1>
+
+		<!-- Debugging: Print filtered assemblies -->
+		
+		<Message Importance="high" Text="ProjectReference resolved dir: $(ResolvedOutputDirs)" Condition="'$(ResolvedOutputDirs' != ''" />
+
+		<Warning Text="This MSTestProject uses net7 pshost you referencing: $(ResolvedOutputDirs)" Code="Info001" />
+
+		<!-- Execute robocopy for each resolved output directory using batching -->
+		<ItemGroup>
+			<OutputDirsToCopy Include="$(ResolvedOutputDirs.Split(';'))" />
+		</ItemGroup>
+
+		<!-- Use batching to execute robocopy for each directory -->
+		<PropertyGroup>
+			<AbsoluteOutDir>$(MSBuildProjectDirectory)\$(OutDir.TrimEnd('\'))</AbsoluteOutDir>
+		</PropertyGroup>
+
+
+		<!-- Define the list of DLL files to be copied -->
+		<ItemGroup>
+			<PowershellModuleManifest Include="%(OutputDirsToCopy.FullPath)\*.psd1" />
+		</ItemGroup>
+
+		<!-- Define the list of DLL files to be copied -->
+		<ItemGroup>
+			<PowershellModule Include="%(OutputDirsToCopy.FullPath)\*.psm1" />
+		</ItemGroup>
+
+		<!-- Output the list of found DLL files -->
+		<Message Text="Found psd1: %(PowershellModuleManifest.FullPath)" Condition="'@(PowershellModuleManifest)' != ''" Importance="high" />
+		<Message Text="Found psm1: %(PowershellModule.FullPath)" Condition="'@(PowershellModule)' != ''" Importance="high" />
+
+		<!-- MSBuild native Copy task -->
+		<Copy SourceFiles="@(PowershellModuleManifest)"
+			  DestinationFolder="$(AbsoluteOutDir)\%(RecursiveDir)"
+			  SkipUnchangedFiles="true"
+			  Condition="'@(PowershellModuleManifest)' != ''">
+			<!-- This will output the list of copied files -->
+			<Output TaskParameter="CopiedFiles" ItemName="FilesThatWereCopiedManifest" />
+		</Copy>
+
+		<!-- Output the list of copied files -->
+		<Message Text="Copied file: %(FilesThatWereCopiedManifest.FullPath)" Condition="'@(FilesThatWereCopiedManifest)' != ''" Importance="high" />
+
+		<!-- MSBuild native Copy task -->
+		<Copy SourceFiles="@(PowershellModule)"
+			  DestinationFolder="$(AbsoluteOutDir)\%(RecursiveDir)"
+			  SkipUnchangedFiles="true"
+			  Condition="'@(PowershellModule)' != ''">
+			<!-- This will output the list of copied files -->
+			<Output TaskParameter="CopiedFiles" ItemName="FilesThatWereCopiedModule" />
+		</Copy>
+
+		<!-- Output the list of copied files -->
+		<Message Text="Copied file: %(FilesThatWereCopiedModule.FullPath)" Condition="'@(FilesThatWereCopiedModule)' != ''" Importance="high" />
+		
+	</Target>
+
+
+
+</Project>

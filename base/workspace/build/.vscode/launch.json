@@ -12,17 +12,31 @@
             "args": []
         },
         {
-            "name": "DotnetPublish",
+            "name": "DotnetPublish CoreePower.Net",
             "type": "PowerShell",
             "request": "launch",
             "script": "${workspaceFolder}/scripts/DotnetPublish.ps1",
             "args": []
         },
         {
-            "name": "DotnetTest",
+            "name": "DotnetTest CoreePower.Net",
             "type": "PowerShell",
             "request": "launch",
             "script": "${workspaceFolder}/scripts/DotnetTest.ps1",
+            "args": []
+        },
+        {
+            "name": "DotnetPublish CoreePower.Net.SoundCloudExplode",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "${workspaceFolder}/scripts/SoundCloudExplode.DotnetPublish.ps1",
+            "args": []
+        },
+        {
+            "name": "DotnetTest CoreePower.Net.SoundCloudExplode",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "${workspaceFolder}/scripts/SoundCloudExplode.DotnetTest.ps1",
             "args": []
         }
 

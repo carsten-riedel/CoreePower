@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	
+	<PropertyGroup>
+		<TargetFrameworks>net6;net462</TargetFrameworks>
+		<DebugType>embedded</DebugType>
+		<SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+		</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net6'">
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	</PropertyGroup>
+
+	
+	<ItemGroup>
+		<PackageReference Include="PowerShellStandard.Library" Version="5.1.1"   />
+		<PackageReference Include="SoundCloudExplode" Version="1.5.3" Aliases="SndExplode"  />
+		
+		<PackageReference Include="System.Buffers" Version="4.4.0" NoWarn="NU1605" />
+		<PackageReference Include="System.Numerics.Vectors" Version="4.4.0" NoWarn="NU1605" />
+		<PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" NoWarn="NU1605"/>
+		
+
+	</ItemGroup>
+
+
+	<Import Project="CopyPsd1Psm1.targets" />
+
+
+	
+</Project>
