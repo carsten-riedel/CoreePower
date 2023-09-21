@@ -133,7 +133,7 @@ Update-RedirectPaths -assemblyInfo $assemblyInfo -redirects $redirects
 #LoadAssemblies -directoryPath "$PSScriptRoot"
 
 
-Import-Module -Name "$PSScriptRoot/CoreePower.Net.dll" -Force
+Import-Module -Name "$PSScriptRoot/CoreePower.Net.SoundCloudExplode.dll" -Force
 #Save-Track -TrackUrl "https://soundcloud.com/slanderofficial/nguoy"
 
 

@@ -5,8 +5,6 @@ using System.Management.Automation;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using SndExplode;
-
 
 namespace CoreePower.Net.SoundCloudExplode
 {
@@ -21,7 +19,6 @@ namespace CoreePower.Net.SoundCloudExplode
         protected override void BeginProcessing()
         {
             WriteVerbose("Begin!");
-  
         }
 
         // This method will be called for each input received from the pipeline to this cmdlet; if no input is received, this method is not called
@@ -86,10 +83,7 @@ namespace CoreePower.Net.SoundCloudExplode
         // This method will be called once at the end of pipeline execution; if no input is received, this method is not called
         protected override void EndProcessing()
         {
-            
             WriteVerbose("End!");
         }
-
-
     }
 }

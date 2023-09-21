@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net7</TargetFramework>
-	  <IsPackable>false</IsPackable>
+	<IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
-    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.2.14" />
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.2.13" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
     <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
     <PackageReference Include="Coverlet.Collector" Version="6.0.0">
@@ -25,41 +25,8 @@
   <ItemGroup>
     <ProjectReference Include="..\CoreePower.Net.SoundCloudExplode\CoreePower.Net.SoundCloudExplode.csproj" />
   </ItemGroup>
-
+	
   <Import Project="CopyPsd1Psm1FromReferenced.targets" />
-
-
-
-	  <PropertyGroup>
-    <!-- Add this line to specify loggers -->
-    <!-- <VSTestLogger>trx;LogFileName=TestResults.trx</VSTestLogger> -->
-    <!-- If you also want HTML, you can chain it like this -->
-    <!-- <VSTestLogger>trx;LogFileName=TestResults.trx|html;LogFileName=TestResults.html</VSTestLogger> -->
-  </PropertyGroup>
-
-  <!-- Existing project configuration
-
-
-
-
-
-  <PropertyGroup>
-    <CollectCoverage>true</CollectCoverage>
-	  <CoverletOutput>$(SolutionDir)\TestResults\CodeCoverage_$([System.DateTime]::Now.ToString(`yyyyMMdd`))</CoverletOutput>
-    <CoverletOutputFormat>opencover,cobertura,lcov</CoverletOutputFormat>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <VSTestLogger>trx;LogFilePrefix=TestResult|html;LogFilename=Report\TestResult.html</VSTestLogger>
-    <VSTestConsoleLoggerParameters>Summary</VSTestConsoleLoggerParameters>
-    <VSTestVerbosity>minimal</VSTestVerbosity>
-    <VSTestResultsDirectory>TestResults</VSTestResultsDirectory>
-    <VSTestCollect>XPlat Code Coverage</VSTestCollect>
-  </PropertyGroup>
-     -->
-  
-  <!-- More existing project configurations -->
-
  
   <Target Name="GenerateHtmlCoverageReport" AfterTargets="GenerateCoverageResultAfterTest" Condition="'$(ReportGeneratorPath)' != ''">
     <ReportGenerator ReportFiles="@(CoverletReport)" TargetDirectory="$(ReportGeneratorPath)" />

@@ -15,10 +15,15 @@ namespace CoreePower.Net.SoundCloudExplode.MSTest
     [TestClass]
     public class UnitTest1
     {
+
+        public UnitTest1()
+        {
+            var ref1 = typeof(SaveTrackCmdlet);
+        }
+
         [TestMethod]
         public void TestSaveTrack()
         {
-            var ss = AppDomain.CurrentDomain.GetAssemblies();
             Assembly assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(e => e.GetName().Name == "CoreePower.Net.SoundCloudExplode");
 
             var ModuleDir = $@"{Path.GetDirectoryName(assembly.Location)}";
