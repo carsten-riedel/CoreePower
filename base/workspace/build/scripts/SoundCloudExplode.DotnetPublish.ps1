@@ -20,8 +20,11 @@ $output = Join-Path -Path "$artifacts" -ChildPath "$frameworkOverride"
   --configuration:"Release" `
   --framework:"$frameworkOverride" `
   --property:"TargetFrameworks=`"$frameworkOverride`"" `
+  --property:"GenerateDependencyFile=`"false`"" `
   --output:"$output" `
   --maxcpucount:1
+
+  
   
 
 Set-Location -Path $workspaceFolder
