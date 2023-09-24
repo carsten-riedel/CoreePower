@@ -15,7 +15,6 @@ namespace CoreePower.Net.SoundCloudExplode.MSTest
     [TestClass]
     public class UnitTest1
     {
-
         public UnitTest1()
         {
             var ref1 = typeof(SaveTrackCmdlet);
@@ -32,7 +31,7 @@ namespace CoreePower.Net.SoundCloudExplode.MSTest
             var ModuleManifest = $@"{Path.GetDirectoryName(assembly.Location) + Path.DirectorySeparatorChar + assembly.GetName().Name}.psd1";
 
             var ImportModule = string.Format($@"Import-Module ""{ModuleManifest}"" {Environment.NewLine}");
-            var Command = string.Format(@"{0} {1} ""{2}""", "Save-Track", "-TrackUrl", @"https://soundcloud.com/slanderofficial/edc2023");
+            var Command = string.Format(@"{0} {1} ""{2}""", "Save-Track", "-TrackUrl", @"https://soundcloud.com/kevin-kiner/ahsoka-end-credits-from-ahsoka");
 
             var script = ImportModule + Command;
 

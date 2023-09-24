@@ -30,7 +30,7 @@ CompanyName = 'Carsten Riedel'
 Copyright = '(c) 2023 Carsten Riedel. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'Powershell module CoreePower.Net. This module is under construction and just uploaded for testing purposes.'
+Description = 'Powershell cmdlet module integrating the SoundCloudExplode Nuget Package'
 
 # Minimum version of the Windows PowerShell engine required by this module
 # PowerShellVersion = ''
@@ -72,7 +72,7 @@ Description = 'Powershell module CoreePower.Net. This module is under constructi
 FunctionsToExport = @()
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-CmdletsToExport = 'Test-SampleCmdlet' , 'Save-Track'
+CmdletsToExport = 'Save-Track'
 
 # Variables to export from this module
 VariablesToExport = '*'
