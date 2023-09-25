@@ -1,0 +1,10 @@
+// See https://aka.ms/new-console-template for more information
+// https://github.com/dotnet/templating/wiki
+// https://learn.microsoft.com/en-us/dotnet/core/tools/custom-templates
+// https://learn.microsoft.com/en-us/dotnet/core/tutorials/cli-templates-create-item-template
+
+// https://github.com/dotnet/winforms/tree/main/pkg/Microsoft.Dotnet.WinForms.ProjectTemplates
+
+//dotnet new uninstall AdatumCorporation.Utility.Templates
+//dotnet pack  -p:PackageVersion = 7.0.0
+//dotnet new install bin\Debug\AdatumCorporation.Utility.Templates.6.0.0.nupkg
