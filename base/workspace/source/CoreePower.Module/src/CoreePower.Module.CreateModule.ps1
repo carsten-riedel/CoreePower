@@ -130,6 +130,8 @@ function SampleFunction {
 
     $testrunner = @"
 
+    . "`$PSScriptRoot\RunnerTests.ps1"
+
     Write-Host "RunnerImports: `$(`$MyInvocation.MyCommand.Source) called."
     `$ParentFolder = ((Get-Item ((Get-Item `$MyInvocation.MyCommand.Source).DirectoryName)).Parent).FullName
     `$ParentFolderContainingManifest = Read-Manifests -ManifestLocation "`$ParentFolder"
@@ -150,7 +152,8 @@ function SampleFunction {
         }
     }
 
-    Import-Module "`$(`$ParentFolderContainingManifest.Added_RootModule_FullName)" -Force
+    `$import = "`$(`$ParentFolderContainingManifest.Added_PSD_FullName)"
+    Import-Module "`$import" -Force
     Write-Host "Imported Module: `$import"
 
     `$retvals = @()
